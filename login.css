@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    align-items: center;
+    display: grid;
+    height: 100vh;
+    place-items: center;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signup {
+    margin: left;
+}
+
+.loginTittle {
+    text-align: center;
+}
+
+.input {
+    text-size-adjust: 1.5;
+}
