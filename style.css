@@ -1,195 +1,169 @@
-body {
-    margin: 0 auto;
-    font-family: Arial;
-    height: 100%;
-}
-
-.zone {
-    /*padding:30px 50px;*/
-    color:#FFF;
-    font-size:2em;
-    border-radius:4px;
-    border:1px solid #bbb;
-    transition: all 0.3s linear;
-}
-
-.zone:hover {
-    box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
-}
-
-/***********************************************************************
- *  Nav Bar
- **********************************************************************/
-nav .main-nav {
-    display: flex;
-    list-style: none;
+* {
     margin: 0;
-    font-size: 0.8em;
-    height: 100%;
-    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
 }
 
-/*Cai nay dang coi thu :)))*/
-@media only screen and (max-width: 600px) {
-    nav .main-nav {
-        font-size: 0.4em;
-        padding: 0;
-    }
-    nav .main-nav li.logo img{
-        width: 70px;
-    }
+body {
+    height: 100vh;
+    background-color: #fff;
 }
 
-nav .main-nav .logo {
-    margin-right: auto;
-    margin-left: 50px;
+li {
+    list-style: none;
 }
 
-nav .main-nav .logo img {
-    background-size: cover;
-    width: 25%;
-}
-
-nav .main-nav li.booknow {
-    background-color: #e29c89;
-    height: 100%;
-}
-
-nav .main-nav li {
-    padding: 30px;
-    cursor:pointer;
-}
-
-nav .main-nav a {
-    color: #f5f5f6;
+.navbar a {
     text-decoration: none;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    text-transform: uppercase;
-    border-radius: 3px;
+    color: #fff;
+    font-size: 1rem;
 }
 
-nav .main-nav li:not(.logo):hover{
-    background-color: #444;
-    transition: .5s;
+a:hover {
+    color: orange;
 }
 
-nav .main-nav li.booknow:hover {
-    background-color: #F3AAAA;
-    transition: .5s;
+.header {
+    position: fixed;
+    top:0;
+    width: 100%;
+    padding: 0 2rem;
+    display: flex;
+    background-color: rgba(7, 28, 30, 0.43);
 }
 
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
+.navbar {
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.checkbtn{
-    font-size: 30px;
-    color: white;
-    float: right;
-    line-height: 80px;
-    margin-right: 40px;
+.navbar .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar ul.links {
+    display: flex;
+    gap: 2rem;
+    flex-direction: row;
+}
+
+.toggle_btn {
+    color: #fff;
+    font-size: 1.5rem;
     cursor: pointer;
     display: none;
-  }
-  #check{
+}
+
+.action-btn {
+    background-color: rgba(64, 203, 214, 0.43);
+    color: #000;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2 ease;
+}
+
+.action-btn:hover {
+    scale: 1.05;
+    color: #000;
+}
+
+.action-btn:active {
+    scale: 0.95;
+}  
+
+/*dropdown*/
+.dropdown-menu {
     display: none;
-  }
+    position: absolute;
+    right: 2rem;
+    top: 60px;
+    height: 0;
+    width: 300px;
+    background-color: rgba(67, 89, 94, 0.51);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
-  
+.dropdown-menu.open {
+    height: 240px;
+}
 
-/***********************************************************************
- *  Cover
- **********************************************************************/
-.container {
-    /*show heigh: auto*/
-    height: 70vh; 
+.dropdown-menu li {
+    padding: 0.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.cover {
-    width: 100rem;
+
+
+.dropdown-menu li.action-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/*responsive*/
+@media(max-width: 992px) {
+    .navbar .links, .navbar .action-btn {
+        display: none;
+    }
+
+    .navbar .toggle_btn {
+        display: block;
+    }
+
+    .dropdown-menu {
+        display: block;
+    }
+}
+
+@media (max-width: 576px) {
+    .dropdown-menu {
+        left: 2rem;
+        width:unset;
+    }
+}
+
+/*Cảousel*/
+
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background-image: url(./img/carousel.jpg);
     background-size: cover;
-}
+    background-position: center;
+} 
 
-/***********************************************************************
- *  Grid Panel
- **********************************************************************/
-.grid-wrapper {
+/*content*/
+.content {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     grid-gap: 20px;
+    grid-template-columns: repeat(autofill, minmax(350px, 1fr)); 
 }
 
-.box {
-    background-color: #444;
-    padding: 130px;
+.content-item > img{
+    width: 100%;
+}
+
+.content .content-item {
+    padding: 30px;
     margin: 20px;
 }
-
-.box > img {
-    width: 100%;
-}
-
-.box:hover {
-    transform: rotate(-7deg);
-}
-
-.box > img {
-    width: 100%;
-    height: auto;
-}
-
-/***********************************************************************
- *  Footer
- **********************************************************************/
-footer {
-    text-align: center;
-    background-color: #444;
-}
-
-/*https://paulund.co.uk/how-to-create-shiny-css-buttons*/
-/***********************************************************************
- *  Green Background
- **********************************************************************/
-.green {
-    background: #56B870;
-    background: linear-gradient(top, #56B870 0%,#a5c956 100%); /* W3C */
-}
-
-/***********************************************************************
- *  Red Background
- **********************************************************************/
-.red {
-    background: #C655BE; 
-    background: linear-gradient(top, #C655BE 0%,#cf0404 100%); /* W3C */
-}
-
-/***********************************************************************
- *  Yellow Background
- **********************************************************************/
-.yellow {
-    background: #F3AAAA; 
-    background: linear-gradient(top, #F3AAAA 0%,#febf04 100%); /* W3C */
-}
-
-/***********************************************************************
- *  Blue Background
- **********************************************************************/
-.blue {
-    background: #7abcff; 
-    background: linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* W3C */
-}
-
-/***********************************************************************
- *  Dark Red Background
- **********************************************************************/
- .dark{
-    background: #191514;
-    background: linear-gradient(left, #191514 0%,#191514 44%,#191514 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=1 ); /* IE6-9 */
-}
-
