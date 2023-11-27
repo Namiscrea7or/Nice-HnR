@@ -1,0 +1,14 @@
+.roomPageContainer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rp_bg {
+    background-image: url(./rp_bg.jpg);
+    background-repeat: none;
+    background-size: cover;
+    height: 60vh;
+    width: 100vw;
+}

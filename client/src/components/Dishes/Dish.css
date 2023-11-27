@@ -1,0 +1,23 @@
+.dishContainer {
+    text-align: center;
+}
+
+.dish {
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dish img {
+    width: 400px;
+    height: 330px;
+}
+
+.dishInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+

@@ -1,0 +1,19 @@
+.roomContainer {
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.roomContainer img {
+    width: 400px;
+    height: 330px;
+}
+
+.room_info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+

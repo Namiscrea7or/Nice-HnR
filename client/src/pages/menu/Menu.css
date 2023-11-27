@@ -1,0 +1,14 @@
+.menuContainer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu_bg {
+    background-image: url(./menu_bg.jpg);
+    background-repeat: none;
+    background-size: cover;
+    height: 60vh;
+    width: 100vw;
+}
