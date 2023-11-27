@@ -1,31 +1,27 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const RoomSchema = new Schema({
-    room_type: {
+const InfoSchema = new Schema({
+    full_name: {
         type: String,
         required: true
     },
-    room_number: {
+    phone_number: {
         type: String,
         required: true
     },
-    description: {
-        type: String
-    },
-    state: {
+    address: {
         type: String,
-        enum: ['true', 'false'],
         required: true
     },
-    price: {
-        type: Number,
+    birthday: {
+        type: Date,
         required: true
     },
-    discount: {
-        type: Number,
+    user_id: {
+        type: String,
         required: true
     }
 })
 
-module.exports = mongoose.model('rooms', RoomSchema)
+module.exports = mongoose.model('info', InfoSchema)

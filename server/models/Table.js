@@ -1,13 +1,14 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const DishSchema = new Schema({
-    dish_name: {
-        type: String,
+const TableSchema = new Schema({
+    table_type: {
+        type: Number,
         required: true
     },
-    description: {
-        type: String
+    table_number: {
+        type: Number,
+        required: true
     },
     state: {
         type: String,
@@ -16,11 +17,7 @@ const DishSchema = new Schema({
     price: {
         type: Number,
         required: true
-    },
-    discount: {
-        type: Number,
-        required: true
     }
 })
 
-module.exports = mongoose.model('dishes', DishSchema)
+module.exports = mongoose.model('tables', TableSchema)
