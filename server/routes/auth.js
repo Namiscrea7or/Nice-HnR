@@ -11,24 +11,24 @@ const User = require('../models/User')
 // @desc Register user (Guest)
 // @access Public
 router.post('/register_guest', async (req, res) => {
-	const { username, password } = req.body
+	const { email, password } = req.body
 	// Simple validation
-	if (!username || !password)
+	if (!email || !password)
 		return res
 			.status(400)
-			.json({ success: false, message: 'Missing username and/or password' })
+			.json({ success: false, message: 'Missing email and/or password' })
 	try {
 		// Check for existing user
-		const user = await User.findOne({ username: username })
+		const user = await User.findOne({ email: email })
 
 		if (user)
 			return res
 				.status(400)
-				.json({ success: false, message: 'Username already taken' })
+				.json({ success: false, message: 'email already taken' })
 
 		// All good
 		const hashedPassword = await argon2.hash(password)
-		const newUser = new User({ username, password: hashedPassword, role: 'Guest' })
+		const newUser = new User({ email, password: hashedPassword, role: 'Guest' })
 		await newUser.save()
 
 		// Return token
@@ -55,24 +55,24 @@ router.post('/register_guest', async (req, res) => {
 // @desc Register user (Staff)
 // @access Public
 router.post('/register_staff', async (req, res) => {
-	const { username, password } = req.body
+	const { email, password } = req.body
 	// Simple validation
-	if (!username || !password)
+	if (!email || !password)
 		return res
 			.status(400)
-			.json({ success: false, message: 'Missing username and/or password' })
+			.json({ success: false, message: 'Missing email and/or password' })
 	try {
 		// Check for existing user
-		const user = await User.findOne({ username: username})
+		const user = await User.findOne({ email: email})
 
 		if (user)
 			return res
 				.status(400)
-				.json({ success: false, message: 'Username already taken' })
+				.json({ success: false, message: 'email already taken' })
 
 		// All good
 		const hashedPassword = await argon2.hash(password)
-		const newUser = new User({ username, password: hashedPassword, role: 'Staff' })
+		const newUser = new User({ email, password: hashedPassword, role: 'Staff' })
 		await newUser.save()
 
 		// Return token
@@ -99,24 +99,24 @@ router.post('/register_staff', async (req, res) => {
 // @desc Register user (Business_admin)
 // @access Public
 router.post('/register_Business_Admin', async (req, res) => {
-	const { username, password } = req.body
+	const { email, password } = req.body
 	// Simple validation
-	if (!username || !password)
+	if (!email || !password)
 		return res
 			.status(400)
-			.json({ success: false, message: 'Missing username and/or password' })
+			.json({ success: false, message: 'Missing email and/or password' })
 	try {
 		// Check for existing user
-		const user = await User.findOne({ username: username })
+		const user = await User.findOne({ email: email })
 
 		if (user)
 			return res
 				.status(400)
-				.json({ success: false, message: 'Username already taken' })
+				.json({ success: false, message: 'email already taken' })
 
 		// All good
 		const hashedPassword = await argon2.hash(password)
-		const newUser = new User({ username, password: hashedPassword, role: 'Business_Admin' })
+		const newUser = new User({ email, password: hashedPassword, role: 'Business_Admin' })
 		await newUser.save()
 
 		// Return token
@@ -143,24 +143,24 @@ router.post('/register_Business_Admin', async (req, res) => {
 // @desc Register user (System_admin)
 // @access Public
 router.post('/register_System_Admin', async (req, res) => {
-	const { username, password } = req.body
+	const { email, password } = req.body
 	// Simple validation
-	if (!username || !password)
+	if (!email || !password)
 		return res
 			.status(400)
-			.json({ success: false, message: 'Missing username and/or password' })
+			.json({ success: false, message: 'Missing email and/or password' })
 	try {
 		// Check for existing user
-		const user = await User.findOne({ username: username })
+		const user = await User.findOne({ email: email })
 
 		if (user)
 			return res
 				.status(400)
-				.json({ success: false, message: 'Username already taken' })
+				.json({ success: false, message: 'email already taken' })
 
 		// All good
 		const hashedPassword = await argon2.hash(password)
-		const newUser = new User({ username, password: hashedPassword, role: 'System_Admin' })
+		const newUser = new User({ email, password: hashedPassword, role: 'System_Admin' })
 		await newUser.save()
 
 		// Return token
@@ -192,30 +192,30 @@ router.post('/register_System_Admin', async (req, res) => {
 // @desc Login user
 // @access Public
 router.post('/login', async (req,res) => {
-	const {username, password} = req.body
+	const {email, password} = req.body
 
-	if(!username || !password) {
+	if(!email || !password) {
 		return res
 			.status(400)
 			.json({success: false,
-			message: 'Missing username and/or password!'})
+			message: 'Missing email and/or password!'})
 	}
 
 	try {
 		//Check for existing user
-		const user = await User.findOne({username})
+		const user = await User.findOne({email})
 		if(!user)
 			return res
 					.status(400)
 					.json({success: false,
-					message: 'Incorrect username or password!'})
-		//Username found
+					message: 'Incorrect email or password!'})
+		//email found
 		const passwordValid = await argon2.verify(user.password, password)
 		if (!passwordValid)
 			return res
 			.status(400)
 			.json({success: false,
-			message: 'Incorrect or password!'})
+			message: 'Incorrect username or password!'})
 		//All good
 		const accessToken = jwt.sign(
 			{ userId: user._id },
