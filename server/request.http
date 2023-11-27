@@ -1,9 +1,43 @@
+POST http://localhost:5000/api/auth/register_guest
+Content-Type: application/json
+
+{
+    "email": "nam@gmail.com",
+    "password": "nam",
+    "full_name": "Phan Phước Hải Nam",
+    "phone_number": "0777777777",
+    "address": "Sài Gòn",
+    "birthday": "2003-11-31",
+    "user_id": "123456789874"
+}
+
+###
 POST http://localhost:5000/api/auth/register_staff
 Content-Type: application/json
 
 {
-    "username": "toan",
-    "password": "toan"
+    "email": "minh@gmail.com",
+    "password": "minh",
+    "full_name": "Huỳnh Cao Minh",
+    "phone_number": "0222222222",
+    "address": "Củ Chi",
+    "birthday": "2003-1-1",
+    "user_id": "123456789874"
+}
+
+
+###
+POST http://localhost:5000/api/auth/register_System_Admin
+Content-Type: application/json
+
+{
+    "email": "system_admin@gmail.com",
+    "password": "len",
+    "full_name": "Bùi Tiến Lên",
+    "phone_number": "066666666",
+    "address": "Sài Gòn",
+    "birthday": "1980-2-2",
+    "user_id": "123456789874"
 }
 
 ###
@@ -11,6 +45,92 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "username": "toan",
-    "password": "toan"
+    "email": "nam@gmail.com",
+    "password": "nam"
 }
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "thao@gmail.com",
+    "password": "thao"
+}
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "system_admin@gmail.com",
+    "password": "len"
+}
+
+###
+GET http://localhost:5000/api/user/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDAyMTUxODN9.nw_6L-Hklwl1dmPvttfcE_kDA3bzarCD9OC6fcI259o
+
+###
+GET http://localhost:5000/api/user/find_info/system_admin@gmail.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzQwYWM2ZjQzMDZlYzQ1ZjY4OWIiLCJpYXQiOjE3MDAyMTM3NzV9.Wrg2gLrQU4RypNlEnbGOUeKF7K0Q5acJQysIE-ZpfWc
+
+###
+GET http://localhost:5000/api/user/get_guest_list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzQwYWM2ZjQzMDZlYzQ1ZjY4OWIiLCJpYXQiOjE3MDAyMTc4Mjh9.DiDAm1JomSQM2oyjSwBGViEpwCnyqvLbRxXEvZ7qJk4
+###
+GET http://localhost:5000/api/user/get_staff_list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDAyMTc4NzN9.PDZyYwtP7kddsT7tVCS6_mHyAN38BMhbdTFGe1cI1D4
+
+###
+PUT http://localhost:5000/api/user/user_info
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3N2M0Y2FlZjkwZmM5ZDJlOWQ1MDIiLCJpYXQiOjE3MDAyMzI1NTJ9.3m87OFhOtf9cLcs08uxTsHjH-ZaBj5UUV8XBkVyZT9I
+
+{
+    "email": "nam@gmail.com",
+    "password": "nam",
+    "full_name": "Phan Phước Hải Nam",
+    "phone_number": "0777777777",
+    "address": "Sài Gòn",
+    "birthday": "2003-11-31",
+    "user_id": "123456789874"
+}
+
+###
+DELETE http://localhost:5000/api/user/nam@gmail.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzQwYWM2ZjQzMDZlYzQ1ZjY4OWIiLCJpYXQiOjE3MDAyMzMyMzl9.I2MNWEFgN-fj48_lB_eTqbzbA6yycPuM21jfHm_3OFU
+
+###
+POST http://localhost:5000/api/room/add_room
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDAyMzU3NTl9.XZpq83J4k4ulgspajBalizw29hVKwJTJHnG5FIOVM3k
+Content-Type: application/json
+
+{
+    "room_type": "Room5",
+    "room_number": "105",
+    "description": "Mô tả của phòng 5",
+    "state": "true",
+    "price": 500000,
+    "discount": 10
+}
+
+###
+PUT http://localhost:5000/api/room/update_room
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDAyMzU3NTl9.XZpq83J4k4ulgspajBalizw29hVKwJTJHnG5FIOVM3k
+Content-Type: application/json
+
+{
+    "room_type": "Room5",
+    "room_number": "104",
+    "description": "Mô tả của phòng 5",
+    "state": "true",
+    "price": 500000,
+    "discount": 10
+}
+
+###
+DELETE http://localhost:5000/api/room/105
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDAyMzU3NTl9.XZpq83J4k4ulgspajBalizw29hVKwJTJHnG5FIOVM3k
+Content-Type: application/json
+
