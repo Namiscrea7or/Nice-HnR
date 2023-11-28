@@ -3,53 +3,73 @@ import './LoginForm.css'
 import validation from './SignupValidation';
 import {useNavigate, Link} from 'react-router-dom'
 import axios from 'axios';
+import './RegisterForm.css'
 
 const RegisterForm = (props) => {
+    const history = useNavigate()
     const [signupForm, setSignupForm] = useState({
-        name: '',
         email: '',
-        password: ''
+        password: '',
+        full_name: '',
+        phone_number: '',
+        address:'',
+        birthday:'',
+        user_id:''
     });
 
     const [error, setError] = useState({})
 
-    const { name, email, password } = signupForm
+    const { email, password, full_name, phone_number, address, birthday, user_id} = signupForm
 
     const onChangeSignupForm = event => setSignupForm(prev => ({ ...prev, [event.target.name]: event.target.value }))
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setError(validation(signupForm))
-    }
 
     async function submit(e) {
         e.preventDefault();
     
         try {
-          await axios.post("http://localhost:5000/signup", {
-            name, email, password
-          })
-        } catch (error) {
-          console.log(error)
+          const res = await axios.post("http://localhost:5000/api/auth/register_staff", {
+            email, password, full_name, phone_number, address, birthday, user_id
+          });
+          console.log(res.data)
+          if (res.data.message === 'User created successfully') {
+            history('/staff');
+          } else if (res.data.message === 'Incorrect username or password!') {
+            alert('Incorrect username or password!');
+          }
+        } catch (e) {
+          alert('Wrong details');
         }
+        
       }
 
-
     return (
-        <div className='auth-form'>
+        <div className='auth-form-register'>
             <div className='wrapper'>
                 <div className='form-box'>
                     <h2>Register</h2>
-                    <form className='form' onSubmit={handleSubmit}>
-                        <div class="input-box">
-                            <input value={name} type='name' placeholder='Username' id='name' name='name' onChange={onChangeSignupForm} />
-                        </div>
-                        <div class="input-box">
+                    <form className='Register_form' onSubmit={submit} action='POST'>
+                        <div className="input-box">
                             <input value={email} type='email' placeholder='Email' id='email' name='email' onChange={onChangeSignupForm} />
                             {error.email && <span>{error.email}</span>}
                         </div>
-                        <div class="input-box">
+                        <div className="input-box">
                             <input value={password} type='password' placeholder='Password' id='password' name='password' onChange={onChangeSignupForm} />
                             {error.password && <span>{error.password}</span>}
+                        </div>
+                        <div className="input-box">
+                            <input value={full_name} type='' placeholder='Your Name' id='full_name' name='full_name' onChange={onChangeSignupForm} />
+                        </div>
+                        <div className="input-box">
+                            <input value={phone_number} type='' placeholder='Phone Number' id='phone_number' name='phone_number' onChange={onChangeSignupForm} />
+                        </div>
+                        <div className="input-box">
+                            <input value={address} type='' placeholder='Address' id='address' name='address' onChange={onChangeSignupForm} />
+                        </div>
+                        <div className="input-box">
+                            <input value={birthday} type='date' placeholder='Date of birth' id='birthday' name='birthday' onChange={onChangeSignupForm} />
+                        </div>
+                        <div className="input-box">
+                            <input value={user_id} type='' placeholder='Your ID' id='user_id' name='user_id' onChange={onChangeSignupForm} />
                         </div>
                         <button type='submit' className='login-btn'>Register</button>
                     </form>

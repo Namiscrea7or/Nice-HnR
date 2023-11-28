@@ -13,7 +13,7 @@ const User = (props) => {
         <div className='user'>
             <h1 id='employeeInfo'>Employee Information</h1>
             <div className='employee-card'>
-                <img src={require (`../user_img/${user_id}.jpg`)} alt="img" />
+                <img src={require (`./img/${user_id}.jpg`)} alt="" />
                 <div className='employee-details'>
                     <h2 id='employee-name'>Name: {full_name}</h2>
                     <p id='employee-position'>ID: {user_id}</p>
