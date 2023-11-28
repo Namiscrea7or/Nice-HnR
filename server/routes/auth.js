@@ -292,6 +292,15 @@ router.post("/login", async (req, res) => {
     return res.json({
       success: true,
       message: "User logged in successfully",
+      email: user.email,
+      full_name: user.full_name,
+      phone_number: user.phone_number,
+      address: user.address,
+      birthday: user.birthday,
+      user_id: user.user_id,
+      role: user.role,
+      money: user.money,
+      createAt: user.createAt,
       accessToken,
     });
   } catch (error) {
