@@ -104,13 +104,13 @@ router.put("/update_room", verifyToken, async (req, res) => {
       room_number: room_number,
     };
 
-    updatedUser = await Room.findOneAndUpdate(
+    isUpdatedRoom = await Room.findOneAndUpdate(
       roomUpdateCondition,
       updatedRoom,
       { new: true }
     );
 
-    if (!updatedUser)
+    if (!isUpdatedRoom)
       return res.status(200).json({
         success: false,
         message: "Room number not found!",

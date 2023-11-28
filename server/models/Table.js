@@ -3,11 +3,11 @@ const Schema = mongoose.Schema
 
 const TableSchema = new Schema({
     table_type: {
-        type: Number,
+        type: String,
         required: true
     },
     table_number: {
-        type: Number,
+        type: String,
         required: true
     },
     state: {

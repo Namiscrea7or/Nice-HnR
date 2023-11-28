@@ -164,4 +164,36 @@ Content-Type: application/json
     "rate": 5
 }
 
+###
+POST http://localhost:5000/api/table/add_table
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDExODE4OTF9.s7weV8dmRi9Le-KX2ZE0NiggYw1W8dygbWx4E7Fo3BE
+Content-Type: application/json
+
+{
+    "table_type": "Table1",
+    "table_number": "1",
+    "state": "true",
+    "price": 500000
+}
+
+###
+PUT http://localhost:5000/api/table/update_table
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDExODE4OTF9.s7weV8dmRi9Le-KX2ZE0NiggYw1W8dygbWx4E7Fo3BE
+Content-Type: application/json
+
+{
+    "table_type": "Table1",
+    "table_number": "1",
+    "state": "true",
+    "price": 555000
+}
+
+###
+DELETE http://localhost:5000/api/table/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDExODE4OTF9.s7weV8dmRi9Le-KX2ZE0NiggYw1W8dygbWx4E7Fo3BE
+
+###
+Get http://localhost:5000/api/table/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDExODE4OTF9.s7weV8dmRi9Le-KX2ZE0NiggYw1W8dygbWx4E7Fo3BE
+
 
