@@ -28,7 +28,7 @@ const LoginForm = (props) => {
       });
       console.log(res.data)
       if (res.data.message === 'User logged in successfully') {
-        // history.push('/staff', { state: { id: email } });
+        history('/staff');
         console.log('dNgadbsgabsdun')
       } else if (res.data.message === 'Incorrect username or password!') {
         alert('Incorrect username or password!');

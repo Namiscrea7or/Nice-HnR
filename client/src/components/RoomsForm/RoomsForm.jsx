@@ -1,7 +1,7 @@
 import React from 'react'
 import './RoomsForm.css'
 
-const RoomsForm = () => {
+const RoomsForm = ({dataRoom}) => {
     function increment(id, event) {
         event.preventDefault();
         let input = document.getElementById(id);

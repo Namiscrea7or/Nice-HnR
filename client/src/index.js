@@ -6,7 +6,7 @@ import Home from './pages/Home/Home';
 import Login from './pages/login/Login';
 import Book from './pages/book/Book';
 import BookRooms from './pages/book/book-rooms/BookRooms';
-import TableForm from './pages/book/table-form/TableForm';
+import BookTable from './pages/book/table-form/BookTable';
 import RoomsPage from './pages/RoomsPage/RoomsPage';
 import Menu from './pages/menu/Menu';
 import Staff from './pages/staff/Staff';
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
   },
   {
     path: "book-tables",
-    element: <TableForm />,
+    element: <BookTable/>,
   },
   {
     path: "rooms-page",
