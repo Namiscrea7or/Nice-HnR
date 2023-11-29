@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './LoginForm.css'
 import validation from './SignupValidation';
-import {useNavigate, Link} from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios';
 import './RegisterForm.css'
 
@@ -12,35 +12,38 @@ const RegisterForm = (props) => {
         password: '',
         full_name: '',
         phone_number: '',
-        address:'',
-        birthday:'',
-        user_id:''
+        address: '',
+        birthday: '',
+        user_id: ''
     });
 
     const [error, setError] = useState({})
 
-    const { email, password, full_name, phone_number, address, birthday, user_id} = signupForm
+    const { email, password, full_name, phone_number, address, birthday, user_id } = signupForm
 
     const onChangeSignupForm = event => setSignupForm(prev => ({ ...prev, [event.target.name]: event.target.value }))
 
     async function submit(e) {
         e.preventDefault();
-    
+
         try {
-          const res = await axios.post("http://localhost:5000/api/auth/register_staff", {
-            email, password, full_name, phone_number, address, birthday, user_id
-          });
-          console.log(res.data)
-          if (res.data.message === 'User created successfully') {
-            history('/staff');
-          } else if (res.data.message === 'Incorrect username or password!') {
-            alert('Incorrect username or password!');
-          }
+            const res = await axios.post("http://localhost:5000/api/auth/register_staff", {
+                email, password, full_name, phone_number, address, birthday, user_id
+            });
+            console.log(res.data)
+            if (res.data.message === 'User created successfully') {
+                let token = res.data.accessToken
+                localStorage.setItem("Saved Token", 'Bearer ' + token)
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+                history('/staff');
+            } else if (res.data.message === 'Incorrect username or password!') {
+                alert('Incorrect username or password!');
+            }
         } catch (e) {
-          alert('Wrong details');
+            alert('Wrong details');
         }
-        
-      }
+
+    }
 
     return (
         <div className='auth-form-register'>

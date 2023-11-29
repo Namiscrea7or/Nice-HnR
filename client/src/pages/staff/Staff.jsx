@@ -15,8 +15,7 @@ const Staff = () => {
   };
   return (
     <div className='Staff'>
-      <User{...userData}/>
-      <Task{...userData.user_id} />
+      <User/>
     </div>
   )
 }

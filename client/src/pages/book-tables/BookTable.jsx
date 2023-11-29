@@ -6,19 +6,19 @@ const BookTable = () => {
     const [tables, setTables] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
 
-    //   useEffect(() => {
-    //     // Gửi yêu cầu đến server để lấy danh sách bàn
-    //     const fetchData = async () => {
-    //       try {
-    //         const response = await axios.get('URL_API/tables');
-    //         setTables(response.data); // Cập nhật state với danh sách bàn từ server
-    //       } catch (error) {
-    //         console.error('Lỗi khi lấy danh sách bàn:', error);
-    //       }
-    //     };
+    useEffect(() => {
+        // Gửi yêu cầu đến server để lấy danh sách bàn
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('URL_API/tables');
+                setTables(response.data); // Cập nhật state với danh sách bàn từ server
+            } catch (error) {
+                console.error('Lỗi khi lấy danh sách bàn:', error);
+            }
+        };
 
-    //     fetchData();
-    //   }, []); // Chạy chỉ một lần khi component được mount
+        fetchData();
+    }, []); // Chạy chỉ một lần khi component được mount
 
     const handleCheckboxChange = (tableId) => {
         const updatedItems = [...selectedItems];
@@ -45,52 +45,55 @@ const BookTable = () => {
         }
     };
 
+    const isNumberKey = (event) => {
+        const charCode = event.which ? event.which : event.keyCode;
+        return charCode >= 48 && charCode <= 57;
+    };
+
+    // Ngăn chặn việc nhập các ký tự không phải số
+    if (!isNumberKey(event)) {
+        event.preventDefault();
+    }
+
     return (
         <div className='bookTable'>
             <h1 id='bookingTableHeader'>Đặt bàn ăn tại khách sạn</h1>
             <form onSubmit={handleSubmit} id='tableForm'>
-                {/* {tables.map((table) => (
-          <label key={table.id}>
-            <input
-              type="checkbox"
-              value={table.id}
-              checked={selectedItems.includes(table.id)}
-              onChange={() => handleCheckboxChange(table.id)}
-            />
-            {`Bàn ${table.number}`}
-          </label>
-        ))} */}
-                <label>
-                    Table 1
-                    <input
-                        type="checkbox"
-                        value="tb1"
-                        checked={selectedItems.includes("tb1")}
-                        onChange={() => handleCheckboxChange("tb1")}
-                    />
-                </label>
+                <div className="tableList">
+                    {tables.map((table) => (
+                        <label key={table.id}>
+                            <input
+                                type="checkbox"
+                                value={table.id}
+                                checked={selectedItems.includes(table.id)}
+                                onChange={() => handleCheckboxChange(table.id)}
+                            />
+                            {`Bàn ${table.number}`}
+                        </label>
+                    ))}
+                </div>
+                <div className="tableForm">
+                    <section id="booking-form">
+                        <h2>Please fill out the booking form below</h2>
+                        <form method="GET">
+                            <label htmlFor="name">Your name</label>
+                            <input type="text" id="name" placeholder="Full name" />
 
-                <label>
-                    Table 2
-                    <input
-                        type="checkbox"
-                        value="tb2"
-                        checked={selectedItems.includes("tb2")}
-                        onChange={() => handleCheckboxChange("tb2")}
-                    />
-                </label>
+                            <label htmlFor="phone">Phone Number</label>
+                            <input
+                                type="text"
+                                id="phone"
+                                placeholder="Phone Number"
+                                onKeyPress={handleKeyPress}
+                            />
 
-                <label>
-                    Table 3
-                    <input
-                        type="checkbox"
-                        value="tb3"
-                        checked={selectedItems.includes("tb3")}
-                        onChange={() => handleCheckboxChange("tb3")}
-                    />
-                </label>
+                            <label htmlFor="check-in">Check-in Date:</label>
+                            <input type="date" id="check-in" name="check-in" required />
 
-                <button type="submit" id='bookingTableBtn'>Đặt bàn</button>
+                            <input type="submit" value="See available tables" />
+                        </form>
+                    </section>
+                </div>
             </form>
         </div>
     );
