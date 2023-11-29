@@ -6,6 +6,7 @@ const userRouter = require("./routes/users");
 const userRoom = require("./routes/room");
 const userTable = require("./routes/table");
 const feedbackRouter = require("./routes/feedback")
+const bookingRouter = require("./routes/booking")
 
 require("dotenv").config();
 
@@ -36,6 +37,7 @@ app.use("/api/user", userRouter);
 app.use("/api/room", userRoom);
 app.use("/api/table", userTable);
 app.use("/api/feedback", feedbackRouter);
+app.use("/api/booking", bookingRouter);
 
 const PORT = process.env.PORT || 5000;
 

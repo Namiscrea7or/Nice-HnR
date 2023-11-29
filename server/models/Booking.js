@@ -27,11 +27,13 @@ const BookingSchema = new Schema({
   },
   pay: {
     type: Number,
-    default: true
+    required: true
   },
   state: {
     type: String,
-    default: true
+    enum: ['true', 'false'],
+    default: 'false',
+    required: true
   }
 });
 
