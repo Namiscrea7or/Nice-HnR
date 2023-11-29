@@ -4,6 +4,8 @@ const cors = require("cors");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/users");
 const userRoom = require("./routes/room");
+const userTable = require("./routes/table");
+const feedbackRouter = require("./routes/feedback")
 
 require("dotenv").config();
 
@@ -32,6 +34,8 @@ app.use(cors());
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/room", userRoom);
+app.use("/api/table", userTable);
+app.use("/api/feedback", feedbackRouter);
 
 const PORT = process.env.PORT || 5000;
 

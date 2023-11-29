@@ -3,14 +3,13 @@ const router = express.Router();
 const verifyToken = require("../middleware/auth");
 
 const User = require("../models/User");
-const Room = require("../models/Room");
+const Dish = require("../models/Dish");
 
-// @route POST api/room/add_room
-// @desc add a room type with specific room
+// @route POST api/dish/add_dish
+// @desc add a dish 
 // @access Private (only for system admin)
-router.post("/add_room", verifyToken, async (req, res) => {
+router.post("/add_dish", verifyToken, async (req, res) => {
   try {
-    // console.log(req.body)
     const sys_ad = await User.findOne({ _id: req.userId });
     if (!sys_ad)
       return res.status(200).json({
@@ -22,38 +21,37 @@ router.post("/add_room", verifyToken, async (req, res) => {
         success: false,
         message: "Access denied!",
       });
-    const { room_type, room_number, description, state, price, discount } =
+    const { dish_name, description, state, price, discount } =
       req.body;
-    if (!room_type || !room_number || !state || !price || !discount) {
+    if (!dish_name  || !state || !price || !discount) {
       res.status(200).json({
         success: false,
         message: "Missing information!",
       });
     }
-    let room = await Room.findOne({
-      room_number: room_number,
+    let dish = await Dish.findOne({
+      dish_name: dish_name,
     });
 
-    if (room)
+    if (dish)
       return res.status(200).json({
         success: false,
-        message: "Room number has already taken!",
+        message: "Dish has already existed!",
       });
 
-    const newRoom = new Room({
-      room_type,
-      room_number,
+    const newDish = new Dish({
+      dish_name,
       description,
       state,
       price,
       discount,
     });
-    await newRoom.save();
+    await newDish.save();
 
     res.json({
       success: true,
-      message: "New room created successfully",
-      newRoom,
+      message: "New dish created successfully",
+      newDish,
     });
   } catch (error) {
     console.log(error);
@@ -64,10 +62,10 @@ router.post("/add_room", verifyToken, async (req, res) => {
   }
 });
 
-// @route PUT api/room/update_room
-// @desc Update a room type with specific room
+// @route PUT api/dish/update_dish
+// @desc Update a dish price with specific price
 // @access Private (only for system admin)
-router.put("/update_room", verifyToken, async (req, res) => {
+router.put("/update_dish", verifyToken, async (req, res) => {
   try {
     const sys_ad = await User.findOne({ _id: req.userId });
     if (!sys_ad)
@@ -81,45 +79,43 @@ router.put("/update_room", verifyToken, async (req, res) => {
         message: "Access denied!",
       });
 
-    const { room_type, room_number, description, state, price, discount } =
+    const { dish_name, description, state, price, discount } =
       req.body;
-
-    if (!room_type || !room_number || !state || !price || !discount) {
+    if (!dish_name  || !state || !price || !discount) {
       res.status(200).json({
         success: false,
         message: "Missing information!",
       });
     }
 
-    let updatedRoom = {
-      room_type,
-      room_number,
+    let updatedDIsh = {
+      dish_name,
       description,
       state,
       price,
       discount,
     };
 
-    const roomUpdateCondition = {
-      room_number: room_number,
+    const dishUpdatePrice = {
+      dish_name: dish_name,
     };
 
-    isUpdatedRoom = await Room.findOneAndUpdate(
-      roomUpdateCondition,
-      updatedRoom,
+    updatedUser = await Dish.findOneAndUpdate(
+      dishUpdatePrice,
+      updatedDIsh,
       { new: true }
     );
 
-    if (!isUpdatedRoom)
+    if (!updatedUser)
       return res.status(200).json({
         success: false,
-        message: "Room number not found!",
+        message: "Dish name is not found!",
       });
 
     res.json({
       success: true,
-      message: "Room updated successfully",
-      updatedRoom,
+      message: "Dish updated successfully",
+      updatedDIsh,
     });
   } catch (error) {
     console.log(error);
@@ -130,10 +126,10 @@ router.put("/update_room", verifyToken, async (req, res) => {
   }
 });
 
-// @route DEL api/room/update_room
-// @desc Delete a specific room
+// @route DEL api/dish/update_dish
+// @desc Delete a specific dish
 // @access Private (only for system admin)
-router.delete("/:room_number", verifyToken, async (req, res) => {
+router.delete("/:dish_name", verifyToken, async (req, res) => {
   try {
     const sys_ad = await User.findOne({ _id: req.userId });
     if (!sys_ad)
@@ -147,18 +143,18 @@ router.delete("/:room_number", verifyToken, async (req, res) => {
         message: "Access denied!",
       });
 
-    const deleteRoom = await Room.findOneAndDelete({
-      room_number: req.params.room_number,
+    const deleteDish = await Room.findOneAndDelete({
+      dish_name: req.params.room_number,
     });
-    if (!deleteRoom)
+    if (!deleteDish)
       return res
         .status(200)
-        .json({ success: false, message: "Room number not found!" });
+        .json({ success: false, message: "Dish name is not found!" });
 
     return res.json({
       success: true,
       message: "Room deleted successfully",
-      deleteRoom,
+      deleteDish,
     });
   } catch (error) {
     console.log(error);
