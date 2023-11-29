@@ -3,7 +3,6 @@ const router = express.Router();
 const verifyToken = require("../middleware/auth");
 
 const User = require("../models/User");
-const Room = require("../models/Table");
 const Table = require("../models/Table");
 
 // @route POST api/table/add_table
