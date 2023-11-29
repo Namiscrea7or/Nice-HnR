@@ -1,12 +1,13 @@
 import React from 'react';
 import TableForm from '../../../components/TableForm/TableForm';
-import Tables from '../../../components/Tables/Tables';
+import TableList from '../../../components/tableList/TableList';
+
 import './BookTable.css'
 
 const BookTable = () => {
   return (
     <div className='tableBookingContainer'>
-      <Tables/>
+      <TableList/>
       <TableForm />
     </div>
   );

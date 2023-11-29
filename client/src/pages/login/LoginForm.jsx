@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import "./LoginForm.css"
 import validation from './LoginValidation';
 import axios from 'axios';
-import {useNavigate, Link} from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 
 const LoginForm = (props) => {
@@ -25,18 +25,20 @@ const LoginForm = (props) => {
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", {
         email, password
-      });
+      })
       console.log(res.data)
       if (res.data.message === 'User logged in successfully') {
+        let token = res.data.accessToken
+        localStorage.setItem("Saved Token", 'Bearer ' + token)
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
         history('/staff');
-        console.log('dNgadbsgabsdun')
       } else if (res.data.message === 'Incorrect username or password!') {
         alert('Incorrect username or password!');
       }
     } catch (e) {
       alert('Wrong details');
     }
-    
+
   }
 
 
