@@ -10,13 +10,13 @@ const RoomLists = () => {
         // Gửi yêu cầu đến server để lấy danh sách bàn
         const fetchData = async () => {
             try {
-                const response = await axios.get('URL_API/tables');
-                // Thêm thuộc tính isChosen vào mỗi đối tượng bàn
+                const response = await axios.get('http://localhost:5000/api/room/add_room', { headers: { Authorization: localStorage.getItem('Saved Token') } });
+                console.log(response.data)
                 const roomsWithIsChosen = response.data.map(room => ({
                     ...room,
                     isChosen: false,
-                }));
-                setRooms(tablesWithIsChosen); // Cập nhật state với danh sách bàn từ server
+                }));    
+                setRooms(roomsWithIsChosen); // Cập nhật state với danh sách bàn từ server
             } catch (error) {
                 console.error('Lỗi khi lấy danh sách bàn:', error);
             }
@@ -43,7 +43,7 @@ const RoomLists = () => {
             <h1 id='bookingRoomHeader'>Đặt bàn ăn tại khách sạn</h1>
             <form id='roomForm'>
                 <div className="roomList">
-                    {tables.map((room) => (
+                    {rooms.map((room) => (
                         <div key={room.id}>
                             {/* <img src={require(`./img/${table.table_type}.jpg`)} alt="" /> */}
                             <div className="room_info">

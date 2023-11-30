@@ -18,6 +18,7 @@ class Navbar extends Component {
                     <li><Link to="/menu">Menu</Link></li>
                     <li><Link to="/about">About and Contact</Link></li>
                     <li><Link to="/feedback">Feedback</Link></li>
+                    <li><Link to="/log">Login</Link></li>
                     <Link to="/book" className="action-btn">Book Now</Link>
                 </div>
                 <div className="dropdown-menu" onClick={this.handleClick}>

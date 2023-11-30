@@ -9,6 +9,9 @@ import BookRooms from './pages/book/book-rooms/BookRooms';
 import BookTable from './pages/book/table-form/BookTable';
 import RoomsPage from './pages/RoomsPage/RoomsPage';
 import Menu from './pages/menu/Menu';
+import Log from './components/Log/Log'
+import LogAndSignUser from './pages/LoginUser/LogAndSignUser';
+import AboutAndContact from './pages/AboutAndContact/AboutAndContact';
 import Staff from './pages/staff/Staff';
 import {
   createBrowserRouter,
@@ -47,6 +50,18 @@ const router = createBrowserRouter([
   {
     path: "menu",
     element: <Menu/>,
+  },
+  {
+    path: "log",
+    element: <Log/>,
+  },
+  {
+    path: "Login_user",
+    element: <LogAndSignUser/>,
+  },
+  {
+    path: "about",
+    element: <AboutAndContact/>,
   },
   {
     path: "staff",
