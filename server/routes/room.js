@@ -169,4 +169,34 @@ router.delete("/:room_number", verifyToken, async (req, res) => {
   }
 });
 
+// @route GET api/room/info
+// @desc Get room infomation
+// @access Private
+router.get("/info/:room_number", verifyToken, async (req, res) => {
+  try {
+    const room = await Room.findOne({ room_number: req.params.room_number });
+    if (!room) {
+      return res.status(200).json({
+        success: false,
+        message: "Room not found",
+      });
+    }
+    res.json({
+      success: true,
+      room_type: room.room_type,
+      room_number: room.room_number,
+      description: room.description,
+      state: room.state,
+      price: room.price,
+      discount: room.discount,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
 module.exports = router;

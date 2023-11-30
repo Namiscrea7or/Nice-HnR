@@ -2,7 +2,7 @@ POST http://localhost:5000/api/auth/register_guest
 Content-Type: application/json
 
 {
-    "email": "nam@gmail.com",
+    "email": "nam1@gmail.com",
     "password": "nam",
     "full_name": "Phan Phước Hải Nam",
     "phone_number": "0777777777",
@@ -69,7 +69,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/user/info
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDAyMTUxODN9.nw_6L-Hklwl1dmPvttfcE_kDA3bzarCD9OC6fcI259o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzFlNWM2ZjQzMDZlYzQ1ZjY4OGMiLCJpYXQiOjE3MDEyMjE3Mjh9.zVYMbkWp7xs4njFy5ueusYCcb8W1wMYE8y-19vKR93w
 
 ###
 GET http://localhost:5000/api/user/find_info/system_admin@gmail.com
@@ -102,9 +102,12 @@ DELETE http://localhost:5000/api/user/nam@gmail.com
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzQwYWM2ZjQzMDZlYzQ1ZjY4OWIiLCJpYXQiOjE3MDAyMzMyMzl9.I2MNWEFgN-fj48_lB_eTqbzbA6yycPuM21jfHm_3OFU
 
 ###
+GET http://localhost:5000/api/room/info/102
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzFlNWM2ZjQzMDZlYzQ1ZjY4OGMiLCJpYXQiOjE3MDEyNjg2Mzd9.Md-mSsJA_T8tnyp5ygit9RmNrkZ8nXk8V6E6mGwnEXM
+
+###
 POST http://localhost:5000/api/room/add_room
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDAyMzU3NTl9.XZpq83J4k4ulgspajBalizw29hVKwJTJHnG5FIOVM3k
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzFlNWM2ZjQzMDZlYzQ1ZjY4OGMiLCJpYXQiOjE3MDEyNjg2Mzd9.Md-mSsJA_T8tnyp5ygit9RmNrkZ8nXk8V6E6mGwnEXM
 
 {
     "room_type": "Room5",
