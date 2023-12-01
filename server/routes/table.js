@@ -141,7 +141,7 @@ router.delete("/:table_number", verifyToken, async (req, res) => {
       });
 
     const deleteTable = await Table.findOneAndDelete({
-        table_number: req.params.table_number,
+      table_number: req.params.table_number,
     });
     if (!deleteTable)
       return res
@@ -162,42 +162,82 @@ router.delete("/:table_number", verifyToken, async (req, res) => {
   }
 });
 
+// @route GET api/table/available_tables
+// @desc Get available tables (state = True)
+// @access Private
+router.get("/available_tables", verifyToken, async (req, res) => {
+  try {
+    const sys_ad = await User.findOne({ _id: req.userId });
+    if (!sys_ad)
+      return res.status(200).json({
+        success: false,
+        message: "System admin not found!",
+      });
+    if (sys_ad.role != "System_Admin")
+      return res.status(200).json({
+        success: false,
+        message: "Access denied!",
+      });
+
+    const tables = await Table.find({ state: 'true' });
+    if (tables.length === 0) {
+      return res.json({ success: true, message: "There is no available table" });
+    }
+    const availableTables = tables.map(table => ({
+      table_type: table.table_type,
+      table_number: table.table_number,
+      state: table.state,
+      price: table.price,
+    }));
+
+    res.json({ success: true, rooms: availableTables });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
 // @route GET api/table/update_table
 // @desc Get a specific table infomation
 // @access Private (only for system admin)
-router.get("/:table_number", verifyToken, async (req, res) => {
-    try {
-      const sys_ad = await User.findOne({ _id: req.userId });
-      if (!sys_ad)
-        return res.status(200).json({
-          success: false,
-          message: "System admin not found!",
-        });
-      if (sys_ad.role != "System_Admin")
-        return res.status(200).json({
-          success: false,
-          message: "Access denied!",
-        });
-
-    const tableFind = await Table.findOne({table_number: req.params.table_number,})
-  
-      if (!tableFind)
-        return res
-          .status(200)
-          .json({ success: false, message: "Table number not found!" });
-  
-      return res.json({
-        success: true,
-        message: "Get table information successfully!",
-        tableFind,
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({
+router.get("/info/:table_number", verifyToken, async (req, res) => {
+  try {
+    const sys_ad = await User.findOne({ _id: req.userId });
+    if (!sys_ad)
+      return res.status(200).json({
         success: false,
-        message: "Internal server error",
+        message: "System admin not found!",
       });
-    }
-  });
+    if (sys_ad.role != "System_Admin")
+      return res.status(200).json({
+        success: false,
+        message: "Access denied!",
+      });
+
+    const tableFind = await Table.findOne({ table_number: req.params.table_number, })
+
+    if (!tableFind)
+      return res
+        .status(200)
+        .json({ success: false, message: "Table number not found!" });
+
+    return res.json({
+      success: true,
+      message: "Get table information successfully!",
+      tableFind,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
+
 
 module.exports = router;

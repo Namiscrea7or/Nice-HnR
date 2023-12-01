@@ -4,6 +4,8 @@ const verifyToken = require("../middleware/auth");
 const Room = require("../models/Room");
 const Table = require("../models/Table");
 const Booking = require("../models/Booking");
+const BookingRoom = require("../models/BookingRoom");
+const BookingTable = require("../models/BookingTable");
 
 // @route GET api/booking/:bookingId
 // @desc Get booking information by ID
@@ -97,94 +99,13 @@ router.put("/:bookingId/pay", verifyToken, async (req, res) => {
 });
 
 
-// @route GET api/available_rooms
-// @desc Get available rooms (state = True)
-// @access Private
-router.get("/available_rooms", verifyToken, async (req, res) => {
-  try {
-    const sys_ad = await User.findOne({ _id: req.userId });
-    if (!sys_ad)
-      return res.status(200).json({
-        success: false,
-        message: "System admin not found!",
-      });
-    if (sys_ad.role != "System_Admin")
-      return res.status(200).json({
-        success: false,
-        message: "Access denied!",
-      });
 
-    const rooms = await Room.find({ state: 'true' });
-    if (rooms.length === 0) {
-      return res.json({ success: true, message: "There is no available room" });
-    }
-    const availableRooms = rooms.map(room => ({
-      room_type: room.room_type,
-      room_number: room.room_number,
-      description: room.description,
-      state: room.state,
-      price: room.price,
-      discount: room.discount,
-    }));
-
-    res.json({ success: true, rooms: availableRooms });
-  } catch (error) {
-    console.log(error);
-    return res.status(200).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-});
-
-
-
-// @route GET api/available_tables
-// @desc Get available tables (state = True)
-// @access Private
-router.get("/available_tables", verifyToken, async (req, res) => {
-  try {
-    const sys_ad = await User.findOne({ _id: req.userId });
-    if (!sys_ad)
-      return res.status(200).json({
-        success: false,
-        message: "System admin not found!",
-      });
-    if (sys_ad.role != "System_Admin")
-      return res.status(200).json({
-        success: false,
-        message: "Access denied!",
-      });
-
-    const tables = await Table.find({ state: 'true' });
-    if (tables.length === 0) {
-      return res.json({ success: true, message: "There is no available table" });
-    }
-    const availableTables = tables.map(table => ({
-      table_type: table.table_type,
-      table_number: table.table_number,
-      state: table.state,
-      price: table.price,
-    }));
-
-    res.json({ success: true, rooms: availableTables });
-  } catch (error) {
-    console.log(error);
-    return res.status(200).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-});
-
-// @route POST api/booking_room
+// @route POST api/book_room
 // @desc Book available room
 // @access Public
 
 router.post("/book_room", verifyToken, async (req, res) => {
   const {
-    table_type,
-    table_date,
     room_type,
     room_date,
     pay
@@ -196,12 +117,12 @@ router.post("/book_room", verifyToken, async (req, res) => {
         success: false,
         message: "Guest not found!",
       });
-    if (sys_ad.role != "Guest")
+    if (guest.role != "Guest")
       return res.status(200).json({
         success: false,
         message: "Access denied!",
       });
-    const existingBookings = await Booking.find({
+    const existingBookingRooms = await BookingRoom.find({
       room_type: room_type,
       "room_date.start_room_date": {
         $lte: room_date.end_room_date
@@ -210,21 +131,19 @@ router.post("/book_room", verifyToken, async (req, res) => {
         $gte: room_date.start_room_date
       }
     });
-    if (existingBookings === 0) 
+    if (existingBookingRooms.length === 0)
       return res.status(200).json({
         success: false,
         message: "Room is not available in these date!",
       });
-    const newBooking = new Booking({
-      user: guest,
-      table_type: table_type,
-      table_date: table_date,
+    const newBookingRoom = new Booking({
+      user: guest._id,
       room_type: room_type,
       room_date: room_date,
       pay: pay,
       state: 'false',
     });
-    await newBooking.save();
+    await newBookingRoom.save();
     res.json({
       success: true,
       message: "Room booked successfully."
@@ -238,4 +157,56 @@ router.post("/book_room", verifyToken, async (req, res) => {
   }
 })
 
+
+// @route POST api/book_table
+// @desc Book available table
+// @access Public
+
+router.post("/book_table", verifyToken, async (req, res) => {
+  const {
+    table_type,
+    table_date,
+    pay
+  } = req.body;
+  try {
+    const guest = await User.findOne({ _id: req.userId });
+    if (!guest)
+      return res.status(200).json({
+        success: false,
+        message: "Guest not found!",
+      });
+    if (guest.role != "Guest")
+      return res.status(200).json({
+        success: false,
+        message: "Access denied!",
+      });
+    const existingBookingTables = await BookingTable.find({
+      table_type: table_type,
+      table_date: table_date,
+    });
+    if (existingBookingTables.length === 0)
+      return res.status(200).json({
+        success: false,
+        message: "Table is not available in these date!",
+      });
+    const newBookingTable = new BookingTable({
+      user: guest._id,
+      table_type: table_type,
+      table_date: table_date,
+      pay: pay,
+      state: 'false',
+    });
+    await newBookingTable.save();
+    res.json({
+      success: true,
+      message: "Room booked successfully."
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+})
 module.exports = router;

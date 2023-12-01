@@ -196,7 +196,46 @@ DELETE http://localhost:5000/api/table/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDExODE4OTF9.s7weV8dmRi9Le-KX2ZE0NiggYw1W8dygbWx4E7Fo3BE
 
 ###
-Get http://localhost:5000/api/table/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDExODE4OTF9.s7weV8dmRi9Le-KX2ZE0NiggYw1W8dygbWx4E7Fo3BE
+Get http://localhost:5000/api/table/info/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MjQwODZ9.kMPk31o0TmS8vbXFOSnQVT18JpDmGybv0Z3Dr8IqtLo
 
 
+###
+POST http://localhost:5000/api/dish/add_dish
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTY3ODh9.yR_jO2EB-pOz8A_49nNoZy0O5rUiHkuC_Qr97rR0NX4
+Content-Type: application/json
+
+{
+    "dish_name": "Steak",
+    "description": "Bò bít tết",
+    "state": "true",
+    "price": 100000,
+    "discount": 10
+}
+
+###
+PUT http://localhost:5000/api/dish/update_dish
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTczNDF9.Rii_Ojk1GngXD3oIOT2Pzfoa0sSBMYT9B9WE_qtKEsY
+Content-Type: application/json
+
+{
+    "dish_name": "Lobster",
+    "description": "Tôm hùm 2",
+    "state": "true",
+    "price": 5000000,
+    "discount": 10
+}
+
+###
+DELETE http://localhost:5000/api/dish/Lobster
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
+Content-Type: application/json
+
+
+###
+GET http://localhost:5000/api/room/available_rooms
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MjMyOTd9.c96pkbeyFN4WmAtg_Tj83brc2q9Nku6gawUYwnVHDbs
+
+###
+GET http://localhost:5000/api/table/available_tables
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MjMyOTd9.c96pkbeyFN4WmAtg_Tj83brc2q9Nku6gawUYwnVHDbs
