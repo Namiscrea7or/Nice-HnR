@@ -30,4 +30,4 @@ const BookingRoomSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("bookings", BookingRoomSchema);
+module.exports = mongoose.model("bookingrooms", BookingRoomSchema);

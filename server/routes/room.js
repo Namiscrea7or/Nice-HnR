@@ -199,4 +199,45 @@ router.get("/info/:room_number", verifyToken, async (req, res) => {
   }
 });
 
+
+// @route GET api/room/available_rooms
+// @desc Get available rooms (state = True)
+// @access Private
+router.get("/available_rooms", verifyToken, async (req, res) => {
+  try {
+    const sys_ad = await User.findOne({ _id: req.userId });
+    if (!sys_ad)
+      return res.status(200).json({
+        success: false,
+        message: "System admin not found!",
+      });
+    if (sys_ad.role != "System_Admin")
+      return res.status(200).json({
+        success: false,
+        message: "Access denied!",
+      });
+
+    const rooms = await Room.find({ state: 'true' });
+    if (rooms.length === 0) {
+      return res.json({ success: true, message: "There is no available room" });
+    }
+    const availableRooms = rooms.map(room => ({
+      room_type: room.room_type,
+      room_number: room.room_number,
+      description: room.description,
+      state: room.state,
+      price: room.price,
+      discount: room.discount,
+    }));
+
+    res.json({ success: true, rooms: availableRooms });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
 module.exports = router;

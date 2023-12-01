@@ -23,7 +23,7 @@ router.post("/add_dish", verifyToken, async (req, res) => {
       });
     const { dish_name, description, state, price, discount } =
       req.body;
-    if (!dish_name  || !state || !price || !discount) {
+    if (!dish_name || !state || !price || !discount) {
       res.status(200).json({
         success: false,
         message: "Missing information!",
@@ -78,10 +78,9 @@ router.put("/update_dish", verifyToken, async (req, res) => {
         success: false,
         message: "Access denied!",
       });
-
     const { dish_name, description, state, price, discount } =
       req.body;
-    if (!dish_name  || !state || !price || !discount) {
+    if (!dish_name || !state || !price || !discount) {
       res.status(200).json({
         success: false,
         message: "Missing information!",
@@ -100,13 +99,13 @@ router.put("/update_dish", verifyToken, async (req, res) => {
       dish_name: dish_name,
     };
 
-    updatedUser = await Dish.findOneAndUpdate(
+    isUpdatedDish = await Dish.findOneAndUpdate(
       dishUpdatePrice,
       updatedDIsh,
       { new: true }
     );
 
-    if (!updatedUser)
+    if (!isUpdatedDish)
       return res.status(200).json({
         success: false,
         message: "Dish name is not found!",
@@ -143,8 +142,8 @@ router.delete("/:dish_name", verifyToken, async (req, res) => {
         message: "Access denied!",
       });
 
-    const deleteDish = await Room.findOneAndDelete({
-      dish_name: req.params.room_number,
+    const deleteDish = await Dish.findOneAndDelete({
+      dish_name: req.params.dish_name,
     });
     if (!deleteDish)
       return res
@@ -153,7 +152,7 @@ router.delete("/:dish_name", verifyToken, async (req, res) => {
 
     return res.json({
       success: true,
-      message: "Room deleted successfully",
+      message: "Dish deleted successfully",
       deleteDish,
     });
   } catch (error) {
