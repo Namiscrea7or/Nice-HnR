@@ -239,3 +239,43 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5M
 ###
 GET http://localhost:5000/api/table/available_tables
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MjMyOTd9.c96pkbeyFN4WmAtg_Tj83brc2q9Nku6gawUYwnVHDbs
+
+
+###
+POST http://localhost:5000/api/booking/book_room
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDE0ODA3Mzl9.z6ugdHpSb69IFOJiQkLUx2c9MaU6l2cMcvkkEQlizNc
+Content-Type: application/json
+
+{
+    "room_type": "656a8cc3bd4f288b01065bc7",  
+    "room_date": {
+        "start_room_date": "2023-12-01T00:00:00Z",
+        "end_room_date": "2023-12-02T00:00:00Z"
+        },
+    "pay": 200000,
+    "state": "false"
+}
+
+###
+POST http://localhost:5000/api/table/add_table
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0ODA4NDh9.mSVxuvYLUMdNeJ9D3sK4i38xwCCOs6FkuJdkJgKONlg
+Content-Type: application/json
+
+{
+    "table_type": "Table9",
+    "table_number": "9",
+    "state": "true",
+    "price": 300000
+}
+
+###
+POST http://localhost:5000/api/booking/book_table
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDE0ODA3Mzl9.z6ugdHpSb69IFOJiQkLUx2c9MaU6l2cMcvkkEQlizNc
+Content-Type: application/json
+
+{
+    "table_type": "656a8fa3bbb8105e7a808af4",  
+    "table_date": "2023-12-01T00:00:00Z",
+    "pay": 100,
+    "state": "false"
+}
