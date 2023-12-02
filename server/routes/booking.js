@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middleware/auth");
-const Room = require("../models/Room");
-const Table = require("../models/Table");
+const User = require("../models/User")
 const Booking = require("../models/Booking");
 const BookingRoom = require("../models/BookingRoom");
 const BookingTable = require("../models/BookingTable");
@@ -125,13 +124,13 @@ router.post("/book_room", verifyToken, async (req, res) => {
     const existingBookingRooms = await BookingRoom.find({
       room_type: room_type,
       "room_date.start_room_date": {
-        $lte: room_date.end_room_date
+        $gte: room_date.start_room_date
       },
       "room_date.end_room_date": {
         $gte: room_date.start_room_date
       }
     });
-    if (existingBookingRooms.length === 0)
+    if (existingBookingRooms.length !== 0)
       return res.status(200).json({
         success: false,
         message: "Room is not available in these date!",
@@ -158,7 +157,7 @@ router.post("/book_room", verifyToken, async (req, res) => {
 })
 
 
-// @route POST api/book_table
+// @route POST api/booking/book_table
 // @desc Book available table
 // @access Public
 
@@ -184,7 +183,7 @@ router.post("/book_table", verifyToken, async (req, res) => {
       table_type: table_type,
       table_date: table_date,
     });
-    if (existingBookingTables.length === 0)
+    if (existingBookingTables.length !== 0)
       return res.status(200).json({
         success: false,
         message: "Table is not available in these date!",
@@ -199,7 +198,7 @@ router.post("/book_table", verifyToken, async (req, res) => {
     await newBookingTable.save();
     res.json({
       success: true,
-      message: "Room booked successfully."
+      message: "Table booked successfully."
     });
   } catch (error) {
     console.log(error);
