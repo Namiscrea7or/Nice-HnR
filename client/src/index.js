@@ -6,12 +6,13 @@ import Home from './pages/Home/Home';
 import Login from './pages/login/Login';
 import Book from './pages/book/Book';
 import BookRooms from './pages/book/book-rooms/BookRooms';
-import BookTable from './pages/book/table-form/BookTable';
+import BookTable from './pages/book/booktable/BookTable';
 import RoomsPage from './pages/RoomsPage/RoomsPage';
 import Menu from './pages/menu/Menu';
 import Log from './components/Log/Log'
 import LogAndSignUser from './pages/LoginUser/LogAndSignUser';
 import AboutAndContact from './pages/AboutAndContact/AboutAndContact';
+import Feedback from './pages/Feedback/Feedback'
 import Staff from './pages/staff/Staff';
 import {
   createBrowserRouter,
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: "about",
     element: <AboutAndContact/>,
+  },
+  {
+    path: "feedback",
+    element: <Feedback/>,
   },
   {
     path: "staff",

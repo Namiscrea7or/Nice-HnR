@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom'
 import './User.css';
 
 const User = () => {
+    const history = useNavigate()
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     console.log({ headers: { Authorization: localStorage.getItem('Saved Token') } })
@@ -41,6 +43,11 @@ const User = () => {
         createAt,
     } = userData;
 
+    const handleLogout = () => {
+        localStorage.removeItem('Saved Token');
+        history('/log');
+    };
+
     return (
         <div className='user'>
             <h1 id='employeeInfo'>Employee Information</h1>
@@ -55,6 +62,7 @@ const User = () => {
                     <p className="role">Role: {role}</p>
                     <p className="create">Start at: {createAt}</p>
                 </div>
+                <button className='logout' onClick={handleLogout}>Log out</button>
             </div>
         </div>
     );

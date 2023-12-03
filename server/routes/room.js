@@ -211,7 +211,7 @@ router.get("/available_rooms", verifyToken, async (req, res) => {
         success: false,
         message: "System admin not found!",
       });
-    if (sys_ad.role != "System_Admin")
+    if (sys_ad.role != "Guest")
       return res.status(200).json({
         success: false,
         message: "Access denied!",
