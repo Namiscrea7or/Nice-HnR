@@ -35,7 +35,7 @@ const RegisterForm = (props) => {
                 let token = res.data.accessToken
                 localStorage.setItem("Saved Token", 'Bearer ' + token)
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-                history('/staff');
+                history('/user');
             } else if (res.data.message === 'Incorrect username or password!') {
                 alert('Incorrect username or password!');
             }

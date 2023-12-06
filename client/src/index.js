@@ -12,8 +12,12 @@ import Menu from './pages/menu/Menu';
 import Log from './components/Log/Log'
 import LogAndSignUser from './pages/LoginUser/LogAndSignUser';
 import AboutAndContact from './pages/AboutAndContact/AboutAndContact';
+import RegisterForm from './pages/login/RegisterForm';
 import Feedback from './pages/Feedback/Feedback'
 import Staff from './pages/staff/Staff';
+import System_Admin from './pages/System_Admin/System_Admin';
+import ManageUser from './pages/ManageUser/ManageUser';
+import ManageStaff from './pages/manage Staff/ManageStaff';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -69,8 +73,24 @@ const router = createBrowserRouter([
     element: <Feedback/>,
   },
   {
-    path: "staff",
+    path: "user",
     element: <Staff />,
+  },
+  {
+    path: "System_Admin",
+    element: <System_Admin />,
+  },
+  {
+    path: "manage_user",
+    element: <ManageUser />,
+  },
+  {
+    path: "manage_staff",
+    element: <ManageStaff />,
+  },
+  {
+    path: "register_staff",
+    element: <RegisterForm />,
   },
 ]);
 

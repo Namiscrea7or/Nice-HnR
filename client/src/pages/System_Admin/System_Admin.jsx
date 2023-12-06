@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
-import './User.css';
+import './System_Admin.css'
 
-const User = () => {
+const System_Admin = () => {
     const history = useNavigate()
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -31,7 +31,6 @@ const User = () => {
     if (!userData) {
         return <div>Error loading data</div>;
     }
-
     const {
         success,
         email,
@@ -47,11 +46,6 @@ const User = () => {
         localStorage.removeItem('Saved Token');
         history('/log');
     };
-
-    if(role === "System_Admin") {
-        history('/System_Admin')
-    }
-
     return (
         <div className='user'>
             <h1 id='employeeInfo'>User Information</h1>
@@ -68,8 +62,10 @@ const User = () => {
                 </div>
                 <button className='logout' onClick={handleLogout}>Log out</button>
             </div>
+            <button><Link to='/manage_user'>Guest</Link></button>
+            <button><Link to='/manage_staff'>Staff</Link></button>
         </div>
-    );
-};
+    )
+}
 
-export default User;
+export default System_Admin

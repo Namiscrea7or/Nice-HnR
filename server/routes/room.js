@@ -211,11 +211,11 @@ router.get("/available_rooms", verifyToken, async (req, res) => {
         success: false,
         message: "System admin not found!",
       });
-    if (sys_ad.role != "Guest")
-      return res.status(200).json({
-        success: false,
-        message: "Access denied!",
-      });
+    // if (sys_ad.role != "Guest")
+    //   return res.status(200).json({
+    //     success: false,
+    //     message: "Access denied!",
+    //   });
 
     const rooms = await Room.find({ state: 'true' });
     if (rooms.length === 0) {

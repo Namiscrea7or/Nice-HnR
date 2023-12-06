@@ -61,7 +61,7 @@ const LoginUserForm = (props) => {
           <div className='login-register'>
             <p>
               Don't have an account?
-              <a onClick={() => props.onFormSwitch('signup')}>Register</a>
+              <a onClick={() => props.onFormSwitch('signup_user')}>Register</a>
             </p>
           </div>
         </div>

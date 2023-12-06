@@ -2,7 +2,7 @@ POST http://localhost:5000/api/auth/register_guest
 Content-Type: application/json
 
 {
-    "email": "nam1@gmail.com",
+    "email": "nam@gmail.com",
     "password": "nam",
     "full_name": "Phan Phước Hải Nam",
     "phone_number": "0777777777",
@@ -99,8 +99,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3N
 
 ###
 DELETE http://localhost:5000/api/user/nam@gmail.com
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzQwYWM2ZjQzMDZlYzQ1ZjY4OWIiLCJpYXQiOjE3MDAyMzMyMzl9.I2MNWEFgN-fj48_lB_eTqbzbA6yycPuM21jfHm_3OFU
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE4Mjc4Nzl9.NdXBbDod_Bx2Ni31SwX4BYeSPtvyimNEYY4U_I-8EXc
 ###
 GET http://localhost:5000/api/room/info/102
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzFlNWM2ZjQzMDZlYzQ1ZjY4OGMiLCJpYXQiOjE3MDEyNjg2Mzd9.Md-mSsJA_T8tnyp5ygit9RmNrkZ8nXk8V6E6mGwnEXM
