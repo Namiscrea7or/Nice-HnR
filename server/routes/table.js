@@ -238,6 +238,44 @@ router.get("/info/:table_number", verifyToken, async (req, res) => {
   }
 });
 
+// @route GET api/table/all_tables
+// @desc Get all tables
+// @access Private
+router.get("/all_tables", verifyToken, async (req, res) => {
+  try {
+    const sys_ad = await User.findOne({ _id: req.userId });
+    if (!sys_ad)
+      return res.status(200).json({
+        success: false,
+        message: "System admin not found!",
+      });
+    // if (sys_ad.role != "Guest")
+    //   return res.status(200).json({
+    //     success: false,
+    //     message: "Access denied!",
+    //   });
+
+    const tables = await Table.find();
+    if (tables.length === 0) {
+      return res.json({ success: true, message: "There are no tables in the list!" });
+    }
+    const allTables = tables.map(table => ({
+      table_type: table.table_type,
+      table_number: table.table_number,
+      state: table.state,
+      price: table.price,
+    }));
+
+    res.json({ success: true, tables: allTables });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
 
 
 module.exports = router;
