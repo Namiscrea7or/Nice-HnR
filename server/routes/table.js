@@ -190,7 +190,7 @@ router.get("/available_tables", verifyToken, async (req, res) => {
       price: table.price,
     }));
 
-    res.json({ success: true, rooms: availableTables });
+    res.json({ success: true, tables: availableTables });
   } catch (error) {
     console.log(error);
     return res.status(200).json({
