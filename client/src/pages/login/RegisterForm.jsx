@@ -49,7 +49,7 @@ const RegisterForm = (props) => {
         <div className='auth-form-register'>
             <div className='wrapper'>
                 <div className='form-box'>
-                    <h2>Register</h2>
+                    <h2>Create Staff Account</h2>
                     <form className='Register_form' onSubmit={submit} action='POST'>
                         <div className="input-box">
                             <input value={email} type='email' placeholder='Email' id='email' name='email' onChange={onChangeSignupForm} />
@@ -74,14 +74,8 @@ const RegisterForm = (props) => {
                         <div className="input-box">
                             <input value={user_id} type='' placeholder='Your ID' id='user_id' name='user_id' onChange={onChangeSignupForm} />
                         </div>
-                        <button type='submit' className='login-btn'>Register</button>
+                        <button type='submit' className='login-btn'>Create</button>
                     </form>
-                    <div className='login-register'>
-                        <p>
-                            Already have an account?
-                            <a onClick={() => props.onFormSwitch('login')}>Login</a>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>

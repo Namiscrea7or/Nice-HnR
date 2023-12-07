@@ -23,7 +23,7 @@ const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
             // Format the date to "yyyy-MM-dd"
             const formattedDate = new Date(editedGuest.birthday).toISOString().split('T')[0];
 
-            const res = await axios.delete(`http://localhost:5000/api/user/info`, {
+            const res = await axios.put(`http://localhost:5000/api/user/info`, {
                 data: {
                     ...editedGuest,
                     birthday: formattedDate

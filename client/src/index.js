@@ -18,6 +18,7 @@ import Staff from './pages/staff/Staff';
 import System_Admin from './pages/System_Admin/System_Admin';
 import ManageUser from './pages/ManageUser/ManageUser';
 import ManageStaff from './pages/manage Staff/ManageStaff';
+import ManageRooms from './pages/Manage Rooms/ManageRooms';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
   {
     path: "register_staff",
     element: <RegisterForm />,
+  },
+  {
+    path: "manage_room",
+    element: <ManageRooms />,
   },
 ]);
 
