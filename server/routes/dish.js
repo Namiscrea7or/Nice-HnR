@@ -125,7 +125,7 @@ router.put("/update_dish", verifyToken, async (req, res) => {
   }
 });
 
-// @route DEL api/dish/update_dish
+// @route DEL api/dish/:dish_name
 // @desc Delete a specific dish
 // @access Private (only for system admin)
 router.delete("/:dish_name", verifyToken, async (req, res) => {

@@ -18,7 +18,11 @@ const BookingRoomSchema = new Schema({
       type: Date,
     },
   },
-  pay: {
+  number_adults: {
+    type: Number,
+    required: true
+  },
+  number_child: {
     type: Number,
     required: true
   },
@@ -30,4 +34,4 @@ const BookingRoomSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("bookingrooms", BookingRoomSchema);
+module.exports = mongoose.model("bookingroom", BookingRoomSchema);

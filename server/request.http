@@ -54,8 +54,8 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "thao@gmail.com",
-    "password": "thao"
+    "email": "nam1@gmail.com",
+    "password": "nam"
 }
 
 ###
@@ -202,12 +202,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5M
 
 ###
 POST http://localhost:5000/api/dish/add_dish
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTY3ODh9.yR_jO2EB-pOz8A_49nNoZy0O5rUiHkuC_Qr97rR0NX4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE5MTY3OTB9.o7d3yATC2SqEHzFCZKKuPXxZOS84_B7QIWvDGA9cm2E
 Content-Type: application/json
 
 {
-    "dish_name": "Steak",
-    "description": "Bò bít tết",
+    "dish_name": "Lobster",
+    "description": "Tôm hùm",
     "state": "true",
     "price": 100000,
     "discount": 10
@@ -234,25 +234,26 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/room/available_rooms
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MjMyOTd9.c96pkbeyFN4WmAtg_Tj83brc2q9Nku6gawUYwnVHDbs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDE5MTcwMjZ9.DT15EqGXA9n8jbf_t1bIR7GMI9fNRTIvJMbZV4_RC6g
 
 ###
 GET http://localhost:5000/api/table/available_tables
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MjMyOTd9.c96pkbeyFN4WmAtg_Tj83brc2q9Nku6gawUYwnVHDbs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDE5MTcwMjZ9.DT15EqGXA9n8jbf_t1bIR7GMI9fNRTIvJMbZV4_RC6g
 
 
 ###
 POST http://localhost:5000/api/booking/book_room
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDE0ODA3Mzl9.z6ugdHpSb69IFOJiQkLUx2c9MaU6l2cMcvkkEQlizNc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDE4MjM5NTF9.pV5v-r42pv2i0lvJEC4MfsxMLYjntwEE9lXazzf68lg
 Content-Type: application/json
 
 {
-    "room_type": "656a8cc3bd4f288b01065bc7",  
+    "room_numbers": ["102","103","104"],  
     "room_date": {
         "start_room_date": "2023-12-01T00:00:00Z",
         "end_room_date": "2023-12-02T00:00:00Z"
         },
-    "pay": 200000,
+    "number_adults" :4,
+    "number_child" :2,
     "state": "false"
 }
 

@@ -13,10 +13,6 @@ const BookingTableSchema = new Schema({
   table_date: {
     type: Date,
   },
-  pay: {
-    type: Number,
-    required: true
-  },
   state: {
     type: String,
     enum: ['true', 'false'],
@@ -25,4 +21,4 @@ const BookingTableSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("bookingtables", BookingTableSchema);
+module.exports = mongoose.model("bookingtable", BookingTableSchema);
