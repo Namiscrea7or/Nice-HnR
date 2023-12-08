@@ -1,0 +1,31 @@
+.roomList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Horizontally center items */
+    align-items: center; /* Vertically center items */
+    height: 100vh; /* Set a height to center vertically */
+  }
+  
+  .room_info {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  
+  .room_info h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .room_info p {
+    margin: 5px 0;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  

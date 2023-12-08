@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Rooms from '../../components/Rooms/Rooms'
 import Navbar from '../../components/navbar/Navbar'
+import RoomLists from '../../components/RoomLists/RoomLists';
 import './RoomsPage.css'
 
 const RoomsPage = () => {
@@ -23,8 +24,7 @@ const RoomsPage = () => {
         {/* {rooms.map((room) => (
           <Rooms key={room.number} roomData={room} />
         ))} */}
-        <Rooms />
-        <Rooms />
+        <RoomLists />
       </div>
     );
 }

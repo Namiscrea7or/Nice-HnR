@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import './LoginForm.css'
-import validation from './SignupValidation';
+import validation from '../login/LoginValidation';
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios';
-import './RegisterForm.css'
 
-const RegisterForm = (props) => {
+
+const RegisterUserForm = (props) => {
     const history = useNavigate()
     const [signupForm, setSignupForm] = useState({
         email: '',
@@ -27,7 +26,7 @@ const RegisterForm = (props) => {
         e.preventDefault();
 
         try {
-            const res = await axios.post("http://localhost:5000/api/auth/register_staff", {
+            const res = await axios.post("http://localhost:5000/api/auth/register_guest", {
                 email, password, full_name, phone_number, address, birthday, user_id
             });
             console.log(res.data)
@@ -35,7 +34,7 @@ const RegisterForm = (props) => {
                 let token = res.data.accessToken
                 localStorage.setItem("Saved Token", 'Bearer ' + token)
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-                history('/user');
+                history('/home');
             } else if (res.data.message === 'Incorrect username or password!') {
                 alert('Incorrect username or password!');
             }
@@ -49,7 +48,7 @@ const RegisterForm = (props) => {
         <div className='auth-form-register'>
             <div className='wrapper'>
                 <div className='form-box'>
-                    <h2>Create Staff Account</h2>
+                    <h2>Register</h2>
                     <form className='Register_form' onSubmit={submit} action='POST'>
                         <div className="input-box">
                             <input value={email} type='email' placeholder='Email' id='email' name='email' onChange={onChangeSignupForm} />
@@ -74,8 +73,14 @@ const RegisterForm = (props) => {
                         <div className="input-box">
                             <input value={user_id} type='' placeholder='Your ID' id='user_id' name='user_id' onChange={onChangeSignupForm} />
                         </div>
-                        <button type='submit' className='login-btn'>Create</button>
+                        <button type='submit' className='login-btn'>Register</button>
                     </form>
+                    <div className='login-register'>
+                        <p>
+                            Already have an account?
+                            <a onClick={() => props.onFormSwitch('login')}>Login</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,4 +88,4 @@ const RegisterForm = (props) => {
 
 };
 
-export default RegisterForm;
+export default RegisterUserForm;

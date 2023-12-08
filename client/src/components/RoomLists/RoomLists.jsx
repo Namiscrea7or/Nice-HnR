@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
+import './roomList.css'
 
-const RoomLists = () => {
+const RoomLists = ({ onSelectRooms }) => {
     const [rooms, setRooms] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
 
@@ -10,15 +11,16 @@ const RoomLists = () => {
         // Gửi yêu cầu đến server để lấy danh sách bàn
         const fetchData = async () => {
             try {
-                const response = await axios.get('URL_API/tables');
-                // Thêm thuộc tính isChosen vào mỗi đối tượng bàn
-                const roomsWithIsChosen = response.data.map(room => ({
+                const response = await axios.get('http://localhost:5000/api/room/available_rooms', { headers: { Authorization: localStorage.getItem('Saved Token') } });
+                console.log(response.data)
+                const { success, rooms } = response.data;
+                const roomsWithIsChosen = rooms.map(room => ({
                     ...room,
                     isChosen: false,
                 }));
-                setRooms(tablesWithIsChosen); // Cập nhật state với danh sách bàn từ server
+                setRooms(roomsWithIsChosen); // Cập nhật state với danh sách bàn từ server
             } catch (error) {
-                console.error('Lỗi khi lấy danh sách bàn:', error);
+                console.error('Lỗi khi lấy danh sách phòng:', error);
             }
         };
 
@@ -27,40 +29,36 @@ const RoomLists = () => {
 
     const handleCheckboxChange = (roomId) => {
         const updatedRooms = rooms.map((room) =>
-            room.id === roomId ? { ...room, isChosen: !room.isChosen } : room
+            room.room_number === roomId ? { ...room, isChosen: !room.isChosen } : room
         );
-
+    
         setRooms(updatedRooms);
-
+    
         const updatedItems = updatedRooms
             .filter((room) => room.isChosen)
-            .map((room) => room.id);
-
-        setSelectedItems(updatedItems);
+            .map((room) => ({ ...room }));
+    
+        onSelectRooms(updatedItems);
     };
     return (
-        <div className='bookRoom'>
-            <h1 id='bookingRoomHeader'>Đặt bàn ăn tại khách sạn</h1>
-            <form id='roomForm'>
-                <div className="roomList">
-                    {tables.map((room) => (
-                        <div key={room.id}>
-                            {/* <img src={require(`./img/${table.table_type}.jpg`)} alt="" /> */}
-                            <div className="room_info">
-                                <input
-                                    type="checkbox"
-                                    checked={room.isChosen}
-                                    onChange={() => handleCheckboxChange(room.id)}
-                                />
-                                <h2>Loại phòng: {room.room_type}</h2>
-                                <p>Số phòng: {room.room_number}</p>
-                                <p>Giá phòng: {room.price}</p>
-                            </div>
-                        </div>
-                    ))}
+        <div className="roomList">
+            {rooms.map((room) => (
+                <div key={room.room_number}>
+                    {/* <img src={require(`./img/${table.table_type}.jpg`)} alt="" /> */}
+                    <div className="room_info">
+                        <h2>Loại phòng: {room.room_type}</h2>
+                        <p>Số phòng: {room.room_number}</p>
+                        <p>Giá phòng: {room.price}</p>
+                        <input
+                            type="checkbox"
+                            checked={room.isChosen}
+                            onChange={() => handleCheckboxChange(room.room_number)}
+                        />
+                    </div>
                 </div>
-            </form>
+            ))}
         </div>
+
     )
 }
 

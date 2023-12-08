@@ -1,6 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const TableList = ({ onSelectTables }) => {
     const [tables, setTables] = useState([]);
@@ -8,8 +7,13 @@ const TableList = ({ onSelectTables }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('URL_API/tables');
-                const tablesWithIsChosen = response.data.map(table => ({
+                const response = await axios.get('http://localhost:5000/api/table/available_tables', {
+                    headers: { Authorization: localStorage.getItem('Saved Token') }
+                });
+
+                console.log('API Response:', response.data);
+                const { success, rooms } = response.data;
+                const tablesWithIsChosen = rooms.map(table => ({
                     ...table,
                     isChosen: false,
                 }));
@@ -22,37 +26,35 @@ const TableList = ({ onSelectTables }) => {
         fetchData();
     }, []);
 
-    const handleCheckboxChange = (tableId) => {
+    const handleCheckboxChange = (tableNumber) => {
         const updatedTables = tables.map((table) =>
-            table.id === tableId ? { ...table, isChosen: !table.isChosen } : table
+            table.table_number === tableNumber ? { ...table, isChosen: !table.isChosen } : table
         );
-
+    
         setTables(updatedTables);
-
+    
         const selectedItems = updatedTables
             .filter((table) => table.isChosen)
-            .map((table) => table.id);
-
+            .map((table) => ({ ...table })); // Make a copy of the selected tables with all properties
+    
         onSelectTables(selectedItems);
     };
 
     return (
         <div className='bookTable'>
-            <h1 id='bookingTableHeader'>Đặt bàn ăn tại khách sạn</h1>
             <div className="tableList">
                 {tables.map((table) => (
-                    <div key={table.id}>
-                        {/* <img src={require(`./img/${table.table_type}.jpg`)} alt="" /> */}
+                    <div key={table.table_number}>
                         <div className="table_info">
+                            <h2>Loại bàn: {table.table_type}</h2>
+                            <p>Số bàn: {table.table_number}</p>
+                            <p>Trạng thái: {table.states}</p>
+                            <p>Giá bàn: {table.price}</p>
                             <input
                                 type="checkbox"
                                 checked={table.isChosen}
-                                onChange={() => handleCheckboxChange(table.id)}
+                                onChange={() => handleCheckboxChange(table.table_number)}
                             />
-                            <h2>Loại phòng: {table.table_type}</h2>
-                            <p>Số phòng: {table.table_number}</p>
-                            <p>Trạng thái: {table.states}</p>
-                            <p>Giá phòng: {table.price}</p>
                         </div>
                     </div>
                 ))}

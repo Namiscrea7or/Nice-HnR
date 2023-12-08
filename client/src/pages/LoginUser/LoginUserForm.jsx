@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react'
-import "./LoginForm.css"
-import validation from './LoginValidation';
+import validation from '../login/LoginValidation';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
 
 
-const LoginForm = (props) => {
+const LoginUserForm = (props) => {
   const history = useNavigate();
 
   const [loginForm, setLoginForm] = useState({
@@ -31,7 +30,7 @@ const LoginForm = (props) => {
         let token = res.data.accessToken
         localStorage.setItem("Saved Token", 'Bearer ' + token)
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-        history('/user');
+        history('/home');
       } else if (res.data.message === 'Incorrect username or password!') {
         alert('Incorrect username or password!');
       }
@@ -62,7 +61,7 @@ const LoginForm = (props) => {
           <div className='login-register'>
             <p>
               Don't have an account?
-              <a onClick={() => props.onFormSwitch('signup')}>Register</a>
+              <a onClick={() => props.onFormSwitch('signup_user')}>Register</a>
             </p>
           </div>
         </div>
@@ -71,4 +70,4 @@ const LoginForm = (props) => {
   )
 };
 
-export default LoginForm;
+export default LoginUserForm;
