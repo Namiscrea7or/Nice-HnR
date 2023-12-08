@@ -7,7 +7,6 @@ const Room = require("../models/Room");
 const Table = require("../models/Table");
 const BookingRoom = require("../models/BookingRoom");
 const BookingTable = require("../models/BookingTable");
-const Room = require("../models/Room");
 
 // @route GET api/booking/:bookingId
 // @desc Get booking information by ID
