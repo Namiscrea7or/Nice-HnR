@@ -125,6 +125,82 @@ router.put("/update_dish", verifyToken, async (req, res) => {
   }
 });
 
+// @route GET api/dish/get_all_available_dish
+// @desc Get all dish 
+// @access Private
+router.get("/get_all_available_dish", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.userId });
+    if (!user)
+      return res.status(200).json({
+        success: false,
+        message: "User not found!",
+      });
+    // if (sys_ad.role != "Guest")
+    //   return res.status(200).json({
+    //     success: false,
+    //     message: "Access denied!",
+    //   });
+    const dishs = await Dish.find({ state: 'true' });
+    if (dishs.length === 0) {
+      return res.json({ success: true, message: "There is no available dish" });
+    }
+    const availableDishs = dishs.map(dish => ({
+      dish_name: dish.dish_name,
+      description: dish.description,
+      state: dish.state,
+      price: dish.price,
+      discount: dish.discount,
+    }));
+
+    res.json({ success: true, dishs: availableDishs });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
+// @route GET api/dish/get_all_dish
+// @desc Get all dish 
+// @access Private
+router.get("/get_all_dish", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.userId });
+    if (!user)
+      return res.status(200).json({
+        success: false,
+        message: "User not found!",
+      });
+    // if (sys_ad.role != "Guest")
+    //   return res.status(200).json({
+    //     success: false,
+    //     message: "Access denied!",
+    //   });
+    const dishs = await Dish.find();
+    if (dishs.length === 0) {
+      return res.json({ success: true, message: "There is no available dish" });
+    }
+    const AllDishs = dishs.map(dish => ({
+      dish_name: dish.dish_name,
+      description: dish.description,
+      state: dish.state,
+      price: dish.price,
+      discount: dish.discount,
+    }));
+
+    res.json({ success: true, dishs: AllDishs });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
 // @route DEL api/dish/:dish_name
 // @desc Delete a specific dish
 // @access Private (only for system admin)

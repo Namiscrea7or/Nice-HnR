@@ -3,6 +3,8 @@ const router = express.Router();
 const verifyToken = require("../middleware/auth");
 const User = require("../models/User")
 const Booking = require("../models/Booking");
+const Room = require("../models/Room");
+const Table = require("../models/Table");
 const BookingRoom = require("../models/BookingRoom");
 const BookingTable = require("../models/BookingTable");
 const Room = require("../models/Room");
@@ -111,7 +113,6 @@ router.post("/book_room", verifyToken, async (req, res) => {
     number_adults,
     number_child
   } = req.body;
-  console.log(req.body);
   try {
     const guest = await User.findOne({ _id: req.userId });
     if (!guest)
@@ -124,7 +125,6 @@ router.post("/book_room", verifyToken, async (req, res) => {
         success: false,
         message: "Access denied!",
       });
-    console.log(1);
     errors = [];
     for (const room_number of room_numbers) {
       const room = await Room.findOne({ room_number: room_number });
@@ -182,7 +182,6 @@ router.post("/book_room", verifyToken, async (req, res) => {
   }
 })
 
-
 // @route POST api/booking/book_table
 // @desc Book available table
 // @access Public
@@ -190,9 +189,9 @@ router.post("/book_room", verifyToken, async (req, res) => {
 router.post("/book_table", verifyToken, async (req, res) => {
   const {
     table_numbers,
+    full_name,
+    phone_number,
     table_date,
-    name,
-    phone_number
   } = req.body;
   try {
     const guest = await User.findOne({ _id: req.userId });
@@ -206,17 +205,18 @@ router.post("/book_table", verifyToken, async (req, res) => {
         success: false,
         message: "Access denied!",
       });
-    for(table_number of table_numbers){
+    errors = [];
+    for (const table_number of table_numbers) {
       const table = await Table.findOne({ table_number: table_number });
-      if (!room) {
+      if (!table) {
         errors.push({
-          room_number: room_number,
-          message: "Room is not found"
+          table_number: table_number,
+          message: "Table is not found"
         });
         continue;
       }
       const existingBookingTables = await BookingTable.find({
-        table_type: table_type,
+        table_number: table_number,
         table_date: table_date,
       });
       if (existingBookingTables.length !== 0)
@@ -226,17 +226,24 @@ router.post("/book_table", verifyToken, async (req, res) => {
         });
       const newBookingTable = new BookingTable({
         user: guest._id,
-        table_type: table_type,
+        table_type: table,
         table_date: table_date,
-        pay: pay,
         state: 'false',
       });
       await newBookingTable.save();
     }
-    res.json({
-      success: true,
-      message: "Table booked successfully."
-    });
+    if (errors.length > 0) {
+      return res.status(200).json({
+        success: false,
+        message: "Some tables can't be booked in these dates",
+        errors: errors,
+      });
+    } else {
+      return res.status(200).json({
+        success: true,
+        message: "All tables are booked successfully",
+      });
+    }
   } catch (error) {
     console.log(error);
     return res.status(500).json({
