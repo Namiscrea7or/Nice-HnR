@@ -19,6 +19,8 @@ import System_Admin from './pages/System_Admin/System_Admin';
 import ManageUser from './pages/ManageUser/ManageUser';
 import ManageStaff from './pages/manage Staff/ManageStaff';
 import ManageRooms from './pages/Manage Rooms/ManageRooms';
+import ManageTable from './pages/ManageTables/ManageTable';
+import ManageDish from './pages/ManageDish/ManageDish';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -96,6 +98,14 @@ const router = createBrowserRouter([
   {
     path: "manage_room",
     element: <ManageRooms />,
+  },
+  {
+    path: "manage_table",
+    element: <ManageTable />,
+  },
+  {
+    path: "manage_dish",
+    element: <ManageDish />,
   },
 ]);
 

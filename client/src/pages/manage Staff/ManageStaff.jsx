@@ -1,11 +1,10 @@
-// ManageUser.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import StaffDetail from '../../components/guest detail/StaffDetail';
 import { useNavigate } from 'react-router-dom';
 
 const ManageStaff = () => {
-    const history = useNavigate()
+    const history = useNavigate();
     const [guests, setGuests] = useState([]);
     const [newGuest, setNewGuest] = useState({
         email: '',
@@ -32,25 +31,27 @@ const ManageStaff = () => {
         fetchData();
     }, []);
 
-
-    const handleEditGuest = async () => {
-        // ... (unchanged)
-    };
+    useEffect(() => {
+        // This useEffect will trigger when guests state changes
+        // You can put additional logic here if needed
+    }, [guests]);
 
     const handleDeleteGuest = async (guestId) => {
         try {
-            console.log(guestId.email)
-            const res = await axios.delete(`http://localhost:5000/api/user/${guestId.email}`, {
+            const res = await axios.delete(`http://localhost:5000/api/user/${guestId}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
                 }
             });
 
-            console.log(localStorage.getItem('Saved Token'))
-            console.log(res.data)
+            console.log(localStorage.getItem('Saved Token'));
+            console.log(res.data);
+
+            // Update the state by removing the deleted guest
+            setGuests((prevGuests) => prevGuests.filter(guest => guest.email !== guestId.email));
 
         } catch (e) {
-            console.log('Wrong details');
+            console.error('Error deleting guest:', e.response?.status, e.response?.data);
         }
     };
 
@@ -59,7 +60,7 @@ const ManageStaff = () => {
     };
 
     const handleAddClick = () => {
-        history('/register_staff')
+        history('/register_staff');
     };
 
     return (
@@ -67,7 +68,7 @@ const ManageStaff = () => {
             <h2>Manage Guests</h2>
             <ul>
                 {guests.map((guest) => (
-                    <li key={guest}>
+                    <li key={guest.email}>
                         <StaffDetail
                             guest={guest}
                             onEditClick={handleEditClick}

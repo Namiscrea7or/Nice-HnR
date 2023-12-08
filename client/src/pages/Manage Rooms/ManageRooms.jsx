@@ -22,7 +22,7 @@ const ManageRooms = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/room/available_rooms', {
+                const response = await axios.get('http://localhost:5000/api/room/all_rooms', {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
                 const { success, rooms } = response.data;
@@ -40,18 +40,17 @@ const ManageRooms = () => {
 
     const handleDeleteroom = async (roomId) => {
         try {
-            console.log(roomId.room_number)
-            const res = await axios.delete(`http://localhost:5000/api/room/${roomId.room_number}`, {
+            await axios.delete(`http://localhost:5000/api/room/${roomId}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
                 }
             });
 
-            console.log(localStorage.getItem('Saved Token'))
-            console.log(res.data)
+            // Update the state by removing the deleted room
+            setRooms((prevRooms) => prevRooms.filter(room => room.room_number !== roomId));
 
         } catch (e) {
-            console.log('Wrong details');
+            console.error('Error deleting room:', e.response?.status, e.response?.data);
         }
     };
 
@@ -97,7 +96,7 @@ const ManageRooms = () => {
             <h2>Manage rooms</h2>
             <ul>
                 {rooms.map((room) => (
-                    <li key={room}>
+                    <li key={room.room_number}>
                         <RoomDetail
                             room={room}
                             onEditClick={handleEditClick}

@@ -64,6 +64,9 @@ const System_Admin = () => {
             </div>
             <button><Link to='/manage_user'>Guest</Link></button>
             <button><Link to='/manage_staff'>Staff</Link></button>
+            <button><Link to='/manage_room'>Rooms</Link></button>
+            <button><Link to='/manage_table'>Tables</Link></button>
+            <button><Link to='/manage_dish'>Dishes</Link></button>
         </div>
     )
 }
