@@ -11,19 +11,14 @@ const Dish = require("../models/Dish");
 router.post("/add_dish", verifyToken, async (req, res) => {
   try {
     const sys_ad = await User.findOne({ _id: req.userId });
-    if (!sys_ad)
-      return res.status(200).json({
-        success: false,
-        message: "System admin not found!",
-      });
-    if (sys_ad.role != "System_Admin")
+    if (!sys_ad || sys_ad.role != "System_Admin")
       return res.status(200).json({
         success: false,
         message: "Access denied!",
       });
-    const { dish_name, description, state, price, discount } =
+    const { dish_name, dish_type, description, state} =
       req.body;
-    if (!dish_name || !state || !price || !discount) {
+    if (!dish_name || !dish_type || !description) {
       res.status(200).json({
         success: false,
         message: "Missing information!",
@@ -41,10 +36,9 @@ router.post("/add_dish", verifyToken, async (req, res) => {
 
     const newDish = new Dish({
       dish_name,
+      dish_type,
       description,
-      state,
-      price,
-      discount,
+      state
     });
     await newDish.save();
 
@@ -67,57 +61,51 @@ router.post("/add_dish", verifyToken, async (req, res) => {
 // @access Private (only for system admin)
 router.put("/update_dish", verifyToken, async (req, res) => {
   try {
-    const sys_ad = await User.findOne({ _id: req.userId });
-    if (!sys_ad)
-      return res.status(200).json({
-        success: false,
-        message: "System admin not found!",
-      });
-    if (sys_ad.role != "System_Admin")
-      return res.status(200).json({
+    const sys_ad = await User.findById(req.userId);
+
+    if (!sys_ad || sys_ad.role !== "System_Admin") {
+      return res.status(403).json({
         success: false,
         message: "Access denied!",
       });
-    const { dish_name, description, state, price, discount } =
-      req.body;
-    if (!dish_name || !state || !price || !discount) {
-      res.status(200).json({
+    }
+
+    const { dish_name, dish_type, description, state } = req.body;
+    if (!dish_name || !dish_type || !description || (state !== 'true' && state !== 'false')) {
+      return res.status(200).json({
         success: false,
-        message: "Missing information!",
+        message: "Invalid or missing information!",
       });
     }
 
-    let updatedDIsh = {
+    const updatedDish = {
       dish_name,
+      dish_type,
       description,
       state,
-      price,
-      discount,
     };
 
-    const dishUpdatePrice = {
-      dish_name: dish_name,
-    };
-
-    isUpdatedDish = await Dish.findOneAndUpdate(
+    const dishUpdatePrice = { dish_name };
+    const isUpdatedDish = await Dish.findOneAndUpdate(
       dishUpdatePrice,
-      updatedDIsh,
+      updatedDish,
       { new: true }
     );
 
-    if (!isUpdatedDish)
+    if (!isUpdatedDish) {
       return res.status(200).json({
         success: false,
-        message: "Dish name is not found!",
+        message: "Dish not found!",
       });
+    }
 
     res.json({
       success: true,
       message: "Dish updated successfully",
-      updatedDIsh,
+      updatedDish,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -130,33 +118,38 @@ router.put("/update_dish", verifyToken, async (req, res) => {
 // @access Private
 router.get("/get_all_available_dish", verifyToken, async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.userId });
-    if (!user)
-      return res.status(200).json({
+    const sys_ad = await User.findById(req.userId);
+
+    if (!sys_ad || sys_ad.role !== "System_Admin") {
+      return res.status(403).json({
         success: false,
-        message: "User not found!",
+        message: "Access denied!",
       });
-    // if (sys_ad.role != "Guest")
-    //   return res.status(200).json({
-    //     success: false,
-    //     message: "Access denied!",
-    //   });
-    const dishs = await Dish.find({ state: 'true' });
-    if (dishs.length === 0) {
-      return res.json({ success: true, message: "There is no available dish" });
     }
-    const availableDishs = dishs.map(dish => ({
+
+    const dishes = await Dish.find({ state: 'true' });
+
+    if (dishes.length === 0) {
+      return res.json({
+        success: true,
+        message: "There is no available dish",
+      });
+    }
+
+    const availableDishes = dishes.map(dish => ({
       dish_name: dish.dish_name,
+      dish_type: dish.dish_type,
       description: dish.description,
-      state: dish.state,
-      price: dish.price,
-      discount: dish.discount,
+      state: dish.state
     }));
 
-    res.json({ success: true, dishs: availableDishs });
+    res.json({
+      success: true,
+      dishes: availableDishes,
+    });
   } catch (error) {
-    console.log(error);
-    return res.status(200).json({
+    console.error(error);
+    return res.status(500).json({
       success: false,
       message: "Internal server error",
     });
@@ -169,32 +162,37 @@ router.get("/get_all_available_dish", verifyToken, async (req, res) => {
 router.get("/get_all_dish", verifyToken, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.userId });
-    if (!user)
+
+    if (!user) {
       return res.status(200).json({
         success: false,
         message: "User not found!",
       });
-    // if (sys_ad.role != "Guest")
-    //   return res.status(200).json({
-    //     success: false,
-    //     message: "Access denied!",
-    //   });
-    const dishs = await Dish.find();
-    if (dishs.length === 0) {
-      return res.json({ success: true, message: "There is no available dish" });
     }
-    const AllDishs = dishs.map(dish => ({
+
+    const dishes = await Dish.find();
+
+    if (dishes.length === 0) {
+      return res.json({
+        success: true,
+        message: "There is no available dish",
+      });
+    }
+
+    const allDishes = dishes.map(dish => ({
       dish_name: dish.dish_name,
+      dish_type: dish.dish_type,
       description: dish.description,
-      state: dish.state,
-      price: dish.price,
-      discount: dish.discount,
+      state: dish.state
     }));
 
-    res.json({ success: true, dishs: AllDishs });
+    res.json({
+      success: true,
+      dishes: allDishes,
+    });
   } catch (error) {
-    console.log(error);
-    return res.status(200).json({
+    console.error(error);
+    return res.status(500).json({
       success: false,
       message: "Internal server error",
     });
@@ -206,25 +204,25 @@ router.get("/get_all_dish", verifyToken, async (req, res) => {
 // @access Private (only for system admin)
 router.delete("/:dish_name", verifyToken, async (req, res) => {
   try {
-    const sys_ad = await User.findOne({ _id: req.userId });
-    if (!sys_ad)
-      return res.status(200).json({
-        success: false,
-        message: "System admin not found!",
-      });
-    if (sys_ad.role != "System_Admin")
-      return res.status(200).json({
+    const sys_ad = await User.findById(req.userId);
+
+    if (!sys_ad || sys_ad.role !== "System_Admin") {
+      return res.status(403).json({
         success: false,
         message: "Access denied!",
       });
+    }
 
     const deleteDish = await Dish.findOneAndDelete({
       dish_name: req.params.dish_name,
     });
-    if (!deleteDish)
-      return res
-        .status(200)
-        .json({ success: false, message: "Dish name is not found!" });
+
+    if (!deleteDish) {
+      return res.status(200).json({
+        success: false,
+        message: "Dish not found!",
+      });
+    }
 
     return res.json({
       success: true,
@@ -232,12 +230,13 @@ router.delete("/:dish_name", verifyToken, async (req, res) => {
       deleteDish,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",
     });
   }
 });
+
 
 module.exports = router;

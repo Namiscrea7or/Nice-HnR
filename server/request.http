@@ -200,38 +200,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5M
 
 
 ###
-POST http://localhost:5000/api/dish/add_dish
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE5MTY3OTB9.o7d3yATC2SqEHzFCZKKuPXxZOS84_B7QIWvDGA9cm2E
-Content-Type: application/json
-
-{
-    "dish_name": "Lobster",
-    "description": "Tôm hùm",
-    "state": "true",
-    "price": 100000,
-    "discount": 10
-}
-
-###
-PUT http://localhost:5000/api/dish/update_dish
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTczNDF9.Rii_Ojk1GngXD3oIOT2Pzfoa0sSBMYT9B9WE_qtKEsY
-Content-Type: application/json
-
-{
-    "dish_name": "Lobster",
-    "description": "Tôm hùm 2",
-    "state": "true",
-    "price": 5000000,
-    "discount": 10
-}
-
-###
-DELETE http://localhost:5000/api/dish/Lobster
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
-Content-Type: application/json
-
-
-###
 GET http://localhost:5000/api/room/available_rooms
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDE5MTcwMjZ9.DT15EqGXA9n8jbf_t1bIR7GMI9fNRTIvJMbZV4_RC6g
 
@@ -279,3 +247,37 @@ Content-Type: application/json
     "pay": 100,
     "state": "false"
 }
+
+###
+POST http://localhost:5000/api/dish/add_dish
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE5MTY3OTB9.o7d3yATC2SqEHzFCZKKuPXxZOS84_B7QIWvDGA9cm2E
+Content-Type: application/json
+
+{
+    "dish_name": "Strawberry Panna Cotta",
+    "dish_type": "desserts",
+    "description": "An elegant dessert that marries the delicate creaminess of custard with the sweet essence of strawberries.",
+    "state": "true"
+}
+
+###
+PUT http://localhost:5000/api/dish/update_dish
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE5MTY3OTB9.o7d3yATC2SqEHzFCZKKuPXxZOS84_B7QIWvDGA9cm2E
+Content-Type: application/json
+
+{
+    "dish_name": "Strawberry Panna Cotta",
+    "dish_type": "desserts",
+    "description": "An elegant dessert that marries the delicate creaminess of custard with the sweet essence of strawberries.",
+    "state": "true"
+}
+
+###
+DELETE http://localhost:5000/api/dish/Strawberry Panna Cotta
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
+Content-Type: application/json
+
+###
+GET http://localhost:5000/api/dish/Strawberry Panna Cotta
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
+Content-Type: application/json
