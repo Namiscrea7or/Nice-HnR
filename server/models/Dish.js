@@ -6,20 +6,16 @@ const DishSchema = new Schema({
         type: String,
         required: true
     },
+    dish_type: {
+        type: String,
+        required: true
+    },
     description: {
         type: String
     },
     state: {
         type: String,
         enum: ['true', 'false']
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    discount: {
-        type: Number,
-        required: true
     }
 })
 
