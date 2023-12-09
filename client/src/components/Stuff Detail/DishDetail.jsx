@@ -17,6 +17,8 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
 
     const handleCancelEdit = () => {
         setIsEditing(false);
+        // Reset editedDish to the original values when canceling the edit
+        setEditedDish({ ...dish });
     };
 
     const handleSaveEdit = async () => {
@@ -49,15 +51,18 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
         onDeleteClick(dish.id); // Assuming you pass the dish id to onDeleteClick
     };
 
-    const handleInputChange = (event) =>
-        setEditedDish((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setEditedDish((prev) => ({ ...prev, [name]: value }));
+    };
 
     return (
         <div>
-            <h3>{dish.name}</h3>
+            <h3>{dish.dish_name}</h3>
             <p>Description: {dish.description}</p>
             <p>State: {state}</p>
             <p>Price: {dish.price}</p>
+            <p>Discount: {dish.discount}</p>
 
             {isEditing ? (
                 <>
@@ -72,10 +77,10 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
                         />
                     </label>
                     <label>
-                        State:
+                        Description:
                         <input
                             type="text"
-                            name="state"
+                            name="description"
                             value={editedDish.description}
                             onChange={handleInputChange}
                         />
@@ -86,6 +91,15 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
                             type="text"
                             name="price"
                             value={editedDish.price}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Discount:
+                        <input
+                            type="text"
+                            name="discount"
+                            value={editedDish.discount}
                             onChange={handleInputChange}
                         />
                     </label>

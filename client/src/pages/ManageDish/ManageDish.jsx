@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DishDetail from '../../components/Stuff Detail/DishDetail';
 import { useNavigate } from 'react-router-dom';
-
+import Navbar from '../../components/navbar/Navbar';
 const ManageDish = () => {
     const history = useNavigate();
     const [dishes, setDishes] = useState([]);
@@ -20,11 +20,12 @@ const ManageDish = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/dish/get_dish_list', {
+                const response = await axios.get('http://localhost:5000/api/dish/get_all_dish', {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
-                const { success, dishList } = response.data;
-                setDishes(dishList);
+                console.log(response.data)
+                const { success, dishs } = response.data;
+                setDishes(dishs);
             } catch (error) {
                 console.error('Error fetching dishes:', error.response?.status, error.response?.data);
             }
@@ -59,6 +60,7 @@ const ManageDish = () => {
 
     const handleAddDishSubmit = async () => {
         try {
+            console.log(newDish);
             const response = await axios.post('http://localhost:5000/api/dish/add_dish', newDish, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
@@ -67,12 +69,16 @@ const ManageDish = () => {
             const { success, dish } = response.data;
 
             // Update the state by adding the new dish
-            setDishes(prevDishes => [...prevDishes, dish]);
+            if (!dish.find(t => t.dish_name === dish.dish_name)) {
+                setDishes(prevDish => [...prevDish, dish]);
+            }
 
             setNewDish({
-                name: '',
+                dish_name: '',
                 description: '',
+                state: '',
                 price: '',
+                discount: ''
                 // Reset other properties as needed
             });
             setShowAddForm(false);
@@ -87,10 +93,12 @@ const ManageDish = () => {
 
     return (
         <div>
+            <Navbar/>
+            <div className="blank"></div>
             <h2>Manage dishes</h2>
             <ul>
                 {dishes.map((dish) => (
-                    <li key={dish.id}>
+                    <li key={dish.dish_name}>
                         <DishDetail
                             dish={dish}
                             onEditClick={handleEditClick}
@@ -107,14 +115,55 @@ const ManageDish = () => {
                         <label>Name:
                             <input
                                 type="text"
-                                value={newDish.name}
-                                onChange={(e) => setNewDish({ ...newDish, name: e.target.value })}
+                                value={newDish.dish_name}
+                                onChange={(e) => setNewDish({ ...newDish, dish_name: e.target.value })}
                                 required
                             />
                         </label>
-                        {/* Add other form fields as needed */}
                         <br />
-                        <button type="submit">Submit</button>
+                        <label>Description:
+                            <input
+                                type="text"
+                                value={newDish.description}
+                                onChange={(e) => setNewDish({ ...newDish, description: e.target.value })}
+                                required
+                            />
+                        </label>
+                        <br />
+                        <label>State:
+                            <input
+                                type="text"
+                                value={newDish.state}
+                                onChange={(e) => setNewDish({ ...newDish, state: e.target.value })}
+                                required
+                            />
+                        </label>
+                        <br />
+                        <label>Price:
+                            <input
+                                type="text"  // Chuyển type về text để có thể tự do nhập số
+                                inputMode="numeric"  // Chỉ cho phép nhập số
+                                pattern="[0-9]*"  // Bảo đảm chỉ nhập ký tự số
+                                name="price"
+                                value={newDish.price}
+                                onChange={(e) => setNewDish({ ...newDish, price: e.target.value })}
+                                required
+                            />
+                        </label>
+                        <br />
+                        <label>Discount:
+                            <input
+                                type="text"  // Chuyển type về text để có thể tự do nhập số
+                                inputMode="numeric"  // Chỉ cho phép nhập số
+                                pattern="[0-9]*"  // Bảo đảm chỉ nhập ký tự số
+                                name="discount"
+                                value={newDish.discount}
+                                onChange={(e) => setNewDish({ ...newDish, discount: e.target.value })}
+                                required
+                            />
+                        </label>
+                        <br />
+                        <button type="submit" onClick={handleAddDishSubmit}>Submit</button>
                         <button type="button" onClick={handleCancelAddDish}>Cancel</button>
                     </form>
                 </div>

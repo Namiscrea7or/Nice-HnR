@@ -20,8 +20,6 @@ const Menu = () => {
         <Navbar />
         <div className="menu_bg"></div>
         <Dish />
-        <Dish />
-        <Dish />
       </div>
     );
 }

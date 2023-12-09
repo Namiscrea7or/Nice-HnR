@@ -8,9 +8,8 @@ const Feedback = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/feedback", {
-          headers: { Authorization: localStorage.getItem('Saved Token') }
-        });
+        const response = await axios.get("http://localhost:5000/api/feedback"
+        );
         console.log(response.data);
 
         const { success, posts } = response.data;
