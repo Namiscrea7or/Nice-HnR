@@ -100,42 +100,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3N
 ###
 DELETE http://localhost:5000/api/user/nam@gmail.com
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE4Mjc4Nzl9.NdXBbDod_Bx2Ni31SwX4BYeSPtvyimNEYY4U_I-8EXc
-###
-GET http://localhost:5000/api/room/info/102
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzFlNWM2ZjQzMDZlYzQ1ZjY4OGMiLCJpYXQiOjE3MDEyNjg2Mzd9.Md-mSsJA_T8tnyp5ygit9RmNrkZ8nXk8V6E6mGwnEXM
-
-###
-POST http://localhost:5000/api/room/add_room
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzFlNWM2ZjQzMDZlYzQ1ZjY4OGMiLCJpYXQiOjE3MDEyNjg2Mzd9.Md-mSsJA_T8tnyp5ygit9RmNrkZ8nXk8V6E6mGwnEXM
-
-{
-    "room_type": "Room5",
-    "room_number": "105",
-    "description": "Mô tả của phòng 5",
-    "state": "true",
-    "price": 500000,
-    "discount": 10
-}
-
-###
-PUT http://localhost:5000/api/room/update_room
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDAyMzU3NTl9.XZpq83J4k4ulgspajBalizw29hVKwJTJHnG5FIOVM3k
-Content-Type: application/json
-
-{
-    "room_type": "Room5",
-    "room_number": "104",
-    "description": "Mô tả của phòng 5",
-    "state": "true",
-    "price": 500000,
-    "discount": 10
-}
-
-###
-DELETE http://localhost:5000/api/room/105
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3Mzk4MWM2ZjJkOWMxMWNlMmY5MGMiLCJpYXQiOjE3MDAyMzU3NTl9.XZpq83J4k4ulgspajBalizw29hVKwJTJHnG5FIOVM3k
-Content-Type: application/json
-
 
 ###
 POST http://localhost:5000/api/feedback
@@ -278,6 +242,48 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5M
 Content-Type: application/json
 
 ###
-GET http://localhost:5000/api/dish/Strawberry Panna Cotta
+GET http://localhost:5000/api/dish/get_all_dish
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
 Content-Type: application/json
+
+###
+GET http://localhost:5000/api/room/info/106
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
+
+###
+GET http://localhost:5000/api/room/all_rooms
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
+
+###
+POST http://localhost:5000/api/room/add_room
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
+Content-Type: application/json
+
+{
+    "room_type": "Presidential Suite",
+    "room_number": "106",
+    "description": "The most luxurious and expansive suite in a hotel, often featuring opulent furnishings, multiple bedrooms and bathrooms, a private dining area, a kitchen, and exclusive services.",
+    "state": "true",
+    "capacity": 2,
+    "price": 5000000,
+    "discount": 20
+}
+
+###
+PUT http://localhost:5000/api/room/update_room
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
+Content-Type: application/json
+
+{
+    "room_type": "Presidential Suite",
+    "room_number": "106",
+    "description": "The most luxurious and expansive suite in a hotel, often featuring opulent furnishings, multiple bedrooms and bathrooms, a private dining area, a kitchen, and exclusive services.",
+    "state": "true",
+    "capacity": 2,
+    "price": 5000000,
+    "discount": 20
+}
+
+###
+DELETE http://localhost:5000/api/room/106
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU

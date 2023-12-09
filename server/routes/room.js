@@ -22,9 +22,9 @@ router.post("/add_room", verifyToken, async (req, res) => {
         success: false,
         message: "Access denied!",
       });
-    const { room_type, room_number, description, state, price, discount } =
+    const { room_type, room_number, description, state, capacity, price, discount } =
       req.body;
-    if (!room_type || !room_number || !state || !price || !discount) {
+    if (!room_type || !room_number || !state || !price || !discount || !capacity) {
       res.status(200).json({
         success: false,
         message: "Missing information!",
@@ -45,6 +45,7 @@ router.post("/add_room", verifyToken, async (req, res) => {
       room_number,
       description,
       state,
+      capacity,
       price,
       discount,
     });
@@ -81,10 +82,10 @@ router.put("/update_room", verifyToken, async (req, res) => {
         message: "Access denied!",
       });
 
-    const { room_type, room_number, description, state, price, discount } =
+    const { room_type, room_number, description, state, capacity, price, discount } =
       req.body;
 
-    if (!room_type || !room_number || !state || !price || !discount) {
+    if (!room_type || !room_number || !state || !price || !discount || !capacity) {
       res.status(200).json({
         success: false,
         message: "Missing information!",
@@ -96,6 +97,7 @@ router.put("/update_room", verifyToken, async (req, res) => {
       room_number,
       description,
       state,
+      capacity,
       price,
       discount,
     };
@@ -187,6 +189,7 @@ router.get("/info/:room_number", verifyToken, async (req, res) => {
       room_number: room.room_number,
       description: room.description,
       state: room.state,
+      capacity: room.capacity,
       price: room.price,
       discount: room.discount,
     });
@@ -226,6 +229,7 @@ router.get("/available_rooms", verifyToken, async (req, res) => {
       room_number: room.room_number,
       description: room.description,
       state: room.state,
+      capacity: room.capacity,
       price: room.price,
       discount: room.discount,
     }));
@@ -266,6 +270,7 @@ router.get("/all_rooms", verifyToken, async (req, res) => {
       room_number: room.room_number,
       description: room.description,
       state: room.state,
+      capacity: room.capacity,
       price: room.price,
       discount: room.discount,
     }));

@@ -18,6 +18,10 @@ const RoomSchema = new Schema({
         enum: ['true', 'false'],
         required: true
     },
+    capacity: {
+        type: Number,
+        required: true
+    },
     price: {
         type: Number,
         required: true
