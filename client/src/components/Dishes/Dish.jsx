@@ -5,13 +5,21 @@ import './Dish.css';
 const Dish = () => {
     const [dish, setDish] = useState([]);
     const [error, setError] = useState({});
-
+    function state(state) {
+        if (state === 'true') {
+            return 'available'
+        }
+        else {
+            return 'unavailable'
+        }
+    }
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/dish/get_all_available_dish', { headers: { Authorization: localStorage.getItem('Saved Token') } });
-                const {success, dishs} = response.data
-                setDish(dishs);
+                const response = await axios.get('http://localhost:5000/api/dish/get_all_dish', { headers: { Authorization: localStorage.getItem('Saved Token') } });
+                console.log(response.data)
+                const {success, dishes} = response.data
+                setDish(dishes);
             } catch (error) {
                 console.error('Error fetching dish list:', error);
                 setError(error);
@@ -28,10 +36,9 @@ const Dish = () => {
                     {/* <img src={require(`./img/${dishItem.dish_name}.jpg`)} alt="" /> */}
                     <h2>Tên món: {dishItem.dish_name}</h2>
                     <div className='dishInfo'>
+                        <p>Loại: {dishItem.dish_type}</p>
                         <p>Mô tả: {dishItem.description}</p>
-                        <p>Trạng thái: {/* Add the status property here if available in your data */}</p>
-                        <p>Giá: {dishItem.price}</p>
-                        <p>Giảm giá: {dishItem.discount}%</p>
+                        <p>Trạng thái: {state(dishItem.state)}</p>
                     </div>
                 </div>
             ))}

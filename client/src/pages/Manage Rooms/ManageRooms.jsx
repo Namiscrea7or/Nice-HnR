@@ -11,9 +11,10 @@ const ManageRooms = () => {
         room_type: '',
         room_number: '',
         description: '',
+        capacity: 0,
         state: '',
-        discount: '',
-        price: ''
+        discount: 0,
+        price: 0
     });
     const onChangeRoomForm = event => setNewRoom(prev => ({ ...prev, [event.target.name]: event.target.value }))
     const [editroom, setEditroom] = useState(null);
@@ -73,14 +74,6 @@ const ManageRooms = () => {
             const { success, room } = response.data;
             // Cập nhật danh sách phòng sau khi thêm
             setRooms(prevRooms => [...prevRooms, room]);
-            setNewRoom({
-                room_type: '',
-                room_number: '',
-                description: '',
-                state: '',
-                discount: 0,
-                price: 0
-            });
             setShowAddForm(false);
         } catch (error) {
             console.error('Error adding room:', error.response?.status, error.response?.data);
@@ -127,11 +120,14 @@ const ManageRooms = () => {
                             />
                         </label>
                         <br />
-                        <label>Description:
+                        <label>Capacity:
                             <input
-                                type="text"
-                                value={newRoom.description}
-                                onChange={(e) => setNewRoom({ ...newRoom, description: e.target.value })}
+                                type="text"  // Chuyển type về text để có thể tự do nhập số
+                                inputMode="numeric"  // Chỉ cho phép nhập số
+                                pattern="[0-9]*"  // Bảo đảm chỉ nhập ký tự số
+                                name="price"
+                                value={newRoom.capacity}
+                                onChange={(e) => setNewRoom({ ...newRoom, capacity: e.target.value })}
                                 required
                             />
                         </label>

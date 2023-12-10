@@ -24,8 +24,8 @@ const ManageDish = () => {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
                 console.log(response.data)
-                const { success, dishs } = response.data;
-                setDishes(dishs);
+                const { success, dishes } = response.data;
+                setDishes(dishes);
             } catch (error) {
                 console.error('Error fetching dishes:', error.response?.status, error.response?.data);
             }
@@ -66,19 +66,18 @@ const ManageDish = () => {
                     Authorization: localStorage.getItem('Saved Token')
                 }
             });
-            const { success, dish } = response.data;
+            const { success, dishes } = response.data;
 
             // Update the state by adding the new dish
-            if (!dish.find(t => t.dish_name === dish.dish_name)) {
-                setDishes(prevDish => [...prevDish, dish]);
+            if (!dishes.find(t => t.dish_name === dishes.dish_name)) {
+                setDishes(prevDish => [...prevDish, dishes]);
             }
 
             setNewDish({
                 dish_name: '',
                 description: '',
                 state: '',
-                price: '',
-                discount: ''
+                dish_type: ''
                 // Reset other properties as needed
             });
             setShowAddForm(false);
@@ -139,26 +138,11 @@ const ManageDish = () => {
                             />
                         </label>
                         <br />
-                        <label>Price:
+                        <label>Type:
                             <input
-                                type="text"  // Chuyển type về text để có thể tự do nhập số
-                                inputMode="numeric"  // Chỉ cho phép nhập số
-                                pattern="[0-9]*"  // Bảo đảm chỉ nhập ký tự số
-                                name="price"
-                                value={newDish.price}
-                                onChange={(e) => setNewDish({ ...newDish, price: e.target.value })}
-                                required
-                            />
-                        </label>
-                        <br />
-                        <label>Discount:
-                            <input
-                                type="text"  // Chuyển type về text để có thể tự do nhập số
-                                inputMode="numeric"  // Chỉ cho phép nhập số
-                                pattern="[0-9]*"  // Bảo đảm chỉ nhập ký tự số
-                                name="discount"
-                                value={newDish.discount}
-                                onChange={(e) => setNewDish({ ...newDish, discount: e.target.value })}
+                                type="text"
+                                value={newDish.dish_type}
+                                onChange={(e) => setNewDish({ ...newDish, dish_type: e.target.value })}
                                 required
                             />
                         </label>

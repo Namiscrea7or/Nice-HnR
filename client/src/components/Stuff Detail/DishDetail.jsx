@@ -59,10 +59,9 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
     return (
         <div>
             <h3>{dish.dish_name}</h3>
+            <p>Type: {dish.dish_type}</p>
             <p>Description: {dish.description}</p>
             <p>State: {state}</p>
-            <p>Price: {dish.price}</p>
-            <p>Discount: {dish.discount}</p>
 
             {isEditing ? (
                 <>
@@ -86,24 +85,14 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
                         />
                     </label>
                     <label>
-                        Price:
+                        Type:
                         <input
                             type="text"
-                            name="price"
-                            value={editedDish.price}
+                            name="description"
+                            value={editedDish.dish_type}
                             onChange={handleInputChange}
                         />
                     </label>
-                    <label>
-                        Discount:
-                        <input
-                            type="text"
-                            name="discount"
-                            value={editedDish.discount}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-
                     <button onClick={handleSaveEdit}>Save</button>
                     <button onClick={handleCancelEdit}>Cancel</button>
                 </>
