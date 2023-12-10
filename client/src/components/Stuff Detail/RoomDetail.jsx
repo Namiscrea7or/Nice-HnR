@@ -54,6 +54,7 @@ const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
             <p>Room number: {room.room_number}</p>
             <p>Description: {room.description}</p>
             <p>State: {state}</p>
+            <p>Capacity: {room.capacity}</p>
             <p>Price: {room.price}</p>
             <p>Discount: {room.discount}</p>
 

@@ -48,7 +48,9 @@ const RoomLists = ({ onSelectRooms }) => {
                     <div className="room_info">
                         <h2>Loại phòng: {room.room_type}</h2>
                         <p>Số phòng: {room.room_number}</p>
+                        <p>Capacity: {room.capacity}</p>
                         <p>Giá phòng: {room.price}</p>
+                        <p>Discount: {room.discount}</p>
                         <input
                             type="checkbox"
                             checked={room.isChosen}

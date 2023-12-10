@@ -32,6 +32,7 @@ const Feedback = () => {
         <h2 className='feedback_h2'>What Our Customers Say</h2>
         {feedbackList.map((feedback, index) => (
           <div key={index} className="feedback-item">
+            <p>User: {feedback.user.full_name}</p>
             <p>Description: {feedback.description}</p>
             <p>Rate: {feedback.rate}</p>
           </div>
