@@ -285,4 +285,34 @@ router.get("/all_rooms", verifyToken, async (req, res) => {
   }
 });
 
+// @route GET api/room/all_rooms_public
+// @desc Get all rooms
+// @access public
+router.get("/all_rooms_public", async (req, res) => {
+  try {
+    const rooms = await Room.find();
+    if (rooms.length === 0) {
+      return res.json({ success: true, message: "There are no rooms in room list" });
+    }
+    const allRooms = rooms.map(room => ({
+      room_type: room.room_type,
+      room_number: room.room_number,
+      description: room.description,
+      state: room.state,
+      capacity: room.capacity,
+      price: room.price,
+      discount: room.discount,
+    }));
+
+    res.json({ success: true, rooms: allRooms });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
+
 module.exports = router;
