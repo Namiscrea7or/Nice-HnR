@@ -238,5 +238,39 @@ router.delete("/:dish_name", verifyToken, async (req, res) => {
   }
 });
 
+// @route GET api/dish/get_all_dish_public
+// @desc Get all dish 
+// @access Public
+router.get("/get_all_dish_public", async (req, res) => {
+  try {
+    const dishes = await Dish.find();
+
+    if (dishes.length === 0) {
+      return res.json({
+        success: true,
+        message: "There is no available dish",
+      });
+    }
+
+    const allDishes = dishes.map(dish => ({
+      dish_name: dish.dish_name,
+      dish_type: dish.dish_type,
+      description: dish.description,
+      state: dish.state
+    }));
+
+    res.json({
+      success: true,
+      dishes: allDishes,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
 
 module.exports = router;
