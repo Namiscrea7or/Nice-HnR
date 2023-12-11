@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 
 const TableForm = ({ selectedTables }) => {
+  console.log(selectedTables)
   const history = useNavigate();
   const handleKeyPress = (event) => {
     const isNumberKey = (event) => {
