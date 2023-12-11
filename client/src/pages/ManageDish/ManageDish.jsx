@@ -34,24 +34,19 @@ const ManageDish = () => {
         fetchData();
     }, []);
 
-    const handleDeleteDish = async (dishId) => {
+    const handleDeleteDish = async (dish_name) => {
         try {
-            console.log('Deleting dish:', dishId);
+            console.log('Deleting dish:', dish_name);
     
-            // Log the current state before deletion
-            console.log('Before deletion:', dishes);
     
-            await axios.delete(`http://localhost:5000/api/dish/${dishId}`, {
+            await axios.delete(`http://localhost:5000/api/dish/${dish_name}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
                 }
             });
     
             // Update the state by removing the deleted dish
-            setDishes((prevDishes) => prevDishes.filter(dish => dish.dish_name !== dishId));
-    
-            // Log the state after deletion
-            console.log('After deletion:', dishes);
+            setDishes((prevDishes) => prevDishes.filter(dish => dish.dish_name !== dish_name));
     
         } catch (e) {
             console.error('Error deleting dish:', e.response?.status, e.response?.data);

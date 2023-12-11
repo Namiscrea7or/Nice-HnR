@@ -26,6 +26,12 @@ const Feedback = () => {
     fetchData();
   }, []);
 
+  const renderStars = (rate) => {
+    const fullStars = '★'.repeat(rate);
+    const emptyStars = '☆'.repeat(5 - rate);
+    return fullStars + emptyStars;
+  };
+
   return (
     <div>
       <section id="feedback-list">
@@ -34,7 +40,7 @@ const Feedback = () => {
           <div key={index} className="feedback-item">
             <p>User: {feedback.user.full_name}</p>
             <p>Description: {feedback.description}</p>
-            <p>Rate: {feedback.rate}</p>
+            <div className="star">{renderStars(feedback.rate)}</div>
           </div>
         ))}
       </section>

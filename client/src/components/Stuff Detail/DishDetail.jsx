@@ -48,7 +48,7 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
     };
 
     const handleDeleteClick = () => {
-        onDeleteClick(dish.id); // Assuming you pass the dish id to onDeleteClick
+        onDeleteClick(dish.dish_name); // Assuming you pass the dish id to onDeleteClick
     };
 
     const handleInputChange = (event) => {
