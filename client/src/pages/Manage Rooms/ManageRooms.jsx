@@ -41,6 +41,7 @@ const ManageRooms = () => {
 
     const handleDeleteroom = async (roomId) => {
         try {
+            console.log(roomId)
             await axios.delete(`http://localhost:5000/api/room/${roomId}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')

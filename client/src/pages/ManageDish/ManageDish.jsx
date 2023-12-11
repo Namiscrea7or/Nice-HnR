@@ -34,21 +34,25 @@ const ManageDish = () => {
         fetchData();
     }, []);
 
-    const handleDeleteDish = async (dishId) => {
+    const handleDeleteDish = async (dish_name) => {
         try {
-            await axios.delete(`http://localhost:5000/api/dish/${dishId}`, {
+            console.log('Deleting dish:', dish_name);
+    
+    
+            await axios.delete(`http://localhost:5000/api/dish/${dish_name}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
                 }
             });
-
+    
             // Update the state by removing the deleted dish
-            setDishes((prevDishes) => prevDishes.filter(dish => dish.id !== dishId));
-
+            setDishes((prevDishes) => prevDishes.filter(dish => dish.dish_name !== dish_name));
+    
         } catch (e) {
             console.error('Error deleting dish:', e.response?.status, e.response?.data);
         }
     };
+    
 
     const handleEditClick = async (dish) => {
         setEditDish({ ...dish });
@@ -69,17 +73,10 @@ const ManageDish = () => {
             const { success, dishes } = response.data;
 
             // Update the state by adding the new dish
-            if (!dishes.find(t => t.dish_name === dishes.dish_name)) {
-                setDishes(prevDish => [...prevDish, dishes]);
-            }
+    
+            setDishes(prevDish => [...prevDish, dishes]);
 
-            setNewDish({
-                dish_name: '',
-                description: '',
-                state: '',
-                dish_type: ''
-                // Reset other properties as needed
-            });
+
             setShowAddForm(false);
         } catch (error) {
             console.error('Error adding dish:', error.response?.status, error.response?.data);

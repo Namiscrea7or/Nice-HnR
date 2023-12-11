@@ -67,16 +67,11 @@ const ManageTable = () => {
             const { success, table } = response.data;
 
             // Update the state only if the table is not already present
-            if (!tables.find(t => t.table_number === table.table_number)) {
-                setTables(prevTables => [...prevTables, table]);
-            }
+           
+            setTables(prevTables => [...prevTables, table]);
+            
 
-            setNewTable({
-                table_type: '',
-                table_number: '',
-                state: '',
-                price: 0,
-            });
+            
             setShowAddForm(false);
         } catch (error) {
             console.error('Error adding table:', error.response?.status, error.response?.data);

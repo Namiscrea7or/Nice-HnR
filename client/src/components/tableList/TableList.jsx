@@ -12,8 +12,8 @@ const TableList = ({ onSelectTables }) => {
                 });
 
                 console.log('API Response:', response.data);
-                const { success, rooms } = response.data;
-                const tablesWithIsChosen = rooms.map(table => ({
+                const { success, tables } = response.data;
+                const tablesWithIsChosen = tables.map(table => ({
                     ...table,
                     isChosen: false,
                 }));
@@ -27,17 +27,16 @@ const TableList = ({ onSelectTables }) => {
     }, []);
 
     const handleCheckboxChange = (tableNumber) => {
-        const updatedTables = tables.map((table) =>
-            table.table_number === tableNumber ? { ...table, isChosen: !table.isChosen } : table
-        );
+        const updatedTables = tables.map((table) => ({
+            ...table,
+            isChosen: table.table_number === tableNumber ? !table.isChosen : false,
+        }));
     
         setTables(updatedTables);
     
-        const selectedItems = updatedTables
-            .filter((table) => table.isChosen)
-            .map((table) => ({ ...table })); // Make a copy of the selected tables with all properties
+        const selectedTable = updatedTables.find((table) => table.isChosen);
     
-        onSelectTables(selectedItems);
+        onSelectTables(selectedTable ? [selectedTable] : []);
     };
 
     return (

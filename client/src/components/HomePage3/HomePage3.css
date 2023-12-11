@@ -1,0 +1,9 @@
+.homepage3 {
+    height: 0.9%;
+    left: 57.5%;
+    object-fit: cover;
+    position: absolute;
+    top: 0.7%;
+    width: 41%;
+    background-image: url(./HomePage3.jpg);
+}
