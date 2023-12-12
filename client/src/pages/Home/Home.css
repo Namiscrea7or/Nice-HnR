@@ -376,9 +376,9 @@
 
 .home-page .overlap-wrapper {
     height: 100%;
-    left: 0;
+    left: -3%;
     position: absolute;
-    top: 160%;
+    top: 200%;
     width: 100%;
 }
 
@@ -436,3 +436,16 @@
     width: 20%;
 }
   
+.home-page .text-wrapper-10 {
+    color: #9c7357;
+    font-family: "Inter", Helvetica;
+    font-size: 125%;
+    font-weight: 400;
+    left: 5%;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: -40%;
+    width: 80%;
+}

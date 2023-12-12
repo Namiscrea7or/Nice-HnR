@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Rooms from '../../components/Rooms/Rooms'
 import Navbar from '../../components/navbar/Navbar'
-import RoomLists from '../../components/RoomLists/RoomLists';
 import './RoomsPage.css'
 import Video from './Video.mp4';
 import Television from './television.png';
@@ -17,6 +16,8 @@ import fridge from './mini.png';
 import slipper from './slippers.png';
 import pillow from './pillow.png';
 import boiler from './water-boiler.png';
+import rectangle from './rectangle.svg';
+import footer from '../../components/shape/footer.svg';
 
 
 const RoomsPage = () => {
@@ -68,7 +69,54 @@ const RoomsPage = () => {
           <img className="boiler" alt="boiler" src={boiler}/>
         </div>
         <div className="text-wrapper-13">Our rooms</div>
+        <div className="room-list">
+          <Rooms/>
+        </div>
+        <div className="attention">
+          <img className="rectangle-2" alt="rectangele" src={rectangle} />
+          <p className="time">The times may vary in regards to flight times and availability.</p>
+          <div className="text-wrapper-14">From 2:00 pm</div>
+          <div className="text-wrapper-15">Check in:</div>
+          <div className="text-wrapper-16">Check out:</div>
+          <div className="text-wrapper-17">By 12:00 noon</div>
+          <p className="text-wrapper-18">
+            Local voltage of 220 - 240 AC. Adapters are available in all rooms.
+          </p>
+          <div className="text-wrapper-19">Voltage</div>
+          <p className="text-wrapper-20">
+            Children under 12 years old can share the same bedroom with 2 paying adults.
+          </p>
+          <div className="text-wrapper-22">
+            <div className="footer">
+              <div className="overlap-9">
+                <img className="footer" alt="Footer" src={footer} />
+                <p className="footer-2">
+                  2112736 - Phan Phước Hải Nam
+                  <br />
+                  <br />
+                  21127433 -Ngô Thị Thanh Thảo
+                  <br />
+                  <br />
+                  21127644 - Huỳnh Cao Minh
+                  </p>
+                <p className="footer-3">
+                <br />
+                <br />
+                21127700 - Lê Phước Thịnh Tiến
+                <br />
+                <br />
+                21127704 - Phạm Khánh Toàn
+                </p>
+              <div className="footer-4">GROUP NICE</div>
+            </div>
+            </div>
+          </div>
+          
+        </div>
+        <div className="text-wrapper-21">Attention
       </div>
+      </div>
+
     );
 }
 

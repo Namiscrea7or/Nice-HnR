@@ -16,7 +16,7 @@ const Dish = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/dish/get_all_dish', { headers: { Authorization: localStorage.getItem('Saved Token') } });
+                const response = await axios.get('http://localhost:5000/api/dish/get_all_dish_public');
                 console.log(response.data)
                 const {success, dishes} = response.data
                 setDish(dishes);

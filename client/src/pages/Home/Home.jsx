@@ -86,10 +86,9 @@ const Home = () => {
       <img className="line-13" alt="Line" src={line2} />  
       <img className="line-14" alt="Line" src={line3} />
       <p className="text-wrapper-8">
-        Discover a haven where design transcends boundaries and elegance knows no limits. Nice Hotel and Restaurant is
-        a testament to meticulous design and unparalleled craftsmanship, where world-class designers have lent their
-        expertise to create an ambiance of sheer luxury. From the awe-inspiring architecture that captivates the eye
-        to the bespoke interiors that exude sophistication, every element has been thoughtfully curated.
+      Discover our guestrooms and suites—a blend of luxury and comfort. Enjoy stunning views and a 
+      space that inspires relaxation and personal pursuits. Each room is a haven of sophistication, offering a 
+      perfect balance between comfort and intellectual stimulation, inviting you to indulge in a unique experience of refined living.
       </p>
       <div className="overlap-8">
         <HomePage8 />
@@ -112,7 +111,15 @@ const Home = () => {
           </p>
           <div className="text-wrapper-7">Pool</div>
         </div>
+        
         <div className="overlap-wrapper">
+        <p className="text-wrapper-10">
+          Discover a haven where design transcends boundaries and elegance knows no limits. 
+          Nice Hotel and Restaurant is a testament to meticulous design and unparalleled craftsmanship, 
+          where world-class designers have lent their expertise to create an ambiance of sheer luxury. 
+          From the awe-inspiring architecture that captivates the eye to the bespoke interiors that exude sophistication, 
+          every element has been thoughtfully curated.
+        </p>
           <div className="overlap-9">
             <img className="footer" alt="Footer" src={footer} />
             <p className="footer-2">
