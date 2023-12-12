@@ -1,14 +1,47 @@
-.menuContainer {
-    box-sizing: border-box;
+.menu {
+    background-color: #ffffff;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    width: 100%;
+}
+  
+.menu .div {
+    background-color: #ffffff;
+    height: 5616px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
 }
 
-.menu_bg {
-    background-image: url(./menu_bg.jpg);
-    background-repeat: none;
-    background-size: cover;
-    height: 60vh;
-    width: 100vw;
+.menu .overlap {
+    height: 913px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
+  
+.menu .food {
+    height: 812px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.menu .text-wrapper-1 {
+    color: #1e1e1e;
+    font-family: "Junge", Helvetica;
+    font-size: 400%;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 15%;
+    width: 100%;
+}
+

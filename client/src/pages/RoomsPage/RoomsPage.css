@@ -353,10 +353,10 @@
 
 .index .rectangle-2 {
     height: 100%;
-    left: 2%;
+    left: 0%;
     position: absolute;
     top: -5%;
-    width: 100%;
+    width: 104%;
 }
 
 .index .time {
@@ -484,7 +484,7 @@
     height: 58%;
     top: 130%;
     position: absolute;
-    left: 2%;
+    left: 0%;
     width: 100%;
 }
 
@@ -499,7 +499,7 @@
 .overlap-9 {
     height: 100%;
     position: relative;
-    width: 100%;
+    width: 104%;
 }
 
 .footer {

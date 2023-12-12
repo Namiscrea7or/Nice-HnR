@@ -3,6 +3,8 @@ import axios from 'axios';
 import Dish from '../../components/Dishes/Dish'
 import Navbar from '../../components/navbar/Navbar'
 import './Menu.css'
+import food1 from './food.jpg';
+
 const Menu = () => {
     const [menu, setMenu] = useState([]);
     const [error, setError] = useState(null);
@@ -16,10 +18,15 @@ const Menu = () => {
     // if (error) return <p>Error: {error.message}</p>;
   
     return (
-      <div className='menuContainer'>
-        <Navbar />
-        <div className="menu_bg"></div>
+      <div className="menu">
+        <div className="div">
+          <div className="overlap">
+            <Navbar/>
+            <img className="food" alt="Food" src={food1} />
+        </div>
+        <div className="text-wrapper-1">Discover Our Menu</div>
         <Dish />
+        </div>
       </div>
     );
 }

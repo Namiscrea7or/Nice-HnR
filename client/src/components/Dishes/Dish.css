@@ -1,13 +1,22 @@
 .dishContainer {
-    text-align: center;
+    height: 264px;
+    position: relative;
+    width: 355px;
+    top: 1000px;
 }
 
-.dish {
-    text-align: center;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.dish-type {
+    color: #1e1e1e;
+  font-family: "Junge", Helvetica;
+  font-size: 64px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 963px;
+  width: 1440px;
 }
 
 .dish img {
