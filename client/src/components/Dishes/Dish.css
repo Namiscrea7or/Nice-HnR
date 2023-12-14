@@ -1,59 +1,63 @@
 .dishContainer {
     background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     width: 100%;
 }
 
-.type {
-    color: #1e1e1e;
+.dishContainer .type-name {
+    color: 1e1e1e;
     font-family: "Junge", Helvetica;
     font-size: 400%;
     font-weight: 400;
-    height: 10%;
-    left: 5%;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
+    height: 5%;
     text-align: left;
-    top: 10%;
-    width: 70%;
+    margin-left: 5%;
+    margin-bottom: 3%;
 }
 
-.index .dish-info {
-    background-color: #ffffff;
-    height: 1%;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-}
-
-.index .overlap {
-    background-image: url(./rectangle.svg);
-    background-size: 100% 100%;
-    height: 50%;
-    left: 0;
-    position: absolute;
-    top: 10%;
-    width: 100%;
-}
-
-.index .description {
-    color: #1e1e1e;
-    font-family: "Inter", Helvetica;
-    font-size: 130%;
-    font-weight: 400;
-    left: 2%;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 50%;
-    width: 55%;
-}   */
-
-.list {
+.dishContainer .list {
+    margin-bottom: 10%;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 10%;
+    margin-left: 2%;
 }
 
+.dishContainer .dish .dish-img {
+    height: 200px;
+    width: 200px;
+}
+
+.dishContainer .dish {
+    display: flex;
+    flex-direction: row;
+}
+
+.dishContainer .dish .dishInfo {
+    height: 100%;
+    width: 60%;
+    background-color: #4b4b4b;
+}
+
+.dishContainer .name {
+    color: #ffffff;
+    font-family: "Junge", Helvetica;
+    font-size: 200%;
+    font-weight: 400;
+    height: 40%;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dish p {
+    color: #ffffff;
+    font-family: "Junge", Helvetica;
+    font-size: 150%;
+    font-weight: 400;
+    height: 10%;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: left;
+    margin-left: 15px;
+}

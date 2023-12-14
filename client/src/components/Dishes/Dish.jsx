@@ -110,16 +110,15 @@ const Dish = () => {
   return (
     <div className="dishContainer">
       {Object.keys(groupedDishes).map((dishType, index) => (
-        <div className="type">
-          <div className="dishType">{capitalize(dishType)}</div>
-          <div key={index} className="list">
+        <div key={index} className="dishType">
+          <div className="type-name">{capitalize(dishType)}</div>
+          <div className="list">
             {(groupedDishes[dishType] || []).map((dishItem, subIndex) => (
-              <div className="dish">
-                <img src={getDishImage(dishItem.dish_name)} alt="" />
-                <h3>Tên món: {dishItem.dish_name}</h3>
+              <div key={subIndex} className="dish">
+                <img className="dish-img" alt="img" src={getDishImage(dishItem.dish_name)}/>
                 <div className="dishInfo">
-                  <p>Loại: {dishItem.dish_type}</p>
-                  <p>Mô tả: {dishItem.description}</p>
+                    <div className="name">{dishItem.dish_name}</div>
+                    <p>{dishItem.description}</p>
                 </div>
               </div>
             ))}
