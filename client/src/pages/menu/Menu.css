@@ -1,29 +1,13 @@
-.menu {
+.index {
     background-color: #ffffff;
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
 }
-  
-.menu .div {
-    background-color: #ffffff;
-    height: 5616px;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-}
 
-.menu .overlap {
-    height: 913px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-}
-  
-.menu .food {
-    height: 812px;
+.index .background {
+    height: 100%;
     left: 0;
     object-fit: cover;
     position: absolute;
@@ -31,7 +15,7 @@
     width: 100%;
 }
 
-.menu .text-wrapper-1 {
+.index .text-wrapper-0 {
     color: #1e1e1e;
     font-family: "Junge", Helvetica;
     font-size: 400%;
@@ -41,7 +25,21 @@
     line-height: normal;
     position: absolute;
     text-align: center;
-    top: 15%;
+    top: 105%;
     width: 100%;
 }
 
+.index .overlap-1 {
+    left: 0;
+    position: absolute;
+    top: 120%;
+    width: 100%;
+}
+
+.index .room-info {
+    background-color: #ffffff;
+    height: 50%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}

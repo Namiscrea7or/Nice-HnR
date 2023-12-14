@@ -18,14 +18,12 @@ const Menu = () => {
     // if (error) return <p>Error: {error.message}</p>;
   
     return (
-      <div className="menu">
-        <div className="div">
-          <div className="overlap">
-            <Navbar/>
-            <img className="food" alt="Food" src={food1} />
-        </div>
-        <div className="text-wrapper-1">Discover Our Menu</div>
-        <Dish />
+      <div className="index">
+        <Navbar />
+        <img className="background" alt="background" src={food1}/>
+        <div className="text-wrapper-0">Discover Our Menus</div>
+        <div className="overlap-1">
+          <Dish/>
         </div>
       </div>
     );
