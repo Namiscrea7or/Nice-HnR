@@ -107,7 +107,7 @@ router.put("/:bookingId/pay", verifyToken, async (req, res) => {
 
 router.post("/book_room", verifyToken, async (req, res) => {
   const {
-    room_numbers,
+    room_number,
     room_date,
     number_adults,
     number_child
@@ -124,54 +124,41 @@ router.post("/book_room", verifyToken, async (req, res) => {
         success: false,
         message: "Access denied!",
       });
-    errors = [];
-    for (const room_number of room_numbers) {
-      const room = await Room.findOne({ room_number: room_number });
-      if (!room) {
-        errors.push({
-          room_number: room_number,
-          message: "Room is not found"
-        });
-        continue;
-      }
-      const existingBookingRooms = await BookingRoom.find({
-        room_type: room._id,
-        "room_date.start_room_date": {
-          $gte: room_date.start_room_date
-        },
-        "room_date.end_room_date": {
-          $gte: room_date.start_room_date
-        }
-      });
-      if (existingBookingRooms.length !== 0) {
-        errors.push({
-          room_number: room_number,
-          message: "Room is not available in these dates"
-        });
-        continue;
-      }
-      const newBookingRoom = new BookingRoom({
-        user: guest._id,
-        room_type: room._id,
-        room_date: room_date,
-        number_adults: number_adults,
-        number_child: number_child,
-        state: 'false',
-      });
-      await newBookingRoom.save();
-    }
-    if (errors.length > 0) {
+    const room = await Room.findOne({ room_number: room_number });
+    if (!room) {
       return res.status(200).json({
         success: false,
-        message: "Some room can't be booked in these dates",
-        errors: errors,
-      });
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: "All rooms are booked successfully",
+        message: "Room is not found",
       });
     }
+    const existingBookingRooms = await BookingRoom.find({
+      room_type: room._id,
+      "room_date.start_room_date": {
+        $gte: room_date.start_room_date
+      },
+      "room_date.end_room_date": {
+        $gte: room_date.start_room_date
+      }
+    });
+    if (existingBookingRooms.length !== 0) {
+      return res.status(200).json({
+        success: false,
+        message: "Room is booked in these dates",
+      });
+    }
+    const newBookingRoom = new BookingRoom({
+      user: guest._id,
+      room_type: room._id,
+      room_date: room_date,
+      number_adults: number_adults,
+      number_child: number_child,
+      state: 'false',
+    });
+    await newBookingRoom.save();
+    return res.status(200).json({
+      success: true,
+      message: "Room is booked successfully",
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -187,7 +174,7 @@ router.post("/book_room", verifyToken, async (req, res) => {
 
 router.post("/book_table", verifyToken, async (req, res) => {
   const {
-    table_numbers,
+    table_number,
     full_name,
     phone_number,
     table_date,
@@ -204,45 +191,33 @@ router.post("/book_table", verifyToken, async (req, res) => {
         success: false,
         message: "Access denied!",
       });
-    errors = [];
-    for (const table_number of table_numbers) {
-      const table = await Table.findOne({ table_number: table_number });
-      if (!table) {
-        errors.push({
-          table_number: table_number,
-          message: "Table is not found"
-        });
-        continue;
-      }
-      const existingBookingTables = await BookingTable.find({
-        table_number: table_number,
-        table_date: table_date,
-      });
-      if (existingBookingTables.length !== 0)
-        return res.status(200).json({
-          success: false,
-          message: "Table is not available in these date!",
-        });
-      const newBookingTable = new BookingTable({
-        user: guest._id,
-        table_type: table,
-        table_date: table_date,
-        state: 'false',
-      });
-      await newBookingTable.save();
-    }
-    if (errors.length > 0) {
+    const table = await Table.findOne({ table_number: table_number });
+    if (!table) {
       return res.status(200).json({
         success: false,
-        message: "Some tables can't be booked in these dates",
-        errors: errors,
-      });
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: "All tables are booked successfully",
+        message: "Table is not found",
       });
     }
+    const existingBookingTables = await BookingTable.find({
+      table_number: table_number,
+      table_date: table_date,
+    });
+    if (existingBookingTables.length !== 0)
+      return res.status(200).json({
+        success: false,
+        message: "Table is not available in these date!",
+      });
+    const newBookingTable = new BookingTable({
+      user: guest._id,
+      table_type: table,
+      table_date: table_date,
+      state: 'false',
+    });
+    await newBookingTable.save();
+    return res.status(200).json({
+      success: true,
+      message: "Table is booked successfully",
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
