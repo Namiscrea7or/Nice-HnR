@@ -60,7 +60,7 @@ const RoomLists = ({ onSelectRooms }) => {
                     <br />
                     Price: {room.price}
                     <br />
-                    Discount: {room.discount}
+                    Discount: {room.discount}%
                   </p>
                   <div className="overlap-group">
                     <div className="type"> {room.room_type}</div>
