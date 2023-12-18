@@ -287,3 +287,7 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5000/api/room/106
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
+
+###
+GET http://localhost:5000/api/booking/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDI4NzAxNjF9.wF3q0suBaoqOy_WPbGOOf0lz5Fn44aTtniG9m573UDQ
