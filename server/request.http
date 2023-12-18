@@ -174,18 +174,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhO
 
 ###
 POST http://localhost:5000/api/booking/book_room
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDE4MjM5NTF9.pV5v-r42pv2i0lvJEC4MfsxMLYjntwEE9lXazzf68lg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDI4NzI1NTV9.9wNYylhEasPZ1mbTMb9H1w0qvOyDedBavfmAGcg0VRc
 Content-Type: application/json
 
 {
-    "room_numbers": ["102","103","104"],  
-    "room_date": {
-        "start_room_date": "2023-12-01T00:00:00Z",
-        "end_room_date": "2023-12-02T00:00:00Z"
-        },
-    "number_adults" :4,
-    "number_child" :2,
-    "state": "false"
+    "room_number": "104",  
+    "start_room_date": "2023-12-23T00:00:00Z",
+    "end_room_date": "2023-12-25T00:00:00Z",
+    "number_adults": 2,
+    "number_child": 1
 }
 
 ###
@@ -202,14 +199,14 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/api/booking/book_table
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDE0ODA3Mzl9.z6ugdHpSb69IFOJiQkLUx2c9MaU6l2cMcvkkEQlizNc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDI4NjU2Njl9.KLvTIhAPfM3NKAjI0QAh8bTPUavXYV-HSK9QnipTz0w
 Content-Type: application/json
 
 {
-    "table_type": "656a8fa3bbb8105e7a808af4",  
-    "table_date": "2023-12-01T00:00:00Z",
-    "pay": 100,
-    "state": "false"
+    "table_number": "1",  
+    "full_name" :"Nam1",
+    "phone_number":"0908789879",
+    "table_date": "2023-12-01T00:00:00Z"
 }
 
 ###
@@ -287,6 +284,8 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5000/api/room/106
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE0MTc4NDh9.QIHOAYsDV53S7KWjak-l1lZD23BIVO-LC2y5H78l_MU
+
+
 
 ###
 GET http://localhost:5000/api/booking/

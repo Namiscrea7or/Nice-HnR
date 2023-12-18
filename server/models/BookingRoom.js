@@ -10,13 +10,11 @@ const BookingRoomSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "rooms",
   },
-  room_date: {
-    start_room_date: {
-      type: Date,
-    },
-    end_room_date: {
-      type: Date,
-    },
+  start_room_date: {
+    type: Date,
+  },
+  end_room_date: {
+    type: Date,
   },
   number_adults: {
     type: Number,
