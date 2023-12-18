@@ -8,90 +8,25 @@ const Table = require("../models/Table");
 const BookingRoom = require("../models/BookingRoom");
 const BookingTable = require("../models/BookingTable");
 
-// @route POST api/booking/
-// @desc Create booking information
-// @access Private
-router.post("/", verifyToken, async (req, res) => {
-  try {
-    const bookingRooms = await BookingRoom.find({ user: req.userId, state: 'false' });
-    const bookingTables = await BookingTable.find({ user: req.userId, state: 'false' });
-
-    // Get the IDs of all rooms and tables
-    const roomBookingIds = bookingRooms.map((booking) => booking._id);
-    const tableBookingIds = bookingTables.map((booking) => booking._id);
-    const tableTypeIds = bookingTables.map((booking) => booking.table_type);
-
-    // Retrieve all rooms and tables with their prices
-    const rooms = await Room.find({ _id: { $in: tableTypeIds } });
-    const tables = await Table.find({ _id: { $in: tableTypeIds } });
-
-    // Create a detailed list of rooms with prices
-    const detailedRooms = rooms.map((room) => ({
-      roomType: room.room_type,
-      roomNumber: room.room_number,
-      description: room.description,
-      price: room.price,
-    }));
-
-    // Create a detailed list of tables with prices
-    const detailedTables = tables.map((table) => ({
-      tableType: table.table_type,
-      tableNumber: table.table_number,
-      price: table.price,
-    }));
-
-    // Calculate the sum of prices for all rooms and tables
-    const totalRoomPrice = rooms.reduce((sum, room) => sum + room.price, 0);
-    const totalTablePrice = tables.reduce((sum, table) => sum + table.price, 0);
-    const total = totalRoomPrice + totalTablePrice;
-
-    // Create a new Booking instance and save it to the database
-    const newBooking = new Booking({
-      user: req.userId,
-      table_bookings: tableBookingIds,
-      room_bookings: roomBookingIds,
-      pay: total,
-      state: 'false',
-    });
-
-    const savedBooking = await newBooking.save();
-
-    res.json({
-      success: true,
-      user: req.userId,
-      detailedRooms,
-      detailedTables,
-      totalRoomPrice,
-      totalTablePrice,
-      total,
-      booking: savedBooking,
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-});
-
-
-// @route GET api/booking/
-// @desc Create booking information
+// @route GET api/bookings/
+// @desc Get all booking information and calculate total amount
 // @access Private
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const bookingRooms = await BookingRoom.find({ user: req.userId, state: 'false' });
-    const bookingTables = await BookingTable.find({ user: req.userId, state: 'false' });
+    const userId = req.userId;
+
+    // Get all booking rooms and tables for the user
+    const bookingRooms = await BookingRoom.find({ user: userId, state: 'false' });
+    const bookingTables = await BookingTable.find({ user: userId, state: 'false' });
+
 
     // Get the IDs of all rooms and tables
-    const roomBookingIds = bookingRooms.map((booking) => booking._id);
-    const tableBookingIds = bookingTables.map((booking) => booking._id);
-    const tableTypeIds = bookingTables.map((booking) => booking.table_type);
+    const roomBookingIds = bookingRooms.map((booking) => booking.room_type);
+    const tableBookingIds = bookingTables.map((booking) => booking.table_type);    
 
     // Retrieve all rooms and tables with their prices
-    const rooms = await Room.find({ _id: { $in: tableTypeIds } });
-    const tables = await Table.find({ _id: { $in: tableTypeIds } });
+    const rooms = await Room.find({ _id: { $in: roomBookingIds } });
+    const tables = await Table.find({ _id: { $in: tableBookingIds } });
 
     // Create a detailed list of rooms with prices
     const detailedRooms = rooms.map((room) => ({
@@ -111,28 +46,16 @@ router.get("/", verifyToken, async (req, res) => {
     // Calculate the sum of prices for all rooms and tables
     const totalRoomPrice = rooms.reduce((sum, room) => sum + room.price, 0);
     const totalTablePrice = tables.reduce((sum, table) => sum + table.price, 0);
-    const total = totalRoomPrice + totalTablePrice;
-
-    // // Create a new Booking instance and save it to the database
-    // const newBooking = new Booking({
-    //   user: req.userId,
-    //   table_bookings: tableBookingIds,
-    //   room_bookings: roomBookingIds,
-    //   pay: total,
-    //   state: 'false',
-    // });
-
-    // const savedBooking = await newBooking.save();
+    const totalAmount = totalRoomPrice + totalTablePrice;
 
     res.json({
       success: true,
-      user: req.userId,
+      user: userId,
       detailedRooms,
       detailedTables,
       totalRoomPrice,
       totalTablePrice,
-      total
-      // booking: savedBooking,
+      totalAmount,
     });
   } catch (error) {
     console.error(error);
@@ -142,36 +65,6 @@ router.get("/", verifyToken, async (req, res) => {
     });
   }
 });
-
-
-// // @route GET api/bookings/
-// // @desc Get list of bookings for a user
-// // @access Private
-// router.get("/", verifyToken, async (req, res) => {
-//   try {
-//     const userId = req.userId;
-
-//     // Find bookings for the user
-//     const userBookings = await Booking.find({ user: userId });
-
-//     // Optionally, you can populate the referenced fields (e.g., table_bookings, room_bookings, table_types)
-//     // using Mongoose's populate method
-//     await Booking.populate(userBookings, { path: "table_bookings room_bookings table_types" });
-
-//     res.json({
-//       success: true,
-//       user: userId,
-//       bookings: userBookings,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({
-//       success: false,
-//       message: "Internal server error",
-//     });
-//   }
-// });
-
 
 // @route PUT api/bookings/payment/
 // @desc Process payment and update booking statuses
