@@ -105,10 +105,10 @@ router.get("/", verifyToken, async (req, res) => {
 });
 
 
-// @route PUT api/payment/
+// @route PUT api/bookings/payment/
 // @desc Process payment and update booking statuses
 // @access Private
-router.put("/", verifyToken, async (req, res) => {
+router.put("/payment", verifyToken, async (req, res) => {
   try {
     const userId = req.userId;
 
