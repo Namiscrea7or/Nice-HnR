@@ -7,6 +7,7 @@ const Room = require("../models/Room");
 const Table = require("../models/Table");
 const BookingRoom = require("../models/BookingRoom");
 const BookingTable = require("../models/BookingTable");
+const { differenceInDays } = require("date-fns");
 
 // @route GET api/bookings/
 // @desc Get all booking information and calculate total amount
@@ -15,37 +16,48 @@ router.get("/", verifyToken, async (req, res) => {
   try {
     const userId = req.userId;
 
-    // Get all booking rooms and tables for the user
-    const bookingRooms = await BookingRoom.find({ user: userId, state: 'false' });
-    const bookingTables = await BookingTable.find({ user: userId, state: 'false' });
+    // Get all booking rooms and tables for the user with populated room_type and table_type
+    const bookingRooms = await BookingRoom.find({ user: userId, state: 'false' }).populate('room_type');
+    const bookingTables = await BookingTable.find({ user: userId, state: 'false' }).populate('table_type');
 
+    // Calculate the sum of prices for all rooms
+    const totalRoomPrice = bookingRooms.reduce((sum, booking) => {
+      // Calculate the number of days between start and end dates
+      const numberOfDays = differenceInDays(new Date(booking.end_room_date), new Date(booking.start_room_date));
+      // Calculate the price for one day of the room
+      const roomPricePerDay = booking.room_type.price * numberOfDays;
 
-    // Get the IDs of all rooms and tables
-    const roomBookingIds = bookingRooms.map((booking) => booking.room_type);
-    const tableBookingIds = bookingTables.map((booking) => booking.table_type);    
+      // Add the calculated price to the sum
+      return sum + roomPricePerDay;
+    }, 0);
 
-    // Retrieve all rooms and tables with their prices
-    const rooms = await Room.find({ _id: { $in: roomBookingIds } });
-    const tables = await Table.find({ _id: { $in: tableBookingIds } });
+    // Calculate the sum of prices for all tables
+    // const totalTablePrice = bookingTables.reduce((sum, bookingTable) => {
+    //   return sum + (bookingTable.table_type ? bookingTable.table_type.price : 0);
+    // }, 0);
 
-    // Create a detailed list of rooms with prices
-    const detailedRooms = rooms.map((room) => ({
-      roomType: room.room_type,
-      roomNumber: room.room_number,
-      description: room.description,
-      price: room.price,
+    const totalTablePrice = bookingTables.reduce((sum, bookingTable) => {
+      return sum + bookingTable.table_type.price;
+    }, 0);
+
+    // Create a detailed list of rooms with prices and booking date
+    const detailedRooms = bookingRooms.map((booking) => ({
+      roomType: booking.room_type.room_type,
+      roomNumber: booking.room_type.room_number,
+      description: booking.room_type.description,
+      price: booking.room_type.price,
+      bookingDate: booking.start_room_date,
     }));
 
-    // Create a detailed list of tables with prices
-    const detailedTables = tables.map((table) => ({
-      tableType: table.table_type,
-      tableNumber: table.table_number,
-      price: table.price,
+    // Create a detailed list of tables with prices and booking date
+    const detailedTables = bookingTables.map((bookingTable) => ({
+      tableType: bookingTable.table_type.table_type,
+      tableNumber: bookingTable.table_type.table_number,
+      price: bookingTable.table_type.price,
+      bookingDate: bookingTable.table_date,
     }));
 
-    // Calculate the sum of prices for all rooms and tables
-    const totalRoomPrice = rooms.reduce((sum, room) => sum + room.price, 0);
-    const totalTablePrice = tables.reduce((sum, table) => sum + table.price, 0);
+    // Calculate the sum of prices for all tables
     const totalAmount = totalRoomPrice + totalTablePrice;
 
     res.json({
