@@ -4,6 +4,13 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const TableForm = ({ selectedTables }) => {
   console.log(selectedTables)
+  const {
+    table_type,
+    table_number,
+    state,
+    price,
+    isChosen
+  } = selectedTables
   const history = useNavigate();
   const handleKeyPress = (event) => {
     const isNumberKey = (event) => {
@@ -37,7 +44,7 @@ const TableForm = ({ selectedTables }) => {
 
     try {
       console.log({
-        selectedTables,
+        table_number,
         full_name: tableForm.full_name,
         phone_number: tableForm.phone_number,
         check_in: new Date(checkInDate),
@@ -45,7 +52,7 @@ const TableForm = ({ selectedTables }) => {
       const res = await axios.post(
         'http://localhost:5000/api/booking/book_table',
         {
-          selectedTables,
+          table_number,
           full_name: tableForm.full_name,
           phone_number: tableForm.phone_number,
           check_in: new Date(checkInDate), // Convert the date string to a Date object
@@ -55,10 +62,11 @@ const TableForm = ({ selectedTables }) => {
         }
       );
       console.log(res.data);
-      if (res.data.message === 'User logged in successfully') {
+      const {success, message} = res.data
+      if (res.data.message === 'Table is booked successfully') {
         history('/thankyou');
-      } else if (res.data.message === 'Incorrect username or password!') {
-        alert('Incorrect username or password!');
+      } else {
+        alert('Error!');
       }
     } catch (e) {
       alert('Wrong details');

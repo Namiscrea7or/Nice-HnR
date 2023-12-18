@@ -5,6 +5,15 @@ import './RoomsForm.css'
 
 const RoomsForm = ({ selectedRooms }) => {
     console.log(selectedRooms)
+    const {
+        room_type,
+        room_number,
+        description,
+        state,
+        capacity,
+        price,
+        discount
+    } = selectedRooms
     const history = useNavigate()
     const [roomForm, setRoomForm] = useState({
         numOfAdults: 0,
@@ -43,11 +52,12 @@ const RoomsForm = ({ selectedRooms }) => {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            console.log(selectedRooms, checkin, checkout, numOfAdults, numOfChilren)
+            console.log(room_number, checkin, checkout, numOfAdults, numOfChilren)
             const res = await axios.post("http://localhost:5000/api/booking/book_room", {
-                selectedRooms, checkin, checkout, numOfAdults, numOfChilren
+                room_number, checkin, checkout, numOfAdults, numOfChilren
             }, { headers: { Authorization: localStorage.getItem('Saved Token') } })
             console.log(res.data)
+            const{success, message} = res.data
             if (res.data.message === 'Room booked successfully.') {
                 history('/thankyou');
             } else {
