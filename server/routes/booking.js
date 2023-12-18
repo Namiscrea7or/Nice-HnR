@@ -199,7 +199,7 @@ router.post("/book_table", verifyToken, async (req, res) => {
       });
     }
     const existingBookingTables = await BookingTable.find({
-      table_number: table_number,
+      table_type: table._id,
       table_date: table_date,
     });
     if (existingBookingTables.length !== 0)
