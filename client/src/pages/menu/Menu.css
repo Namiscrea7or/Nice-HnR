@@ -15,7 +15,7 @@
     width: 100%;
 }
 
-.index .text-wrapper-0 {
+.index .Menu {
     color: #1e1e1e;
     font-family: "Junge", Helvetica;
     font-size: 400%;
@@ -25,7 +25,8 @@
     line-height: normal;
     position: absolute;
     text-align: center;
-    top: 105%;
+    top: 104%;
+    
     width: 100%;
 }
 
@@ -36,7 +37,7 @@
     width: 100%;
 }
 
-.overlap-9 {
+.index .over {
     left: 0;
     position: absolute;
     top: 470%;
@@ -44,7 +45,7 @@
     height: 90%;
 }
 
-.footer {
+.index .footer {
     height: 40%;
     left: 0;
     position: absolute;
@@ -52,7 +53,7 @@
     width: 100%;
 } 
 
-.footer-2 {
+.index .footer-2 {
     color: #ffffff;
     font-family: "Inter", Helvetica;
     font-size: 125%;
@@ -65,7 +66,7 @@
     width: 30%;
 }
   
-.footer-3 {
+.index .footer-3 {
     color: #ffffff;
     font-family: "Inter", Helvetica;
     font-size: 125%;
@@ -78,7 +79,7 @@
     width: 30%;
 }
   
-.footer-4 {
+.index .footer-4 {
     color: #ffffff;
     font-family: "Inter", Helvetica;
     font-size: 125%;
