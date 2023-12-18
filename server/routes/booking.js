@@ -166,15 +166,15 @@ router.post("/book_room", verifyToken, async (req, res) => {
         message: "Room is not found",
       });
     }
-    const startRoomDate = new Date(start_room_date);
-    const endRoomDate = new Date(end_room_date);
-    if (startRoomDate < new Date()) {
+    // const startRoomDate = new Date(start_room_date);
+    // const endRoomDate = new Date(end_room_date);
+    if (start_room_date < new Date()) {
       return res.status(200).json({
         success: false,
         message: "Invalid start date. Start date should be in the future.",
       });
     }
-    if (endRoomDate < startRoomDate) {
+    if (end_room_date <= start_room_date) {
       return res.status(200).json({
         success: false,
         message: "Invalid date range. End date should be greater than or equal to start date.",
@@ -185,20 +185,20 @@ router.post("/book_room", verifyToken, async (req, res) => {
       $or: [
         {
           $and: [
-            { start_room_date: { $gte: startRoomDate } },
-            { start_room_date: { $lte: endRoomDate } },
+            { start_room_date: { $gte: start_room_date } },
+            { start_room_date: { $lte: end_room_date } },
           ],
         },
         {
           $and: [
-            { end_room_date: { $gte: startRoomDate } },
-            { end_room_date: { $lte: endRoomDate } },
+            { end_room_date: { $gte: start_room_date } },
+            { end_room_date: { $lte: end_room_date } },
           ],
         },
         {
           $and: [
-            { start_room_date: { $lte: startRoomDate } },
-            { end_room_date: { $gte: endRoomDate } },
+            { start_room_date: { $lte: start_room_date } },
+            { end_room_date: { $gte: end_room_date } },
           ],
         },
       ],
@@ -212,8 +212,8 @@ router.post("/book_room", verifyToken, async (req, res) => {
     const newBookingRoom = new BookingRoom({
       user: guest._id,
       room_type: room._id,
-      start_room_date : startRoomDate,
-      end_room_date : endRoomDate,
+      start_room_date : start_room_date,
+      end_room_date : end_room_date,
       number_adults: number_adults,
       number_child: number_child,
       state: 'false',
@@ -262,8 +262,8 @@ router.post("/book_table", verifyToken, async (req, res) => {
         message: "Table is not found",
       });
     }
-    const tableDate = new Date(table_date);
-    if (tableDate < new Date()) {
+    // const tableDate = new Date(table_date);
+    if (table_date < new Date()) {
       return res.status(200).json({
         success: false,
         message: "Invalid start date. Start date should be in the future.",
@@ -271,7 +271,7 @@ router.post("/book_table", verifyToken, async (req, res) => {
     }
     const existingBookingTables = await BookingTable.find({
       table_type: table._id,
-      table_date: tableDate,
+      table_date: table_date,
     });
     if (existingBookingTables.length !== 0)
       return res.status(200).json({
@@ -281,7 +281,7 @@ router.post("/book_table", verifyToken, async (req, res) => {
     const newBookingTable = new BookingTable({
       user: guest._id,
       table_type: table,
-      table_date: tableDate,
+      table_date: table_date,
       state: 'false',
     });
     await newBookingTable.save();
