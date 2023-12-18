@@ -174,13 +174,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhO
 
 ###
 POST http://localhost:5000/api/booking/book_room
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDI4NzI1NTV9.9wNYylhEasPZ1mbTMb9H1w0qvOyDedBavfmAGcg0VRc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhODkyMzk2NWY4ZGRkN2NlZTcxZGIiLCJpYXQiOjE3MDI4OTAzNDR9.D0R-OY36OhWKVTnPCC3s4s3yhqf8HUDrAMKXhH93zqE
 Content-Type: application/json
 
 {
     "room_number": "104",  
-    "start_room_date": "2023-12-23T00:00:00Z",
-    "end_room_date": "2023-12-25T00:00:00Z",
+    "start_room_date": "2023-12-19T00:00:00Z",
+    "end_room_date": "2023-12-20T00:00:00Z",
     "number_adults": 2,
     "number_child": 1
 }
@@ -203,10 +203,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZhO
 Content-Type: application/json
 
 {
-    "table_number": "1",  
+    "table_number": "9",  
     "full_name" :"Nam1",
     "phone_number":"0908789879",
-    "table_date": "2023-12-01T00:00:00Z"
+    "table_date": "2023-12-23T00:00:00Z"
 }
 
 ###
