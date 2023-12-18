@@ -42,18 +42,14 @@ const BookingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users",
   },
-  table_booking: {
+  table_bookings: [{
     type: Schema.Types.ObjectId,
     ref: "bookingtable",
-  },
-  room_booking: {
+  }],
+  room_bookings: [{
     type: Schema.Types.ObjectId,
     ref: "bookingroom",
-  },
-  table_type: {
-    type: Schema.Types.ObjectId,
-    ref: "tables",
-  },
+  }],
   pay: {
     type: Number,
     required: true

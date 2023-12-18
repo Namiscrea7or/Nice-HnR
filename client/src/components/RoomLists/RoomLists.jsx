@@ -34,7 +34,7 @@ const RoomLists = ({ onSelectRooms }) => {
 
         const selectedRoom = updatedRooms.find((room) => room.isChosen);
 
-        onSelectRooms(selectedRoom ? [selectedRoom] : []);
+        onSelectRooms(selectedRoom);
     };
 
     return (

@@ -21,6 +21,7 @@ import ManageStaff from './pages/manage Staff/ManageStaff';
 import ManageRooms from './pages/Manage Rooms/ManageRooms';
 import ManageTable from './pages/ManageTables/ManageTable';
 import ManageDish from './pages/ManageDish/ManageDish';
+import Bill from './pages/bill/Bill';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
   {
     path: "manage_dish",
     element: <ManageDish />,
+  },
+  {
+    path: "thankyou",
+    element: <Bill />,
   },
 ]);
 

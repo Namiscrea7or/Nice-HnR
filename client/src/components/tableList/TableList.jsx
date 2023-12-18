@@ -36,7 +36,7 @@ const TableList = ({ onSelectTables }) => {
     
         const selectedTable = updatedTables.find((table) => table.isChosen);
     
-        onSelectTables(selectedTable ? [selectedTable] : []);
+        onSelectTables(selectedTable);
     };
 
     return (
