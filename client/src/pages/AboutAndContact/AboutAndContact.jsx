@@ -56,7 +56,7 @@ const AboutAndContact = () => {
           <form className='contact_form' onSubmit={submit} method="post">
             <label htmlFor="rating">Rate Your Experience</label>
             <div className="rating">
-              {[1, 2, 3, 4, 5].map((rating) => (
+              {[5, 4, 3, 2, 1].map((rating) => (
                 <React.Fragment key={rating}>
                   <input
                     className={`star star-${rating}`}
