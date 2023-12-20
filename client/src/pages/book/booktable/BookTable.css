@@ -1,9 +1,36 @@
-.tableBookingContainer {
-    text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    height: 100%;
-    background-color: #ddd;
-}
 
+
+.tableBookingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .tableBookingContainer h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .bookTableDisplay {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; 
+  }
+  
+  .tl {
+    flex: 2.5; 
+  }
+  
+  .tf {
+    flex: 1;
+    max-width: 600px; 
+    margin-left: 80px;
+  }
+  
+  
+  
+  
+  

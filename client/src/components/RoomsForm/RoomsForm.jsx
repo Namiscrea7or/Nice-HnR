@@ -16,14 +16,14 @@ const RoomsForm = ({ selectedRooms }) => {
     } = selectedRooms
     const history = useNavigate()
     const [roomForm, setRoomForm] = useState({
-        numOfAdults: 0,
-        numOfChilren: 0
+        number_adults: 0,
+        number_child: 0
     })
     const [checkin, setCheckin] = useState('');
     const [checkout, setCheckout] = useState('');
     const [error, setError] = useState({})
 
-    const { numOfAdults, numOfChilren } = roomForm
+    const { number_adults, number_child } = roomForm
 
     const onChangeRoomForm = (event) => {
         const { name, value } = event.target;
@@ -42,7 +42,7 @@ const RoomsForm = ({ selectedRooms }) => {
         event.preventDefault();
         setRoomForm((prev) => ({ ...prev, [field]: prev[field] + 1 }));
     }
-    
+
     function decrement(field, event) {
         event.preventDefault();
         setRoomForm((prev) => ({ ...prev, [field]: Math.max(0, prev[field] - 1) }));
@@ -52,13 +52,13 @@ const RoomsForm = ({ selectedRooms }) => {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            console.log(room_number, checkin, checkout, numOfAdults, numOfChilren)
+            console.log(room_number, checkin, checkout, number_adults, number_child)
             const res = await axios.post("http://localhost:5000/api/booking/book_room", {
-                room_number, checkin, checkout, numOfAdults, numOfChilren
+                room_number, checkin, checkout, number_adults, number_child
             }, { headers: { Authorization: localStorage.getItem('Saved Token') } })
             console.log(res.data)
-            const{success, message} = res.data
-            if (res.data.message === 'Room booked successfully.') {
+            const { success, message } = res.data
+            if (res.data.message === 'Room is booked successfully') {
                 history('/thankyou');
             } else {
                 alert('Incorrect');
@@ -80,17 +80,19 @@ const RoomsForm = ({ selectedRooms }) => {
 
                     <label htmlFor="adults">Number of adults:</label>
                     <div className="number-input">
-                        <button onClick={(e) => decrement('numOfAdults', e)}>-</button>
-                        <input value={numOfAdults} type="text" id="adults" name="adults" readOnly />
-                        <button onClick={(e) => increment('numOfAdults', e)}>+</button>
+                        <button onClick={(e) => decrement('number_adults', e)}>-</button>
+                        <input value={number_adults} type="text" id="adults" name="adults" readOnly />
+                        <button onClick={(e) => increment('number_adults', e)}>+</button>
                     </div>
+
 
                     <label htmlFor="children">Number of children:</label>
                     <div className="number-input">
-                        <button onClick={(e) => decrement('numOfChilren', e)}>-</button>
-                        <input value={numOfChilren} type="text" id="children" name="children" readOnly />
-                        <button onClick={(e) => increment('numOfChilren', e)}>+</button>
+                        <button onClick={(e) => decrement('number_child', e)}>-</button>
+                        <input value={number_child} type="text" id="children" name="children" readOnly />
+                        <button onClick={(e) => increment('number_child', e)}>+</button>
                     </div>
+
 
 
                     <input type="submit" value="Book now" />

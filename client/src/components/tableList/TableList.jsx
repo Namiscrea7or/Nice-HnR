@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
+import './tableList.css';
 
 const TableList = ({ onSelectTables }) => {
     const [tables, setTables] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
+    const tablesPerPage = 2;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/table/available_tables', {
-                    headers: { Authorization: localStorage.getItem('Saved Token') }
+                    headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
 
                 console.log('API Response:', response.data);
                 const { success, tables } = response.data;
-                const tablesWithIsChosen = tables.map(table => ({
+                const tablesWithIsChosen = tables.map((table) => ({
                     ...table,
                     isChosen: false,
                 }));
@@ -31,19 +35,27 @@ const TableList = ({ onSelectTables }) => {
             ...table,
             isChosen: table.table_number === tableNumber ? !table.isChosen : false,
         }));
-    
+
         setTables(updatedTables);
-    
+
         const selectedTable = updatedTables.find((table) => table.isChosen);
-    
+
         onSelectTables(selectedTable);
     };
 
+    const pageCount = Math.ceil(tables.length / tablesPerPage);
+    const currentPageTables = tables.slice(pageNumber * tablesPerPage, (pageNumber + 1) * tablesPerPage);
+
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+    };
+
     return (
-        <div className='bookTable'>
+        <div className="bookTable">
             <div className="tableList">
-                {tables.map((table) => (
-                    <div key={table.table_number}>
+                {currentPageTables.map((table) => (
+                    <div key={table.table_number} className='tableDisplay'>
+                        <img src={require('./img/suite.jpg')} alt="user_image" />
                         <div className="table_info">
                             <h2>Loại bàn: {table.table_type}</h2>
                             <p>Số bàn: {table.table_number}</p>
@@ -58,6 +70,18 @@ const TableList = ({ onSelectTables }) => {
                     </div>
                 ))}
             </div>
+            <ReactPaginate
+                previousLabel={'Previous'}
+                nextLabel={'Next'}
+                pageCount={pageCount}
+                onPageChange={changePage}
+                containerClassName={'pagination'}
+                previousLinkClassName={'pagination__link'}
+                nextLinkClassName={'pagination__link'}
+                disabledClassName={'pagination__link--disabled'}
+                activeClassName={'pagination__link--active'}
+                pageClassName={'pagination__page'}
+            />
         </div>
     );
 };

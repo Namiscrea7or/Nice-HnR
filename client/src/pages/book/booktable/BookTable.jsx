@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from '../../../components/navbar/Navbar'
 import TableForm from '../../../components/TableForm/TableForm';
 import TableList from '../../../components/tableList/TableList';
 
@@ -12,10 +13,14 @@ const BookTable = () => {
   };
   return (
     <div className='tableBookingContainer'>
-      <div className='rl'>
-        <h1 id='bookingTableHeader'>Đặt bàn ăn tại khách sạn</h1>
-        <TableList onSelectTables={handleSelectTables} /></div>
-      <div className='rf'><TableForm selectedTables={selectedTables} /></div>
+      <Navbar/>
+      <div className='blank'></div>
+      <h1 id='bookingTableHeader'>Đặt bàn ăn tại khách sạn</h1>
+      <div className='bookTableDisplay'>
+        <div className='tl'>
+          <TableList onSelectTables={handleSelectTables} /></div>
+        <div className='tf'><TableForm selectedTables={selectedTables} /></div>
+      </div>
     </div>
   );
 };
