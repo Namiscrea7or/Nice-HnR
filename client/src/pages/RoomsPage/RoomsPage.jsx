@@ -69,29 +69,30 @@ const RoomsPage = () => {
         <img className="pillow" alt="pillow" src={pillow} />
         <img className="boiler" alt="boiler" src={boiler} />
       </div>
-      <div className="text-wrapper-13">Our rooms</div>
+      <div className="text-wrapper-13">Our Rooms</div>
       <div className="room-list">
         <Rooms />
+        <div className="attention">
+          <div className="text-wrapper-21">Attention</div>
+          <div className="end">
+            <p className="text-wrapper-20">
+              Children under 12 years old can share the same bedroom with 2 paying
+              adults.
+            </p>  
+            <div className="text-wrapper-19">Voltage</div>
+            <p className="text-wrapper-18">
+              Local voltage of 220 - 240 AC. Adapters are available in all rooms.
+            </p>
+            <div className="text-wrapper-15">Check in:</div>
+            <div className="text-wrapper-14">From 2:00 pm</div>
+            <div className="text-wrapper-16">Check out:</div>
+            <div className="text-wrapper-17">By 12:00 noon</div>
+            <p className="time">
+              The times may vary in regards to flight times and availability.
+            </p>
+          </div>
+        </div>
       </div>
-      <div className="attention">
-        <img className="rectangle-2" alt="rectangele" src={rectangle} />
-        <p className="time">
-          The times may vary in regards to flight times and availability.
-        </p>
-        <div className="text-wrapper-14">From 2:00 pm</div>
-        <div className="text-wrapper-15">Check in:</div>
-        <div className="text-wrapper-16">Check out:</div>
-        <div className="text-wrapper-17">By 12:00 noon</div>
-        <p className="text-wrapper-18">
-          Local voltage of 220 - 240 AC. Adapters are available in all rooms.
-        </p>
-        <div className="text-wrapper-19">Voltage</div>
-        <p className="text-wrapper-20">
-          Children under 12 years old can share the same bedroom with 2 paying
-          adults.
-        </p>
-      </div>
-      <div className="text-wrapper-21">Attention</div>
     </div>
   );
 };

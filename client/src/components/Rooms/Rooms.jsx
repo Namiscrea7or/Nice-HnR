@@ -52,6 +52,10 @@ const RoomLists = ({ onSelectRooms }) => {
             {rooms.map((room) => (
               <div className="room-info">
                 <div className="overlap">
+                  <div className="overlap-group">
+                    <div className="type"> {room.room_type}</div>
+                    <img className="room-img" alt="room-img" src={getRoomImage(room.room_type)}/>
+                  </div>
                   <p className="description">
                     {room.description} 
                     <br />
@@ -62,10 +66,7 @@ const RoomLists = ({ onSelectRooms }) => {
                     <br />
                     Discount: {room.discount}%
                   </p>
-                  <div className="overlap-group">
-                    <div className="type"> {room.room_type}</div>
-                    <img className="room-img" alt="room-img" src={getRoomImage(room.room_type)}/>
-                    </div>
+                  
                 </div>
               </div>
             ))}
