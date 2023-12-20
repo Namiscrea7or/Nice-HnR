@@ -28,6 +28,30 @@ router.get("/", verifyToken, async (req, res) => {
   }
 });
 
+// @route GET api/feedback/all
+// @desc Get all post of all user 
+// @access Public
+router.get("/all", async (req, res) => {
+  try {
+    const posts = await Post.find({}).populate("user", [
+      "email",
+      "full_name",
+      "phone_number",
+      "address",
+      "birthday",
+      "user_id",
+      "role",
+    ]);
+    res.json({ success: true, posts });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
 // @route POST api/feedback
 // @desc Create post
 // @access Private
