@@ -54,8 +54,8 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "nam1@gmail.com",
-    "password": "nam"
+    "email": "thao@gmail.com",
+    "password": "thao"
 }
 
 ###
@@ -103,18 +103,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5M
 
 ###
 POST http://localhost:5000/api/feedback
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzFlNWM2ZjQzMDZlYzQ1ZjY4OGMiLCJpYXQiOjE3MDExNzc2ODR9.TinI-Hyy_2H0n7b6ZV-nXAbsgz-ZDoqn-ICIkxcW3pU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzQwYWM2ZjQzMDZlYzQ1ZjY4OWIiLCJpYXQiOjE3MDMwNjk2MTd9.DUDZswKUscZQl5gAjPXxYMggkKNdRrdGCzf-JvBJoMw
 Content-Type: application/json
 
 {
-    "description": "Mô tả của phòng 5",
+    "description": "Mô tả của phòng 5 aaaaaaaaaaaa",
     "rate": 5
 }
 
 
 ###
 GET http://localhost:5000/api/feedback
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzFlNWM2ZjQzMDZlYzQ1ZjY4OGMiLCJpYXQiOjE3MDExNzc2ODR9.TinI-Hyy_2H0n7b6ZV-nXAbsgz-ZDoqn-ICIkxcW3pU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzQwYWM2ZjQzMDZlYzQ1ZjY4OWIiLCJpYXQiOjE3MDMwNjk2MTd9.DUDZswKUscZQl5gAjPXxYMggkKNdRrdGCzf-JvBJoMw
+
+###
+GET http://localhost:5000/api/feedback/all
+
 
 ###
 DELETE http://localhost:5000/api/feedback/6565ec0e42ddfd195365f406

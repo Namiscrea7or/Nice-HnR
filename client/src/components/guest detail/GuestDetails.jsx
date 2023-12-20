@@ -14,6 +14,7 @@ const GuestDetails = ({ guest, onDeleteClick }) => {
 
   return (
     <div className='GuestDetails'>
+      <img src={`https://robohash.org/${guest.full_name}`} alt='photo' />
       <h3>{guest.full_name}</h3>
       <p>Email: {guest.email}</p>
       <p>Birthday: {guest.birthday}</p>

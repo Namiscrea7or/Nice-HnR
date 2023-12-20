@@ -60,7 +60,7 @@ const User = () => {
             <div className="employee-card">
             <h1 id="employeeInfo">User Information</h1>
                 <div className='user-detail'>
-                    <img /*src={require(`./img/${user_id}.jpg`)}*/ src={require('./img/123456789874.jpg')} alt="user_image" />
+                <img src={`https://robohash.org/${user_id}`} alt='photo'/>
                     <div className="employee-details">
                         <h2 id="employee-name"><span>Name:</span> {full_name}</h2>
                         <p id="employee-position"><span>ID:</span> {user_id}</p>

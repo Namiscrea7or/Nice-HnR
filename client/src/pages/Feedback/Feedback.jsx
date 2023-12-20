@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Feedback.css'
+import './Feedback.css';
 import Navbar from '../../components/navbar/Navbar';
 
 const Feedback = () => {
@@ -9,13 +9,11 @@ const Feedback = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/feedback"
-        );
+        const response = await axios.get("http://localhost:5000/api/feedback/all");
         console.log(response.data);
 
         const { success, posts } = response.data;
 
-        // Kiểm tra xem dữ liệu có phản hồi không
         if (success && posts && posts.length > 0) {
           setFeedbackList(posts);
         }
@@ -38,14 +36,17 @@ const Feedback = () => {
       <Navbar/>
       <section id="feedback-list">
         <h2 className='feedback_h2'>What Our Customers Say</h2>
-        {feedbackList.map((feedback, index) => (
-          <div key={index} className="feedback-item">
-            <img src={require(`./img/${feedback.user.user_id}.jpg`)}  alt="user_image" />
-            <p>User: {feedback.user.full_name}</p>
-            <p>Description: {feedback.description}</p>
-            <div className="star">{renderStars(feedback.rate)}</div>
-          </div>
-        ))}
+        {feedbackList.map((feedback, index) => {
+          const { full_name, address, birthday, user_id, phone_number, role } = feedback.user || {};
+          return (
+            <div key={index} className="feedback-item">
+              <img src={`https://robohash.org/${user_id}`} alt='photo'/>
+              <p>User: {full_name}</p>
+              <p>Description: {feedback.description}</p>
+              <div className="star">{renderStars(feedback.rate)}</div>
+            </div>
+          );
+        })}
       </section>
     </div>
   );

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './table.css'
 
 const TableDetail = ({ table, onEditClick, onDeleteClick }) => {
-    let state = 'available'; // Change const to let
+    let state = 'available';
     if (table.state === 'false') {
         state = 'unavailable';
     }
@@ -32,13 +33,7 @@ const TableDetail = ({ table, onEditClick, onDeleteClick }) => {
             );
 
             console.log(response.data);
-
-            // Cập nhật state local để render lại ngay lập tức
             setEditedTable(editedTable);
-
-            // Hoặc có thể cập nhật trực tiếp:
-            // setEditedTable(editedTable);
-
         } catch (error) {
             console.error('Error updating table:', error.response?.status, error.response?.data);
         }
@@ -54,7 +49,7 @@ const TableDetail = ({ table, onEditClick, onDeleteClick }) => {
         setEditedTable((prev) => ({ ...prev, [event.target.name]: event.target.value }));
 
     return (
-        <div>
+        <div className='TableDetail'>
             <h3>{table.table_type}</h3>
             <p>Table number: {table.table_number}</p>
             <p>State: {state}</p>
@@ -62,7 +57,6 @@ const TableDetail = ({ table, onEditClick, onDeleteClick }) => {
 
             {isEditing ? (
                 <>
-                    {/* Editing form */}
                     <label>
                         State:
                         <input
@@ -81,14 +75,17 @@ const TableDetail = ({ table, onEditClick, onDeleteClick }) => {
                             onChange={handleInputChange}
                         />
                     </label>
-
-                    <button onClick={handleSaveEdit}>Save</button>
-                    <button onClick={handleCancelEdit}>Cancel</button>
+                    <div className='btn'>
+                        <button className='edit' onClick={handleSaveEdit}>Save</button>
+                        <button className='danger' onClick={handleCancelEdit}>Cancel</button>
+                    </div>
                 </>
             ) : (
                 <>
-                    <button onClick={handleEditClick}>Edit</button>
-                    <button onClick={handleDeleteClick}>Delete</button>
+                    <div className='btn'>
+                        <button className='edit' onClick={handleEditClick}>Edit</button>
+                        <button className='danger' onClick={handleDeleteClick}>Delete</button>
+                    </div>
                 </>
             )}
         </div>

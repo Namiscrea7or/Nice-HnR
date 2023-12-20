@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './dish.css'
 
 const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
-    let state = 'available'; // Change const to let
+    let state = 'available'; 
     if (dish.state === 'false') {
         state = 'unavailable';
     }
@@ -17,7 +18,6 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
 
     const handleCancelEdit = () => {
         setIsEditing(false);
-        // Reset editedDish to the original values when canceling the edit
         setEditedDish({ ...dish });
     };
 
@@ -34,12 +34,7 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
             );
 
             console.log(response.data);
-
-            // Update the local state to trigger re-render
             setEditedDish(editedDish);
-            // Alternatively, you can directly update the state:
-            // setEditedDish(editedDish);
-
         } catch (error) {
             console.error('Error updating dish:', error.response?.status, error.response?.data);
         }
@@ -48,7 +43,7 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
     };
 
     const handleDeleteClick = () => {
-        onDeleteClick(dish.dish_name); // Assuming you pass the dish id to onDeleteClick
+        onDeleteClick(dish.dish_name);
     };
 
     const handleInputChange = (event) => {
@@ -57,7 +52,8 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
     };
 
     return (
-        <div>
+        <div className='DishDetail'>
+            <img src={require ('./img/dessert1.jpg')} alt="dish photo" />
             <h3>{dish.dish_name}</h3>
             <p>Type: {dish.dish_type}</p>
             <p>Description: {dish.description}</p>
@@ -65,7 +61,6 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
 
             {isEditing ? (
                 <>
-                    {/* Editing form */}
                     <label>
                         State:
                         <input
@@ -93,13 +88,13 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
                             onChange={handleInputChange}
                         />
                     </label>
-                    <button onClick={handleSaveEdit}>Save</button>
-                    <button onClick={handleCancelEdit}>Cancel</button>
+                    <button className='edit' onClick={handleSaveEdit}>Save</button>
+                    <button className='danger' onClick={handleCancelEdit}>Cancel</button>
                 </>
             ) : (
                 <>
-                    <button onClick={handleEditClick}>Edit</button>
-                    <button onClick={handleDeleteClick}>Delete</button>
+                    <button className='edit' onClick={handleEditClick}>Edit</button>
+                    <button className='danger' onClick={handleDeleteClick}>Delete</button>
                 </>
             )}
         </div>
