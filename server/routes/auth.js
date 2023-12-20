@@ -80,7 +80,8 @@ router.post("/register_staff", async (req, res) => {
     phone_number,
     address,
     birthday,
-    user_id
+    user_id, 
+    money
   } = req.body;
   // Simple validation
   if (!email || !password)
@@ -107,7 +108,7 @@ router.post("/register_staff", async (req, res) => {
 	    address,
 	    birthday,
 	    user_id,
-	    money: 0
+	    money
     });
     await newUser.save();
 
