@@ -34,16 +34,12 @@ const AboutAndContact = () => {
   }
 
   const handleStars = (rating) => {
-    setContact((prev) => ({ ...prev, rate: rating + 1 }));
+    setContact((prev) => ({ ...prev, rate: rating}));
   };
   
-
-
-
   return (
     <div className="about">
       <Navbar />
-      <div className="blank"></div>
       <div className="contact-container">
         <section id="contact-info">
           <h1 className='contact_h1'>Contact Information</h1>
@@ -53,21 +49,20 @@ const AboutAndContact = () => {
             <p className='contact_p'>District 1, Ho Chi Minh city</p>
             <p className='contact_p'>Phone: (94) 123-456-789</p>
             <p className='contact_p'>Email: nicehotelandrestaurant@gmail.com</p>
-            <img className='contact_img' src="./signature.png" alt="" />
           </address>
         </section>
         <section id="contact-form">
-          <h1 className='contact_h1'>Get in Touch</h1>
+          <h3 className='contact_h3'>Get in Touch</h3>
           <form className='contact_form' onSubmit={submit} method="post">
             <label htmlFor="rating">Rate Your Experience</label>
             <div className="rating">
-              {[5, 4, 3, 2, 1].map((rating) => (
+              {[1, 2, 3, 4, 5].map((rating) => (
                 <React.Fragment key={rating}>
                   <input
                     className={`star star-${rating}`}
                     id={`star-${rating}`}
                     type="radio"
-                    name="star"
+                    name="rating"
                     value={rating}
                     checked={Contact.rate === rating}
                     onChange={() => handleStars(rating)}
@@ -85,6 +80,7 @@ const AboutAndContact = () => {
               value={description}
               onChange={onChangeContact}
               required
+              className="textarea-style"
             ></textarea>
 
 

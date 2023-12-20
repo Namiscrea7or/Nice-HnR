@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Feedback.css'
+import Navbar from '../../components/navbar/Navbar';
 
 const Feedback = () => {
   const [feedbackList, setFeedbackList] = useState([]);
@@ -34,6 +35,7 @@ const Feedback = () => {
 
   return (
     <div>
+      <Navbar/>
       <section id="feedback-list">
         <h2 className='feedback_h2'>What Our Customers Say</h2>
         {feedbackList.map((feedback, index) => (
