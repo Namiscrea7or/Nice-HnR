@@ -40,6 +40,7 @@ const Feedback = () => {
         <h2 className='feedback_h2'>What Our Customers Say</h2>
         {feedbackList.map((feedback, index) => (
           <div key={index} className="feedback-item">
+            <img src={require(`./img/${feedback.user.user_id}.jpg`)}  alt="user_image" />
             <p>User: {feedback.user.full_name}</p>
             <p>Description: {feedback.description}</p>
             <div className="star">{renderStars(feedback.rate)}</div>
