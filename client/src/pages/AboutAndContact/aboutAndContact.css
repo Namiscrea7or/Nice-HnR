@@ -112,6 +112,7 @@
 
 .rating {
     display: flex;
+    
 }
 
 .star {
@@ -128,7 +129,7 @@ input.star {
 }
 
 label.star {
-    float: right;
+    float: left;
     padding: 2%;
     font-size: 200%;
     color: #444;
@@ -146,7 +147,9 @@ input.star-5:checked ~ label.star:before {
     text-shadow: 0 0 20px #952;
 }
    
-input.star-1:checked ~ label.star:before { color: #F62; }
+input.star-1:checked ~ label.star:before { 
+    color: #F62; 
+}
    
 label.star:hover { transform: rotate(-15deg) scale(1.3); }
    
