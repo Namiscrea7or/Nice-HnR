@@ -57,8 +57,8 @@ const User = () => {
 
     return (
         <div className="user">
-            <h1 id="employeeInfo">User Information</h1>
             <div className="employee-card">
+            <h1 id="employeeInfo">User Information</h1>
                 <div className='user-detail'>
                     <img /*src={require(`./img/${user_id}.jpg`)}*/ src={require('./img/123456789874.jpg')} alt="user_image" />
                     <div className="employee-details">

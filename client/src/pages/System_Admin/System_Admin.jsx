@@ -47,14 +47,14 @@ const System_Admin = () => {
         history('/log');
     };
     return (
-        <div className='user'>
-            <h1 id='employeeInfo'>User Information</h1>
-            <div className='employee-card'>
+        <div className='admin'>
+            <h1 id='adminInfo'>User Information</h1>
+            <div className='admin-card'>
                 {/* <img src={require(`./img/${user_id}.jpg`)} alt="user_image" /> */}
-                <div className='employee-details'>
-                    <h2 id='employee-name'>Name: {full_name}</h2>
-                    <p id='employee-position'>ID: {user_id}</p>
-                    <p id="email">Email: {email}</p>
+                <div className='admin-details'>
+                    <h2 id='admin-name'>Name: {full_name}</h2>
+                    <p id='admin-position'>ID: {user_id}</p>
+                    <p className="email">Email: {email}</p>
                     <p className="birthday">Date of birth: {birthday}</p>
                     <p className="address">Address: {address}</p>
                     <p className="role">Role: {role}</p>
@@ -62,11 +62,13 @@ const System_Admin = () => {
                 </div>
                 <button className='logout' onClick={handleLogout}>Log out</button>
             </div>
-            <button><Link to='/manage_user'>Guest</Link></button>
-            <button><Link to='/manage_staff'>Staff</Link></button>
-            <button><Link to='/manage_room'>Rooms</Link></button>
-            <button><Link to='/manage_table'>Tables</Link></button>
-            <button><Link to='/manage_dish'>Dishes</Link></button>
+            <div className='adminButton'>
+                <button><Link to='/manage_user'>Guest</Link></button>
+                <button><Link to='/manage_staff'>Staff</Link></button>
+                <button><Link to='/manage_room'>Rooms</Link></button>
+                <button><Link to='/manage_table'>Tables</Link></button>
+                <button><Link to='/manage_dish'>Dishes</Link></button>
+            </div>
         </div>
     )
 }
