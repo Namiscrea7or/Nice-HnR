@@ -1,5 +1,6 @@
 // GuestDetails.js
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import './guest.css'
 
 const GuestDetails = ({ guest, onDeleteClick }) => {
   console.log({ guest })
@@ -12,7 +13,7 @@ const GuestDetails = ({ guest, onDeleteClick }) => {
 
 
   return (
-    <div>
+    <div className='GuestDetails'>
       <h3>{guest.full_name}</h3>
       <p>Email: {guest.email}</p>
       <p>Birthday: {guest.birthday}</p>
