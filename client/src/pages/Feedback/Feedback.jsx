@@ -42,7 +42,7 @@ const Feedback = () => {
             <div key={index} className="feedback-item">
               <img className="user-img" src={`https://robohash.org/${user_id}`} alt='photo'/>
               <div className="user-name">{full_name}</div>
-              <div className="star">{renderStars(feedback.rate)}</div>
+              <div className="user-star">{renderStars(feedback.rate)}</div>
               <div className="user-cmt">"{feedback.description}"</div>
             </div>
           );

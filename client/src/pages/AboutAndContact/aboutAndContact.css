@@ -10,10 +10,10 @@
 }
 
 .contact_h2 {
-    margin: 40px;
+    margin: 10%;
     color: #302615e6;
     font-family: "Inter", Helvetica;
-    font-size: 200%;
+    font-size: 160%;
     font-weight: 400;
     letter-spacing: 0;
     line-height: normal;
@@ -54,10 +54,10 @@
     max-width: 35%;
     background-color: #b0c1b8;
     padding: 1%;
-    border-radius: 5px;
+    border-radius: 5%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     flex-basis: calc(90%);
-    margin-top: 6%; 
+    margin-top: 8%; 
     margin-right: 5%;
 }
 
@@ -65,27 +65,27 @@
     max-width: 57%;
     background-color: #b0c1b8;
     padding: 1%;
-    border-radius: 5px;
+    border-radius: 1%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     flex-basis: calc(90%); 
-    margin-top: 6%; 
+    margin-top: 8%; 
 }
 
 .contact_form label {
     display: block;
     font-weight: bold;
-    margin-bottom: 5%;
+    margin-bottom: 0%;
 }
 
 .contact_form input[type="text"],
 .contact_form input[type="email"],
 .contact_form textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 5%;
+    margin-bottom: 0%;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 150%;
 }
 
 .contact_form textarea {
@@ -99,7 +99,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 100%;
 }
 
 .contact_form input[type="submit"]:hover {
@@ -167,7 +167,7 @@ label[for="message"] {
     letter-spacing: 0;
     line-height: normal;
     position: absolute;
-    margin-top: -2%;
+    margin-top: 1%;
 }
 
 label[for="rating"] {
@@ -194,6 +194,6 @@ label[for="rating"] {
     width: 100%;
     padding: 0%;
     border-radius: 5px;
-    margin-top: 2%;
+    margin-top: 8%;
 }
   
