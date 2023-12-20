@@ -10,26 +10,29 @@ const Room = require("../models/Room");
 // @access Private (only for system admin)
 router.post("/add_room", verifyToken, async (req, res) => {
   try {
-    // console.log(req.body)
+    console.log('123')
     const sys_ad = await User.findOne({ _id: req.userId });
     if (!sys_ad)
       return res.status(200).json({
         success: false,
         message: "System admin not found!",
       });
+    console.log('124')
     if (sys_ad.role != "System_Admin")
       return res.status(200).json({
         success: false,
         message: "Access denied!",
       });
+    console.log('125')
     const { room_type, room_number, description, state, capacity, price, discount } =
       req.body;
     if (!room_type || !room_number || !state || !price || !discount || !capacity) {
-      res.status(200).json({
+      return res.status(200).json({
         success: false,
         message: "Missing information!",
       });
     }
+    console.log('126')
     let room = await Room.findOne({
       room_number: room_number,
     });
@@ -39,7 +42,7 @@ router.post("/add_room", verifyToken, async (req, res) => {
         success: false,
         message: "Room number has already taken!",
       });
-
+      console.log('127')
     const newRoom = new Room({
       room_type,
       room_number,
@@ -50,8 +53,8 @@ router.post("/add_room", verifyToken, async (req, res) => {
       discount,
     });
     await newRoom.save();
-
-    res.json({
+    console.log('128')
+    return res.json({
       success: true,
       message: "New room created successfully",
       newRoom,
@@ -118,7 +121,7 @@ router.put("/update_room", verifyToken, async (req, res) => {
         message: "Room number not found!",
       });
 
-    res.json({
+    return res.json({
       success: true,
       message: "Room updated successfully",
       updatedRoom,
@@ -183,7 +186,7 @@ router.get("/info/:room_number", verifyToken, async (req, res) => {
         message: "Room not found",
       });
     }
-    res.json({
+    return res.json({
       success: true,
       room_type: room.room_type,
       room_number: room.room_number,
@@ -234,7 +237,7 @@ router.get("/available_rooms", verifyToken, async (req, res) => {
       discount: room.discount,
     }));
 
-    res.json({ success: true, rooms: availableRooms });
+    return res.json({ success: true, rooms: availableRooms });
   } catch (error) {
     console.log(error);
     return res.status(200).json({
@@ -275,7 +278,7 @@ router.get("/all_rooms", verifyToken, async (req, res) => {
       discount: room.discount,
     }));
 
-    res.json({ success: true, rooms: allRooms });
+    return res.json({ success: true, rooms: allRooms });
   } catch (error) {
     console.log(error);
     return res.status(200).json({
@@ -304,7 +307,7 @@ router.get("/all_rooms_public", async (req, res) => {
       discount: room.discount,
     }));
 
-    res.json({ success: true, rooms: allRooms });
+    return res.json({ success: true, rooms: allRooms });
   } catch (error) {
     console.log(error);
     return res.status(200).json({

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './room.css'
 
 const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
     const state = 'available'
-    if(room.state === 'false') {
+    if (room.state === 'false') {
         state = 'unavailable'
     }
     const [isEditing, setIsEditing] = useState(false);
@@ -30,13 +31,13 @@ const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
                     }
                 }
             );
-    
+
             setEditedRoom((prev) => ({ ...prev }));
             console.log(res.data);
         } catch (e) {
             console.error('Error updating room:', e.response?.status, e.response?.data);
         }
-    
+
         setIsEditing(false);
     };
 
@@ -49,7 +50,7 @@ const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
     const handleInputChange = event => setEditedRoom(prev => ({ ...prev, [event.target.name]: event.target.value }))
 
     return (
-        <div>
+        <div className='RoomDetail'>
             <h3>{room.room_type}</h3>
             <p>Room number: {room.room_number}</p>
             <p>Description: {room.description}</p>
@@ -60,7 +61,6 @@ const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
 
             {isEditing ? (
                 <>
-                    {/* Editing form */}
                     <label>
                         State:
                         <input
@@ -88,13 +88,17 @@ const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
                             onChange={handleInputChange}
                         />
                     </label>
-                    <button onClick={handleSaveEdit}>Save</button>
-                    <button onClick={handleCancelEdit}>Cancel</button>
+                    <div className='btn'>
+                        <button className='edit' onClick={handleSaveEdit}>Save</button>
+                        <button className='danger' onClick={handleCancelEdit}>Cancel</button>
+                    </div>
                 </>
             ) : (
                 <>
-                    <button onClick={handleEditClick}>Edit</button>
-                    <button onClick={handleDeleteClick}>Delete</button>
+                    <div className='btn'>
+                        <button className='edit' onClick={handleEditClick}>Edit</button>
+                        <button className='danger' onClick={handleDeleteClick}>Delete</button>
+                    </div>
                 </>
             )}
         </div>

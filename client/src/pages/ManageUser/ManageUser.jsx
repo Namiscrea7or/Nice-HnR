@@ -7,8 +7,8 @@ import './user.css';
 
 const ManageUser = () => {
   const [guests, setGuests] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0); // Changed from 1 to 0
-  const [itemsPerPage] = useState(2); // Change this value to set the number of items per page
+  const [pageNumber, setPageNumber] = useState(0);
+  const [usersPerPage] = useState(2);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,13 +26,11 @@ const ManageUser = () => {
     fetchData();
   }, []);
 
-  const indexOfLastItem = (currentPage + 1) * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const indexOfLastItem = (pageNumber + 1) * usersPerPage;
+  const indexOfFirstItem = indexOfLastItem - usersPerPage;
   const currentGuests = guests.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageClick = ({ selected }) => {
-    setCurrentPage(selected);
-  };
+  const pageCount = Math.ceil(guests.length / usersPerPage);
 
   const handleDeleteGuest = async (guestId) => {
     try {
@@ -50,6 +48,10 @@ const ManageUser = () => {
     }
   };
 
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   return (
     <div className='ManageUser'>
       <h2>Manage Guests</h2>
@@ -61,12 +63,16 @@ const ManageUser = () => {
         ))}
       </ul>
       <ReactPaginate
-        pageCount={Math.ceil(guests.length / itemsPerPage)}
-        pageRangeDisplayed={2}
-        marginPagesDisplayed={1}
-        onPageChange={handlePageClick}
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        pageCount={pageCount}
+        onPageChange={changePage}
         containerClassName={'pagination'}
-        activeClassName={'active'}
+        previousLinkClassName={'pagination__link'}
+        nextLinkClassName={'pagination__link'}
+        disabledClassName={'pagination__link--disabled'}
+        activeClassName={'pagination__link--active'}
+        pageClassName={'pagination__page'}
       />
     </div>
   );

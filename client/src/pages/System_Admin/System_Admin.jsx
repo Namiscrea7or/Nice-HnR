@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
+import Navbar from '../../components/navbar/Navbar';
 import './System_Admin.css'
 
 const System_Admin = () => {
@@ -48,17 +49,21 @@ const System_Admin = () => {
     };
     return (
         <div className='admin'>
+            <Navbar/>
+            <div className='blank'></div>
             <h1 id='adminInfo'>User Information</h1>
-            <div className='admin-card'>
-                {/* <img src={require(`./img/${user_id}.jpg`)} alt="user_image" /> */}
-                <div className='admin-details'>
-                    <h2 id='admin-name'>Name: {full_name}</h2>
-                    <p id='admin-position'>ID: {user_id}</p>
-                    <p className="email">Email: {email}</p>
-                    <p className="birthday">Date of birth: {birthday}</p>
-                    <p className="address">Address: {address}</p>
-                    <p className="role">Role: {role}</p>
-                    <p className="create">Start at: {createAt}</p>
+            <div className='adminDisplay'>
+                <div className='admin-card'>
+                    <img src={`https://robohash.org/${user_id}`} alt='photo' />
+                    <div className='admin-details'>
+                        <h2 id='admin-name'>Name: {full_name}</h2>
+                        <p id='admin-position'>ID: {user_id}</p>
+                        <p className="email">Email: {email}</p>
+                        <p className="birthday">Date of birth: {birthday}</p>
+                        <p className="address">Address: {address}</p>
+                        <p className="role">Role: {role}</p>
+                        <p className="create">Start at: {createAt}</p>
+                    </div>
                 </div>
                 <button className='logout' onClick={handleLogout}>Log out</button>
             </div>

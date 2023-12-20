@@ -4,16 +4,19 @@ import axios from 'axios';
 import DishDetail from '../../components/Stuff Detail/DishDetail';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
+import ReactPaginate from 'react-paginate';
+import './dish.css'; // Assuming you have a CSS file for styling
+
 const ManageDish = () => {
     const history = useNavigate();
+    const [pageNumber, setPageNumber] = useState(0);
+    const [objsPerPage] = useState(2);
     const [dishes, setDishes] = useState([]);
     const [newDish, setNewDish] = useState({
-        name: '',
+        dish_name: '',
         description: '',
-        price: '',
-        // Add other properties as needed
+        price: '', // Add other properties as needed
     });
-    const onChangeDishForm = event => setNewDish(prev => ({ ...prev, [event.target.name]: event.target.value }));
     const [editDish, setEditDish] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
 
@@ -23,7 +26,6 @@ const ManageDish = () => {
                 const response = await axios.get('http://localhost:5000/api/dish/get_all_dish', {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
-                console.log(response.data)
                 const { success, dishes } = response.data;
                 setDishes(dishes);
             } catch (error) {
@@ -34,25 +36,28 @@ const ManageDish = () => {
         fetchData();
     }, []);
 
+    const indexOfLastItem = (pageNumber + 1) * objsPerPage;
+    const indexOfFirstItem = pageNumber * objsPerPage;
+    const currentDishes = dishes.slice(indexOfFirstItem, indexOfLastItem);
+
+    const pageCount = Math.ceil(dishes.length / objsPerPage);
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+    };
+
     const handleDeleteDish = async (dish_name) => {
         try {
-            console.log('Deleting dish:', dish_name);
-    
-    
             await axios.delete(`http://localhost:5000/api/dish/${dish_name}`, {
                 headers: {
-                    Authorization: localStorage.getItem('Saved Token')
-                }
+                    Authorization: localStorage.getItem('Saved Token'),
+                },
             });
-    
-            // Update the state by removing the deleted dish
-            setDishes((prevDishes) => prevDishes.filter(dish => dish.dish_name !== dish_name));
-    
+
+            setDishes((prevDishes) => prevDishes.filter((dish) => dish.dish_name !== dish_name));
         } catch (e) {
             console.error('Error deleting dish:', e.response?.status, e.response?.data);
         }
     };
-    
 
     const handleEditClick = async (dish) => {
         setEditDish({ ...dish });
@@ -64,19 +69,15 @@ const ManageDish = () => {
 
     const handleAddDishSubmit = async () => {
         try {
-            console.log(newDish);
             const response = await axios.post('http://localhost:5000/api/dish/add_dish', newDish, {
                 headers: {
-                    Authorization: localStorage.getItem('Saved Token')
-                }
+                    Authorization: localStorage.getItem('Saved Token'),
+                },
             });
-            const { success, dishes } = response.data;
 
-            // Update the state by adding the new dish
-    
-            setDishes(prevDish => [...prevDish, dishes]);
+            const { success, dish } = response.data;
 
-
+            setDishes((prevDishes) => [...prevDishes, dish]);
             setShowAddForm(false);
         } catch (error) {
             console.error('Error adding dish:', error.response?.status, error.response?.data);
@@ -88,68 +89,79 @@ const ManageDish = () => {
     };
 
     return (
-        <div>
-            <Navbar/>
+        <div className='ManageDish'>
+            <Navbar />
             <div className="blank"></div>
             <h2>Manage dishes</h2>
             <ul>
-                {dishes.map((dish) => (
+                {currentDishes.map((dish) => (
                     <li key={dish.dish_name}>
-                        <DishDetail
-                            dish={dish}
-                            onEditClick={handleEditClick}
-                            onDeleteClick={handleDeleteDish}
-                        />
+                        <DishDetail dish={dish} onEditClick={handleEditClick} onDeleteClick={handleDeleteDish} />
                     </li>
                 ))}
             </ul>
-            {showAddForm && (
-                <div>
-                    <h3>Add new dish</h3>
-                    <form onSubmit={handleAddDishSubmit}>
-                        {/* Your form fields go here */}
-                        <label>Name:
-                            <input
-                                type="text"
-                                value={newDish.dish_name}
-                                onChange={(e) => setNewDish({ ...newDish, dish_name: e.target.value })}
-                                required
-                            />
-                        </label>
-                        <br />
-                        <label>Description:
-                            <input
-                                type="text"
-                                value={newDish.description}
-                                onChange={(e) => setNewDish({ ...newDish, description: e.target.value })}
-                                required
-                            />
-                        </label>
-                        <br />
-                        <label>State:
-                            <input
-                                type="text"
-                                value={newDish.state}
-                                onChange={(e) => setNewDish({ ...newDish, state: e.target.value })}
-                                required
-                            />
-                        </label>
-                        <br />
-                        <label>Type:
-                            <input
-                                type="text"
-                                value={newDish.dish_type}
-                                onChange={(e) => setNewDish({ ...newDish, dish_type: e.target.value })}
-                                required
-                            />
-                        </label>
-                        <br />
-                        <button type="submit" onClick={handleAddDishSubmit}>Submit</button>
-                        <button type="button" onClick={handleCancelAddDish}>Cancel</button>
-                    </form>
-                </div>
-            )}
-            <button onClick={handleAddClick}>Add new dish</button>
+            <ReactPaginate
+                previousLabel={'Previous'}
+                nextLabel={'Next'}
+                pageCount={pageCount}
+                onPageChange={changePage}
+                containerClassName={'pagination'}
+                previousLinkClassName={'pagination__link'}
+                nextLinkClassName={'pagination__link'}
+                disabledClassName={'pagination__link--disabled'}
+                activeClassName={'pagination__link--active'}
+                pageClassName={'pagination__page'}
+            />
+            <div className='showForm'>
+                {showAddForm && (
+                    <div>
+                        <h3>Add new dish</h3>
+                        <form onSubmit={handleAddDishSubmit}>
+                            <label>
+                                Name:
+                                <input
+                                    type="text"
+                                    value={newDish.dish_name}
+                                    onChange={(e) => setNewDish({ ...newDish, dish_name: e.target.value })}
+                                    required
+                                />
+                            </label>
+                            <br />
+                            <label>
+                                Description:
+                                <input
+                                    type="text"
+                                    value={newDish.description}
+                                    onChange={(e) => setNewDish({ ...newDish, description: e.target.value })}
+                                    required
+                                />
+                            </label>
+                            <br />
+                            <label>
+                                Price:
+                                <input
+                                    type="text"
+                                    value={newDish.price}
+                                    onChange={(e) => setNewDish({ ...newDish, price: e.target.value })}
+                                    required
+                                />
+                            </label>
+                            <br />
+                            <div className='btn'>
+                                <button type="submit" onClick={handleAddDishSubmit}>
+                                    Submit
+                                </button>
+                                <button type="button" onClick={handleCancelAddDish}>
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                )}
+            </div>
+            <div className='addForm'>
+                <button onClick={handleAddClick}>Add new dish</button>
+            </div>
         </div>
     );
 };
