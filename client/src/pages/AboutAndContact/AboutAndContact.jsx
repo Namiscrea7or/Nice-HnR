@@ -42,7 +42,7 @@ const AboutAndContact = () => {
       <Navbar />
       <div className="contact-container">
         <section id="contact-info">
-          <h1 className='contact_h1'>Contact Information</h1>
+          <h1 className='contact_h1'>Our Information</h1>
           <address>
             <h2 className='contact_h2'><strong>Nice Hotel and Restaurant</strong></h2>
             <p className='contact_p'>1 Nguyen Van Cu Street</p>
