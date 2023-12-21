@@ -85,16 +85,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3M
 ###
 PUT http://localhost:5000/api/user/user_info
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3N2M0Y2FlZjkwZmM5ZDJlOWQ1MDIiLCJpYXQiOjE3MDAyMzI1NTJ9.3m87OFhOtf9cLcs08uxTsHjH-ZaBj5UUV8XBkVyZT9I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTU3MzFlNWM2ZjQzMDZlYzQ1ZjY4OGMiLCJpYXQiOjE3MDMxMjg3ODB9.YL3Tg5O5s8HmDIMN-MeAl_sNwneo_F54aHPV-P6bdMY
 
 {
-    "email": "nam@gmail.com",
-    "password": "nam",
-    "full_name": "Phan Phước Hải Nam",
+    "email": "toan@gmail.com",
+    "full_name": "Phạm Khánh Toàn",
     "phone_number": "0777777777",
-    "address": "Sài Gòn",
-    "birthday": "2003-11-31",
-    "user_id": "123456789874"
+    "address": "Đồng Nai",
+    "birthday": "2003-11-31"
+}
+
+###
+PUT http://localhost:5000/api/user/user_info/toan@gmail.com
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDMxMzI3ODN9.XnRs-dNxXp8LY_22-Pwgjmiq7LOtXDMMkOQb_IDUh4o
+
+{
+    "email": "toan@gmail.com",
+    "full_name": "Phạm Khánh Toàn",
+    "phone_number": "0777777777",
+    "address": "Biên Hòa",
+    "birthday": "2003-11-31"
 }
 
 ###
