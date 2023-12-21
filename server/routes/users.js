@@ -170,13 +170,13 @@ router.get("/get_staff_list", verifyToken, async (req, res) => {
 // @desc Update User Informations
 // @access Private
 router.put("/user_info", verifyToken, async (req, res) => {
-  let { email, password, full_name, phone_number, address, birthday, user_id } =
+  let { email, full_name, phone_number, address, birthday } =
     req.body;
   //Simple validation
-  if (!email || !password)
+  if (!email)
     return res
       .status(400)
-      .json({ success: false, message: "Missing email and/or password" });
+      .json({ success: false, message: "Missing email" });
   const user_find = await User.findOne({ _id: req.userId });
   if (user_find.email != email) {
     const user_tmp = await User.findOne({ email: email });
@@ -185,19 +185,13 @@ router.put("/user_info", verifyToken, async (req, res) => {
         .status(400)
         .json({ success: false, message: "email already taken" });
   }
-  const passwordValid = await argon2.verify(user_find.password, password);
-  if (!passwordValid) {
-    password = await argon2.hash(password);
-  }
   try {
     let updatedUser = {
       email,
-      password,
       full_name,
       phone_number,
       address,
-      birthday,
-      user_id,
+      birthday
     };
     const userUpdateCondition = { _id: req.userId };
     updatedUser = await User.findOneAndUpdate(
@@ -206,7 +200,6 @@ router.put("/user_info", verifyToken, async (req, res) => {
       { new: true }
     );
 
-    //user not authorized to update post
     if (!updatedUser)
       return res.status(200).json({
         success: false,

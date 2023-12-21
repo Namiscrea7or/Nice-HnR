@@ -215,11 +215,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/api/dish/add_dish
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDE5MTY3OTB9.o7d3yATC2SqEHzFCZKKuPXxZOS84_B7QIWvDGA9cm2E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY5MzY1MmMzZWRjMjllMjg3MWE5OTEiLCJpYXQiOjE3MDMwODQ2NDh9.H-LNNsOcEuzOVDLn3-ePE94cANbDt_p16Q4cEr7YOJI
 Content-Type: application/json
 
 {
-    "dish_name": "Strawberry Panna Cotta",
+    "dish_name": "Panna Cotta",
     "dish_type": "desserts",
     "description": "An elegant dessert that marries the delicate creaminess of custard with the sweet essence of strawberries.",
     "state": "true"
