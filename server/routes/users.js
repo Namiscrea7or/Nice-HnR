@@ -166,6 +166,70 @@ router.get("/get_staff_list", verifyToken, async (req, res) => {
   }
 });
 
+// @route PUT api/user/user_info/:user_email
+// @desc Update User Informations 
+// @access Private (use for admin)
+router.put("/user_info/:user_email", verifyToken, async (req, res) => {
+  let { email, full_name, phone_number, address, birthday } =
+    req.body;
+  const admin = await User.findOne({ _id: req.userId });
+  if (!admin || admin.role != 'System_Admin')
+  {
+    return res.status(200).json({
+      success: false,
+      message: "Access denied!",
+    });
+  }
+  const user_to_update = await User.findOne({email: req.params.user_email})
+  if (!user_to_update) {
+    return res.status(200).json({
+      success: false,
+      message: "User to update not found!",
+    });
+  }
+  if (email != user_to_update.email) {
+    const tmp_user = await User.findOne({email: email})
+    if (tmp_user)
+      return res
+        .status(400)
+        .json({ success: false, message: "email already taken" });
+  }
+
+  try {
+    let updatedUser = {
+      email,
+      full_name,
+      phone_number,
+      address,
+      birthday
+    };
+    console.log(user_to_update._id)
+    const userUpdateCondition = { _id: user_to_update._id };
+    updatedUser = await User.findOneAndUpdate(
+      userUpdateCondition,
+      updatedUser,
+      { new: true }
+    );
+
+    if (!updatedUser)
+      return res.status(200).json({
+        success: false,
+        message: "User not found!",
+      });
+    res.json({
+      success: true,
+      message: "Excellent progress!",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
 // @route PUT api/user/user_info
 // @desc Update User Informations
 // @access Private
