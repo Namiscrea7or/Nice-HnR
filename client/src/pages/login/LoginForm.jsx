@@ -55,16 +55,9 @@ const LoginForm = (props) => {
             </div>
             <div className="input-box">
               <input value={password} type='password' placeholder='Password' id='password' name='password' onChange={onChangeLoginForm} />
-              {/* {error.password && <span>{error.password}</span>} */}
             </div>
             <button type='submit' className='login-btn'>Log in</button>
           </form>
-          <div className='login-register'>
-            <p>
-              Don't have an account?
-              <a onClick={() => props.onFormSwitch('signup')}>Register</a>
-            </p>
-          </div>
         </div>
       </div>
     </div>

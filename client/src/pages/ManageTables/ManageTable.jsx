@@ -27,6 +27,7 @@ const ManageTable = () => {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
                 const { success, tables } = response.data;
+                console.log(tables)
                 setTables(tables);
             } catch (error) {
                 console.error('Error fetching tables:', error.response?.status, error.response?.data);

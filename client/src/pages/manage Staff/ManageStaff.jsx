@@ -25,6 +25,7 @@ const ManageStaff = () => {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
                 const { success, guestList } = response.data;
+                console.log(guestList)
                 setGuests(guestList);
             } catch (error) {
                 console.error('Error fetching guests:', error.response?.status, error.response?.data);
@@ -54,8 +55,6 @@ const ManageStaff = () => {
 
             console.log(localStorage.getItem('Saved Token'));
             console.log(res.data);
-
-            // Update the state by removing the deleted guest
             setGuests((prevGuests) => prevGuests.filter(guest => guest.email !== guestId.email));
 
         } catch (e) {

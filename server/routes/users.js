@@ -175,16 +175,16 @@ router.put("/user_info", verifyToken, async (req, res) => {
   //Simple validation
   if (!email)
     return res
-      .status(400)
+      .status(200)
       .json({ success: false, message: "Missing email" });
-  const user_find = await User.findOne({ _id: req.userId });
-  if (user_find.email != email) {
-    const user_tmp = await User.findOne({ email: email });
-    if (user_tmp)
-      return res
-        .status(400)
-        .json({ success: false, message: "email already taken" });
-  }
+  // const user_find = await User.findOne({ _id: req.userId });
+  // if (user_find.email != email) {
+  //   const user_tmp = await User.findOne({ email: email });
+  //   if (user_tmp)
+  //     return res
+  //       .status(200)
+  //       .json({ success: false, message: "email already taken" });
+  // }
   try {
     let updatedUser = {
       email,

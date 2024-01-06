@@ -15,7 +15,8 @@ const ManageDish = () => {
     const [newDish, setNewDish] = useState({
         dish_name: '',
         description: '',
-        price: '', // Add other properties as needed
+        dish_type: '',
+        state: ''
     });
     const [editDish, setEditDish] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
@@ -27,6 +28,7 @@ const ManageDish = () => {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
                 const { success, dishes } = response.data;
+                console.log(dishes)
                 setDishes(dishes);
             } catch (error) {
                 console.error('Error fetching dishes:', error.response?.status, error.response?.data);
@@ -116,7 +118,7 @@ const ManageDish = () => {
                 {showAddForm && (
                     <div>
                         <h3>Add new dish</h3>
-                        <form onSubmit={handleAddDishSubmit}>
+                        <form>
                             <label>
                                 Name:
                                 <input
@@ -138,11 +140,20 @@ const ManageDish = () => {
                             </label>
                             <br />
                             <label>
-                                Price:
+                                Dish Type:
                                 <input
                                     type="text"
-                                    value={newDish.price}
-                                    onChange={(e) => setNewDish({ ...newDish, price: e.target.value })}
+                                    value={newDish.dish_type}
+                                    onChange={(e) => setNewDish({ ...newDish, dish_type: e.target.value })}
+                                    required
+                                />
+                            </label>
+                            <br />
+                            <label>State:
+                                <input
+                                    type="text"
+                                    value={newDish.state}
+                                    onChange={(e) => setNewDish({ ...newDish, state: e.target.value })}
                                     required
                                 />
                             </label>
@@ -160,7 +171,7 @@ const ManageDish = () => {
                 )}
             </div>
             <div className='addForm'>
-                <button onClick={handleAddClick}>Add new dish</button>
+                <button type='submit' onClick={handleAddClick}>Add new dish</button>
             </div>
         </div>
     );

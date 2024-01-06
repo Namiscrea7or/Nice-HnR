@@ -62,6 +62,33 @@ const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
             {isEditing ? (
                 <>
                     <label>
+                        Room Number:
+                        <input
+                            type="text"
+                            name="room_number"
+                            value={editedRoom.room_number}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Room Type:
+                        <input
+                            type="text"
+                            name="room_type"
+                            value={editedRoom.room_type}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Description:
+                        <input
+                            type="text"
+                            name="description"
+                            value={editedRoom.description}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
                         State:
                         <input
                             type="text"

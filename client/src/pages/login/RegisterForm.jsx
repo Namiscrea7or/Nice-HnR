@@ -12,6 +12,7 @@ const RegisterForm = (props) => {
         password: '',
         full_name: '',
         phone_number: '',
+        salary: '',
         address: '',
         birthday: '',
         user_id: ''
@@ -19,7 +20,7 @@ const RegisterForm = (props) => {
 
     const [error, setError] = useState({})
 
-    const { email, password, full_name, phone_number, address, birthday, user_id } = signupForm
+    const { email, password, full_name, phone_number, salary, address, birthday, user_id } = signupForm
 
     const onChangeSignupForm = event => setSignupForm(prev => ({ ...prev, [event.target.name]: event.target.value }))
 
@@ -28,7 +29,7 @@ const RegisterForm = (props) => {
 
         try {
             const res = await axios.post("http://localhost:5000/api/auth/register_staff", {
-                email, password, full_name, phone_number, address, birthday, user_id
+                email, password, full_name, phone_number, salary, address, birthday, user_id
             });
             console.log(res.data)
             if (res.data.message === 'User created successfully') {
@@ -64,6 +65,9 @@ const RegisterForm = (props) => {
                         </div>
                         <div className="input-box">
                             <input value={phone_number} type='' placeholder='Phone Number' id='phone_number' name='phone_number' onChange={onChangeSignupForm} />
+                        </div>
+                        <div className="input-box">
+                            <input value={salary} type='' placeholder='Salary' id='salary' name='salary' onChange={onChangeSignupForm} />
                         </div>
                         <div className="input-box">
                             <input value={address} type='' placeholder='Address' id='address' name='address' onChange={onChangeSignupForm} />

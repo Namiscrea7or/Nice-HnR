@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import './staff.css'
 
 const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
-    console.log({ guest })
     const [isEditing, setIsEditing] = useState(false);
     const [editedGuest, setEditedGuest] = useState({ ...guest });
 
@@ -19,19 +18,18 @@ const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
         setIsEditing(false);
     };
 
-    const handleSaveEdit = async (guestId) => {
+    const handleSaveEdit = async () => {
         try {
-            const formattedDate = new Date(editedGuest.birthday).toISOString().split('T')[0];
+            console.log('editted guest', editedGuest)
+            
+            const res = await axios.put(`http://localhost:5000/api/user/user_info`, editedGuest,
 
-            const res = await axios.put(`http://localhost:5000/api/user/info`, {
-                data: {
-                    ...editedGuest,
-                    birthday: formattedDate
-                },
-                headers: {
-                    Authorization: localStorage.getItem('Saved Token')
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('Saved Token'),
+                    },
                 }
-            });
+            );
 
             console.log(localStorage.getItem('Saved Token'))
             console.log(res.data);
@@ -49,7 +47,11 @@ const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
 
 
     const { full_name, email, birthday, address, phone_number } = editedGuest
-    const handleInputChange = event => setEditedGuest(prev => ({ ...prev, [event.target.name]: event.target.value }))
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setEditedGuest((prev) => ({ ...prev, [name]: value }));
+      };
+      
 
     return (
         <div className='StaffDetail'>
@@ -70,15 +72,6 @@ const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
                                 type="text"
                                 name="full_name"
                                 value={editedGuest.full_name}
-                                onChange={handleInputChange}
-                            />
-                        </label>
-                        <label>
-                            Email:
-                            <input
-                                type="text"
-                                name="email"
-                                value={editedGuest.email}
                                 onChange={handleInputChange}
                             />
                         </label>

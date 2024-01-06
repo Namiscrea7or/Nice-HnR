@@ -84,7 +84,6 @@ const ManageRooms = () => {
                 }
             });
             const { success, room } = response.data;
-            // Cập nhật danh sách phòng sau khi thêm
             setRooms(prevRooms => [...prevRooms, room]);
             setShowAddForm(false);
         } catch (error) {
@@ -145,6 +144,15 @@ const ManageRooms = () => {
                                     type="text"
                                     value={newRoom.room_number}
                                     onChange={(e) => setNewRoom({ ...newRoom, room_number: e.target.value })}
+                                    required
+                                />
+                            </label>
+                            <br />
+                            <label>Description:
+                                <input
+                                    type="text"
+                                    value={newRoom.description}
+                                    onChange={(e) => setNewRoom({ ...newRoom, description: e.target.value })}
                                     required
                                 />
                             </label>

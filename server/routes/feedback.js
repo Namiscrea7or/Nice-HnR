@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middleware/auth");
 
-const Post = require("../models/post");
+const Post = require("../models/Post");
 
 // @route GET api/feedback
 // @desc Get post
