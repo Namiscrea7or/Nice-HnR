@@ -24,7 +24,7 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
     const handleSaveEdit = async () => {
         try {
             const response = await axios.put(
-                `http://localhost:5000/api/dish/update_dish`,
+                `https://nice-handr-server1.onrender.com/api/dish/update_dish`,
                 editedDish,
                 {
                     headers: {

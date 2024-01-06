@@ -26,7 +26,7 @@ const RegisterUserForm = (props) => {
         e.preventDefault();
 
         try {
-            const res = await axios.post("http://localhost:5000/api/auth/register_guest", {
+            const res = await axios.post("https://nice-handr-server1.onrender.com/api/auth/register_guest", {
                 email, password, full_name, phone_number, address, birthday, user_id
             });
             console.log(res.data)

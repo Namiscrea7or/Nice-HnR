@@ -53,7 +53,7 @@ const RoomsForm = ({ selectedRooms }) => {
         event.preventDefault();
         try {
             console.log(room_number, checkin, checkout, number_adults, number_child)
-            const res = await axios.post("http://localhost:5000/api/booking/book_room", {
+            const res = await axios.post("https://nice-handr-server1.onrender.com/api/booking/book_room", {
                 room_number, checkin, checkout, number_adults, number_child
             }, { headers: { Authorization: localStorage.getItem('Saved Token') } })
             console.log(res.data)

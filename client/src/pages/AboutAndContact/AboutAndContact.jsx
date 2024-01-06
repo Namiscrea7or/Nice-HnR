@@ -18,7 +18,7 @@ const AboutAndContact = () => {
     e.preventDefault();
     console.log(description, rate)
     try {
-      const res = await axios.post("http://localhost:5000/api/feedback", {
+      const res = await axios.post("https://nice-handr-server1.onrender.com/api/feedback", {
         description, rate
       }, { headers: { Authorization: localStorage.getItem('Saved Token') } });
       console.log(res.data)

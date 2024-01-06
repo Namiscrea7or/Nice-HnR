@@ -13,7 +13,7 @@ const ManageUser = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/user/get_guest_list', {
+        const response = await axios.get('https://nice-handr-server1.onrender.com/api/user/get_guest_list', {
           headers: { Authorization: localStorage.getItem('Saved Token') },
         });
         const { success, guestList } = response.data;
@@ -35,7 +35,7 @@ const ManageUser = () => {
   const handleDeleteGuest = async (guestId) => {
     try {
       console.log(guestId);
-      const res = await axios.delete(`http://localhost:5000/api/user/${guestId}`, {
+      const res = await axios.delete(`https://nice-handr-server1.onrender.com/api/user/${guestId}`, {
         headers: {
           Authorization: localStorage.getItem('Saved Token'),
         },

@@ -51,7 +51,7 @@ const TableForm = ({ selectedTables }) => {
         check_in: new Date(checkInDate),
       })
       const res = await axios.post(
-        'http://localhost:5000/api/booking/book_table',
+        'https://nice-handr-server1.onrender.com/api/booking/book_table',
         {
           table_number,
           full_name: tableForm.full_name,

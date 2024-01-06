@@ -11,7 +11,7 @@ const Bill = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/booking/', {
+        const response = await axios.get('https://nice-handr-server1.onrender.com/api/booking/', {
           headers: { Authorization: localStorage.getItem('Saved Token') },
         });
 

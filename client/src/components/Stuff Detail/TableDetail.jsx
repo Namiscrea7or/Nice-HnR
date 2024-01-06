@@ -23,7 +23,7 @@ const TableDetail = ({ table, onEditClick, onDeleteClick }) => {
     const handleSaveEdit = async () => {
         try {
             const response = await axios.put(
-                `http://localhost:5000/api/table/update_table`,
+                `https://nice-handr-server1.onrender.com/api/table/update_table`,
                 editedTable,
                 {
                     headers: {

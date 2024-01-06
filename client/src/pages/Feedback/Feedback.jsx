@@ -9,7 +9,7 @@ const Feedback = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/feedback/all");
+        const response = await axios.get("https://nice-handr-server1.onrender.com/api/feedback/all");
         console.log(response.data);
 
         const { success, posts } = response.data;

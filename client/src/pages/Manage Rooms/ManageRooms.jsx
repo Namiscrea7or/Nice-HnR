@@ -28,7 +28,7 @@ const ManageRooms = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/room/all_rooms', {
+                const response = await axios.get('https://nice-handr-server1.onrender.com/api/room/all_rooms', {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
                 const { success, rooms } = response.data;
@@ -55,7 +55,7 @@ const ManageRooms = () => {
     const handleDeleteroom = async (roomId) => {
         try {
             console.log(roomId)
-            await axios.delete(`http://localhost:5000/api/room/${roomId}`, {
+            await axios.delete(`https://nice-handr-server1.onrender.com/api/room/${roomId}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
                 }
@@ -78,7 +78,7 @@ const ManageRooms = () => {
     const handleAddRoomSubmit = async () => {
         try {
             console.log('newRoom: ' + newRoom);
-            const response = await axios.post('http://localhost:5000/api/room/add_room', newRoom, {
+            const response = await axios.post('https://nice-handr-server1.onrender.com/api/room/add_room', newRoom, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
                 }

@@ -22,7 +22,7 @@ const LoginUserForm = (props) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post("https://nice-handr-server1.onrender.com/api/auth/login", {
         email, password
       })
       console.log(res.data)

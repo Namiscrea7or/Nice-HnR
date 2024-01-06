@@ -23,7 +23,7 @@ const ManageTable = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/table/all_tables', {
+                const response = await axios.get('https://nice-handr-server1.onrender.com/api/table/all_tables', {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
                 const { success, tables } = response.data;
@@ -48,7 +48,7 @@ const ManageTable = () => {
 
     const handleDeleteTable = async (tableId) => {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/table/${tableId}`, {
+            const res = await axios.delete(`https://nice-handr-server1.onrender.com/api/table/${tableId}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token'),
                 },
@@ -73,7 +73,7 @@ const ManageTable = () => {
 
     const handleAddTableSubmit = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/api/table/add_table', newTable, {
+            const response = await axios.post('https://nice-handr-server1.onrender.com/api/table/add_table', newTable, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token'),
                 },

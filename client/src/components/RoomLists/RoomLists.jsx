@@ -11,7 +11,7 @@ const RoomLists = ({ onSelectRooms }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/room/available_rooms', { headers: { Authorization: localStorage.getItem('Saved Token') } });
+                const response = await axios.get('https://nice-handr-server1.onrender.com/api/room/available_rooms', { headers: { Authorization: localStorage.getItem('Saved Token') } });
                 const { success, rooms } = response.data;
                 const roomsWithIsChosen = rooms.map(room => ({
                     ...room,

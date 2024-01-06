@@ -93,7 +93,7 @@ const Dish = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/dish/get_all_dish_public"
+          "https://nice-handr-server1.onrender.com/api/dish/get_all_dish_public"
         );
         console.log(response.data);
         const { success, dishes } = response.data;

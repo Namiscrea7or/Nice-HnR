@@ -11,7 +11,7 @@ const TableList = ({ onSelectTables }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/table/available_tables', {
+                const response = await axios.get('https://nice-handr-server1.onrender.com/api/table/available_tables', {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
 

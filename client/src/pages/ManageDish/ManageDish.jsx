@@ -24,7 +24,7 @@ const ManageDish = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/dish/get_all_dish', {
+                const response = await axios.get('https://nice-handr-server1.onrender.com/api/dish/get_all_dish', {
                     headers: { Authorization: localStorage.getItem('Saved Token') },
                 });
                 const { success, dishes } = response.data;
@@ -49,7 +49,7 @@ const ManageDish = () => {
 
     const handleDeleteDish = async (dish_name) => {
         try {
-            await axios.delete(`http://localhost:5000/api/dish/${dish_name}`, {
+            await axios.delete(`https://nice-handr-server1.onrender.com/api/dish/${dish_name}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token'),
                 },
@@ -71,7 +71,7 @@ const ManageDish = () => {
 
     const handleAddDishSubmit = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/api/dish/add_dish', newDish, {
+            const response = await axios.post('https://nice-handr-server1.onrender.com/api/dish/add_dish', newDish, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token'),
                 },

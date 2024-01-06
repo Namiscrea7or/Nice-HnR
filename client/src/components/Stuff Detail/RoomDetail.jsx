@@ -23,7 +23,7 @@ const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
     const handleSaveEdit = async () => {
         try {
             const res = await axios.put(
-                `http://localhost:5000/api/room/update_room`,
+                `https://nice-handr-server1.onrender.com/api/room/update_room`,
                 editedRoom,
                 {
                     headers: {
