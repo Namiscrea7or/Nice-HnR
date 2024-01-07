@@ -16,7 +16,7 @@ const RoomLists = ({ onSelectRooms }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://nice-handr-server1.onrender.com/room/all_rooms_public');
+                const response = await axios.get('https://nice-handr-server1.onrender.com/api/room/all_rooms_public');
                 const { success, rooms } = response.data;
 
                 setRooms(rooms);

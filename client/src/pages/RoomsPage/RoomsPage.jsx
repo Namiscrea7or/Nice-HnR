@@ -34,7 +34,7 @@ const RoomsPage = () => {
   return (
     <div className="index">
       <Navbar />
-      <video width="100%" autoplay controls>
+      <video width="100%" autoPlay controls>
         <source src={Video}></source>
       </video>
       <div className="text-wrapper-0">
