@@ -17,10 +17,15 @@ const AboutAndContact = () => {
   async function submit(e) {
     e.preventDefault();
     console.log(description, rate)
+    const accessToken = localStorage.getItem('Saved Token');
+    if(!accessToken) {
+      alert('Người dùng chưa đăng nhập')
+      return;
+    }
     try {
       const res = await axios.post("https://nice-handr-server1.onrender.com/api/feedback", {
         description, rate
-      }, { headers: { Authorization: localStorage.getItem('Saved Token') } });
+      }, { headers: { Authorization: accessToken } });
       console.log(res.data)
       if (res.data.message === 'Create post successfully!') {
         alert('Create post successfully!')
