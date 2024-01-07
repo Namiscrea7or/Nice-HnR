@@ -49,7 +49,7 @@ const Feedback = () => {
       <Navbar/>
       <section id="feedback-list">
         <h2 className='feedback_h2'>What Our Customers Say</h2>
-        {feedbackList.map((feedback, index) => {
+        {feedback.map((feedback, index) => {
           const { full_name, address, birthday, user_id, phone_number, role } = feedback.user || {};
           return (
             <div key={index} className="feedback-item">
