@@ -48,7 +48,7 @@ const User = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('Saved Token');
-        history('/log');
+        history('/');
     };
 
     if (role === 'System_Admin') {
