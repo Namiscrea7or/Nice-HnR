@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Feedback.css';
+import ReactPaginate from 'react-paginate';
 import Navbar from '../../components/navbar/Navbar';
 
 const Feedback = () => {
+  const [pageNumber, setPageNumber] = useState(0);
+  const [objsPerPage] = useState(2);
   const [feedbackList, setFeedbackList] = useState([]);
 
   useEffect(() => {
@@ -24,6 +27,16 @@ const Feedback = () => {
 
     fetchData();
   }, []);
+
+  const indexOfLastItem = (pageNumber + 1) * objsPerPage;
+  const indexOfFirstItem = pageNumber * objsPerPage;
+  const feedback = feedbackList.slice(indexOfFirstItem, indexOfLastItem);
+
+
+  const pageCount = Math.ceil(feedbackList.length / objsPerPage);
+  const changePage = ({ selected }) => {
+      setPageNumber(selected);
+  };
 
   const renderStars = (rate) => {
     const fullStars = '★'.repeat(rate);
@@ -48,6 +61,18 @@ const Feedback = () => {
           );
         })}
       </section>
+      <ReactPaginate
+                    previousLabel={'Previous'}
+                    nextLabel={'Next'}
+                    pageCount={pageCount}
+                    onPageChange={changePage}
+                    containerClassName={'pagination'}
+                    previousLinkClassName={'pagination__link'}
+                    nextLinkClassName={'pagination__link'}
+                    disabledClassName={'pagination__link--disabled'}
+                    activeClassName={'pagination__link--active'}
+                    pageClassName={'pagination__page'}
+                />
     </div>
   );
 };
