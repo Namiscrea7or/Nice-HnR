@@ -63,11 +63,16 @@ const TableForm = ({ selectedTables }) => {
         }
       );
       console.log(res.data);
-      const {success, message} = res.data
+      const { success, message } = res.data
       if (res.data.message === 'Table is booked successfully') {
         history('/thankyou');
+      } else if (res.data.message === 'Table is not found') {
+        alert('Bạn chưa chọn bàn');
+      }
+      else if (res.data.message === 'Access denied!') {
+        alert('Bạn không phải là guest');
       } else {
-        alert('Error!');
+        alert(res.data.message)
       }
     } catch (e) {
       alert('Wrong details');
@@ -86,6 +91,7 @@ const TableForm = ({ selectedTables }) => {
             id="name"
             placeholder="Full name"
             name="full_name"
+            required
             onChange={onChangeTableForm}
           />
 
@@ -97,6 +103,7 @@ const TableForm = ({ selectedTables }) => {
             placeholder="Phone Number"
             name="phone_number"
             onKeyPress={handleKeyPress}
+            required
             onChange={onChangeTableForm}
           />
 

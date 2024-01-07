@@ -56,7 +56,9 @@ const ManageTable = () => {
 
             console.log(res.data);
 
-            // Update the state by filtering out the deleted table
+            if(res.data.message === 'Room deleted successfully') {
+                alert ('Delete successfully, please reload the page')
+            }
             setTables(prevTables => prevTables.filter(table => table.table_number !== tableId));
         } catch (e) {
             console.error('Error deleting table:', e);
@@ -78,12 +80,8 @@ const ManageTable = () => {
                     Authorization: localStorage.getItem('Saved Token'),
                 },
             });
-
             const { success, table } = response.data;
-
-            // Update the state only if the table is not already present
             setTables(prevTables => [...prevTables, table]);
-
             setShowAddForm(false);
         } catch (error) {
             console.error('Error adding table:', error.response?.status, error.response?.data);

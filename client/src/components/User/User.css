@@ -65,3 +65,20 @@
   background-color: #d44444;
   transform: scale(1.05);
 }
+
+button.bill {
+  background-color: #681dea;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: auto;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button.bill:hover {
+  background-color: #7323db;
+  transform: scale(1.05);
+}

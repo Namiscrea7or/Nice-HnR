@@ -45,7 +45,10 @@ const User = () => {
         createAt,
         salary,
     } = userData;
-
+    let bd = new Date(birthday)
+    bd = bd.toLocaleDateString();
+    let create = new Date(createAt)
+    create = create.toLocaleDateString();
     const handleLogout = () => {
         localStorage.removeItem('Saved Token');
         history('/');
@@ -55,27 +58,32 @@ const User = () => {
         history('/System_Admin');
     }
 
+    const handleBill = () => {
+        history('/thankyou')
+    }
+
     return (
         <div className="user">
             <div className="employee-card">
-            <h1 id="employeeInfo">User Information</h1>
+                <h1 id="employeeInfo">User Information</h1>
                 <div className='user-detail'>
-                <img src={`https://robohash.org/${user_id}`} alt='photo'/>
+                    <img src={`https://robohash.org/${user_id}`} alt='photo' />
                     <div className="employee-details">
                         <h2 id="employee-name"><span>Name:</span> {full_name}</h2>
                         <p id="employee-position"><span>ID:</span> {user_id}</p>
                         <p id="email"><span>Email:</span> {email}</p>
-                        <p className="birthday"><span>Date of birth:</span> {birthday}</p>
+                        <p className="birthday"><span>Date of birth:</span> {bd}</p>
                         <p className="address"><span>Address:</span> {address}</p>
                         <p className="role"><span>Role:</span> {role}</p>
                         {role === 'staff' && <p className="salary"><span>Salary:</span> {salary}</p>}
-                        <p className="create"><span>Start at:</span> {createAt}</p>
+                        <p className="create"><span>Start at:</span> {create}</p>
                     </div>
                 </div>
 
                 <button className="logout" onClick={handleLogout}>
                     Log out
                 </button>
+                {role === 'Guest' && <button className="bill" onClick={handleBill}> Check Bill </button>}
             </div>
         </div>
     );

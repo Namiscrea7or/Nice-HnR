@@ -49,12 +49,15 @@ const ManageDish = () => {
 
     const handleDeleteDish = async (dish_name) => {
         try {
-            await axios.delete(`https://nice-handr-server1.onrender.com/api/dish/${dish_name}`, {
+            const res = await axios.delete(`https://nice-handr-server1.onrender.com/api/dish/${dish_name}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token'),
                 },
             });
-
+            console.log(res.data)
+            if(res.data.message === 'Dish deleted successfully') {
+                alert('Delete successfully, please reload the page')
+            }
             setDishes((prevDishes) => prevDishes.filter((dish) => dish.dish_name !== dish_name));
         } catch (e) {
             console.error('Error deleting dish:', e.response?.status, e.response?.data);

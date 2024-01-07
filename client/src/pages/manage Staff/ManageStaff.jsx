@@ -13,6 +13,7 @@ const ManageStaff = () => {
         email: '',
         full_name: '',
         birthday: new Date(),
+        money: 0,
         address: '',
         phone_number: '',
     });
@@ -53,9 +54,10 @@ const ManageStaff = () => {
                 }
             });
 
-            console.log(localStorage.getItem('Saved Token'));
             console.log(res.data);
-            setGuests((prevGuests) => prevGuests.filter(guest => guest.email !== guestId.email));
+            if(res.data.success === 'true') {
+                alert('Delete successfully, please reload the page')
+            }
 
         } catch (e) {
             console.error('Error deleting guest:', e.response?.status, e.response?.data);
@@ -74,7 +76,7 @@ const ManageStaff = () => {
         <div className='ManageStaff'>
             <h2>Manage Staff</h2>
             <ul>
-                {guests.map((guest) => (
+                {currentGuests.map((guest) => (
                     <li key={guest.email}>
                         <StaffDetail
                             guest={guest}

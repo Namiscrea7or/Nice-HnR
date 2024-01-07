@@ -3,18 +3,20 @@ import axios from 'axios';
 import './dish.css'
 
 const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
-    let state = 'available'; 
-    if (dish.state === 'false') {
-        state = 'unavailable';
-    }
+
 
     const [isEditing, setIsEditing] = useState(false);
     const [editedDish, setEditedDish] = useState({ ...dish });
-
+    const [dishDisplay, setDishDisplay] = useState({ ...dish });
     const handleEditClick = () => {
         setIsEditing(true);
         onEditClick(dish);
     };
+
+    let state = 'available'; 
+    if (dishDisplay.state === 'false') {
+        state = 'unavailable';
+    }
 
     const handleCancelEdit = () => {
         setIsEditing(false);
@@ -34,7 +36,7 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
             );
 
             console.log(response.data);
-            setEditedDish(editedDish);
+            setDishDisplay(response.data.updatedDish)
         } catch (error) {
             console.error('Error updating dish:', error.response?.status, error.response?.data);
         }
@@ -54,9 +56,9 @@ const DishDetail = ({ dish, onEditClick, onDeleteClick }) => {
     return (
         <div className='DishDetail'>
             <img src={require ('./img/dessert1.jpg')} alt="dish photo" />
-            <h3>{dish.dish_name}</h3>
-            <p>Type: {dish.dish_type}</p>
-            <p>Description: {dish.description}</p>
+            <h3>{dishDisplay.dish_name}</h3>
+            <p>Type: {dishDisplay.dish_type}</p>
+            <p>Description: {dishDisplay.description}</p>
             <p>State: {state}</p>
 
             {isEditing ? (

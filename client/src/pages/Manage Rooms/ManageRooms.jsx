@@ -21,7 +21,6 @@ const ManageRooms = () => {
         discount: 0,
         price: 0
     });
-    const onChangeRoomForm = event => setNewRoom(prev => ({ ...prev, [event.target.name]: event.target.value }))
     const [editroom, setEditroom] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
 
@@ -75,21 +74,36 @@ const ManageRooms = () => {
         setShowAddForm(true);
     };
 
-    const handleAddRoomSubmit = async () => {
+    const handleAddRoomSubmit = async (e) => {
+        e.preventDefault();
+    
         try {
             console.log('newRoom: ' + newRoom);
-            const response = await axios.post('https://nice-handr-server1.onrender.com/api/room/add_room', newRoom, {
+            const response = await axios.post('http://localhost:5000/api/room/add_room', newRoom, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
                 }
             });
+    
             const { success, room } = response.data;
-            setRooms(prevRooms => [...prevRooms, room]);
-            setShowAddForm(false);
+            console.log(response.data);
+    
+            if (response.data.message === 'New room created successfully') {
+                setRooms(prevRooms => [...prevRooms, room]);
+                setShowAddForm(false);
+                alert('tạo được nè');
+            } else if (response.data.message === 'Room number has already taken!') {
+                alert('Số phòng này đã có');
+            }
+            else {
+                alert(response.data.message)
+            }
+    
         } catch (error) {
             console.error('Error adding room:', error.response?.status, error.response?.data);
         }
     };
+    
     const handleCancelAddRoom = () => {
 
         setShowAddForm(false);
@@ -129,7 +143,7 @@ const ManageRooms = () => {
                 {showAddForm && (
                     <div>
                         <h3>Add new room</h3>
-                        <form>
+                        <form onSubmit={handleAddRoomSubmit}>
                             <label>Room Type:
                                 <input
                                     type="text"
@@ -203,7 +217,7 @@ const ManageRooms = () => {
                             </label>
                             <br />
                             <div className='btn'>
-                                <button type="submit" onClick={handleAddRoomSubmit}>Gửi</button>
+                                <button type="submit">Gửi</button>
                                 <button type="button" onClick={handleCancelAddRoom}>Huỷ bỏ</button>
                             </div>
                         </form>

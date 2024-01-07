@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import GuestDetails from '../../components/guest detail/GuestDetails';
 import ReactPaginate from 'react-paginate';
+import Navbar from '../../components/navbar/Navbar';
 import './user.css';
 
 const ManageUser = () => {
@@ -54,6 +55,8 @@ const ManageUser = () => {
 
   return (
     <div className='ManageUser'>
+      <Navbar/>
+      <div className="blank"></div>
       <h2>Manage Guests</h2>
       <ul>
         {currentGuests.map((guest) => (

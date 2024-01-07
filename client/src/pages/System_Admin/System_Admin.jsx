@@ -42,10 +42,13 @@ const System_Admin = () => {
         role,
         createAt,
     } = userData;
-
+    let bd = new Date(birthday)
+    bd = bd.toLocaleDateString();
+    let create = new Date(createAt)
+    create = create.toLocaleDateString();
     const handleLogout = () => {
         localStorage.removeItem('Saved Token');
-        history('/log');
+        history('/');
     };
     return (
         <div className='admin'>
@@ -59,10 +62,10 @@ const System_Admin = () => {
                         <h2 id='admin-name'>Name: {full_name}</h2>
                         <p id='admin-position'>ID: {user_id}</p>
                         <p className="email">Email: {email}</p>
-                        <p className="birthday">Date of birth: {birthday}</p>
+                        <p className="birthday">Date of birth: {bd}</p>
                         <p className="address">Address: {address}</p>
                         <p className="role">Role: {role}</p>
-                        <p className="create">Start at: {createAt}</p>
+                        <p className="create">Start at: {create}</p>
                     </div>
                 </div>
                 <button className='logout' onClick={handleLogout}>Log out</button>

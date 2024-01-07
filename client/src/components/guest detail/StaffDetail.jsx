@@ -8,6 +8,7 @@ import './staff.css'
 const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedGuest, setEditedGuest] = useState({ ...guest });
+    const [guestDisplay, setGuestDisplay] = useState({ ...guest });
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -22,7 +23,7 @@ const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
         try {
             console.log('editted guest', editedGuest)
             
-            const res = await axios.put(`https://nice-handr-server1.onrender.com/api/user/user_info`, editedGuest,
+            const res = await axios.put(`http://localhost:5000/api/user/user_info/${editedGuest.email}`, editedGuest,
 
                 {
                     headers: {
@@ -33,6 +34,10 @@ const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
 
             console.log(localStorage.getItem('Saved Token'))
             console.log(res.data);
+            if(res.data.message === 'Excellent progress!') {
+                alert('Edit successfully, please reload the page')
+            }
+            setGuestDisplay(res.data.user);
         } catch (e) {
             console.log('Wrong details');
         }
@@ -55,13 +60,14 @@ const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
 
     return (
         <div className='StaffDetail'>
-            <img src={`https://robohash.org/${guest.full_name}`} alt='photo' />
+            <img src={`https://robohash.org/${guestDisplay.full_name}`} alt='photo' />
             <div className='staffInfo'>
-                <h3>{guest.full_name}</h3>
-                <p>Email: {guest.email}</p>
-                <p>Birthday: {guest.birthday}</p>
-                <p>Address: {guest.address}</p>
-                <p>Phone Number: {guest.phone_number}</p>
+                <h3>{guestDisplay.full_name}</h3>
+                <p>Email: {guestDisplay.email}</p>
+                <p>Birthday: {guestDisplay.birthday}</p>
+                <p>Salary: {guestDisplay.money}</p>
+                <p>Address: {guestDisplay.address}</p>
+                <p>Phone Number: {guestDisplay.phone_number}</p>
             </div>
             {isEditing ? (
                 <>
@@ -81,6 +87,15 @@ const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
                                 type="text"
                                 name="address"
                                 value={editedGuest.address}
+                                onChange={handleInputChange}
+                            />
+                        </label>
+                        <label>
+                            Salary:
+                            <input
+                                type="number"
+                                name="money"
+                                value={editedGuest.money}
                                 onChange={handleInputChange}
                             />
                         </label>

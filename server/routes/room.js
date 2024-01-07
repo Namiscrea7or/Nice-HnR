@@ -27,6 +27,13 @@ router.post("/add_room", verifyToken, async (req, res) => {
     const { room_type, room_number, description, state, capacity, price, discount } =
       req.body;
     if (!room_type || !room_number || !state || !price || !discount || !capacity) {
+      console.log(room_type)
+      console.log(room_number)
+      console.log(state)
+      console.log(price)
+      console.log(discount)
+      console.log(capacity)
+      console.log('125.1')
       return res.status(200).json({
         success: false,
         message: "Missing information!",
@@ -36,7 +43,7 @@ router.post("/add_room", verifyToken, async (req, res) => {
     let room = await Room.findOne({
       room_number: room_number,
     });
-
+    console.log(room)
     if (room)
       return res.status(200).json({
         success: false,

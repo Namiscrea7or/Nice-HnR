@@ -5,12 +5,13 @@ import './room.css'
 
 const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
     const state = 'available'
-    if (room.state === 'false') {
-        state = 'unavailable'
-    }
+   
     const [isEditing, setIsEditing] = useState(false);
     const [editedRoom, setEditedRoom] = useState({ ...room });
-
+    const [roomDisplay, setRoomDisplay] = useState({ ...room });
+    if (roomDisplay.state === 'false') {
+        state = 'unavailable'
+    }
     const handleEditClick = () => {
         setIsEditing(true);
         onEditClick(room);
@@ -34,6 +35,7 @@ const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
 
             setEditedRoom((prev) => ({ ...prev }));
             console.log(res.data);
+            setRoomDisplay(res.data.updatedRoom);
         } catch (e) {
             console.error('Error updating room:', e.response?.status, e.response?.data);
         }
@@ -51,13 +53,13 @@ const RoomDetail = ({ room, onEditClick, onDeleteClick }) => {
 
     return (
         <div className='RoomDetail'>
-            <h3>{room.room_type}</h3>
-            <p>Room number: {room.room_number}</p>
-            <p>Description: {room.description}</p>
+            <h3>{roomDisplay.room_type}</h3>
+            <p>Room number: {roomDisplay.room_number}</p>
+            <p>Description: {roomDisplay.description}</p>
             <p>State: {state}</p>
-            <p>Capacity: {room.capacity}</p>
-            <p>Price: {room.price}</p>
-            <p>Discount: {room.discount}</p>
+            <p>Capacity: {roomDisplay.capacity}</p>
+            <p>Price: {roomDisplay.price}</p>
+            <p>Discount: {roomDisplay.discount}</p>
 
             {isEditing ? (
                 <>

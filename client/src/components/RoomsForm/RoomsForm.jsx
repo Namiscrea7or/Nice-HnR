@@ -60,8 +60,14 @@ const RoomsForm = ({ selectedRooms }) => {
             const { success, message } = res.data
             if (res.data.message === 'Room is booked successfully') {
                 history('/thankyou');
-            } else {
-                alert('Incorrect');
+            } else if(res.data.message === 'Access denied!') {
+                alert('Bạn không phải là guest');
+            }
+            else if (res.data.message === 'Room is not found') {
+                alert('Bạn chưa chọn phòng')
+            }
+            else {
+                alert(res.data.message)
             }
         } catch (e) {
             alert('Wrong details');
