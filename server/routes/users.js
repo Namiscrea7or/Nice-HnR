@@ -25,6 +25,7 @@ router.get("/info", verifyToken, async (req, res) => {
       birthday: user.birthday,
       user_id: user.user_id,
       role: user.role,
+      money: user.money,
       createAt: user.createAt,
     });
   } catch (error) {
@@ -73,6 +74,7 @@ router.get("/find_info/:email", verifyToken, async (req, res) => {
       birthday: user_find.birthday,
       user_id: user_find.user_id,
       role: user_find.role,
+      money: user.money,
       createAt: user_find.createAt,
     });
   } catch (error) {
@@ -150,6 +152,7 @@ router.get("/get_staff_list", verifyToken, async (req, res) => {
       full_name: user.full_name,
       birthday: user.birthday,
       phone_number: user.phone_number,
+      money: user.money,
       address: user.address,
     }));
 
@@ -201,7 +204,8 @@ router.put("/user_info/:user_email", verifyToken, async (req, res) => {
       full_name,
       phone_number,
       address,
-      birthday
+      birthday,
+      money
     };
     console.log(user_to_update._id)
     const userUpdateCondition = { _id: user_to_update._id };
