@@ -238,7 +238,7 @@ router.put("/user_info/:user_email", verifyToken, async (req, res) => {
 // @desc Update User Informations
 // @access Private
 router.put("/user_info", verifyToken, async (req, res) => {
-  let { email, full_name, phone_number, address, birthday } =
+  let { email, full_name, phone_number, money, address, birthday } =
     req.body;
   //Simple validation
   if (!email)
@@ -258,6 +258,7 @@ router.put("/user_info", verifyToken, async (req, res) => {
       email,
       full_name,
       phone_number,
+      money,
       address,
       birthday
     };
