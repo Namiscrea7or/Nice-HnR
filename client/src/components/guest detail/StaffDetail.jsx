@@ -23,7 +23,7 @@ const StaffDetail = ({ guest, onEditClick, onDeleteClick }) => {
         try {
             console.log('editted guest', editedGuest)
             
-            const res = await axios.put(`http://localhost:5000/api/user/user_info/${editedGuest.email}`, editedGuest,
+            const res = await axios.put(`https://nice-handr-server1.onrender.com/user/user_info/${editedGuest.email}`, editedGuest,
 
                 {
                     headers: {

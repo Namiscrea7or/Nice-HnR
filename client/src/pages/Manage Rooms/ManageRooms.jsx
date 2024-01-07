@@ -79,7 +79,7 @@ const ManageRooms = () => {
     
         try {
             console.log('newRoom: ' + newRoom);
-            const response = await axios.post('http://localhost:5000/api/room/add_room', newRoom, {
+            const response = await axios.post('https://nice-handr-server1.onrender.com/api/room/add_room', newRoom, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
                 }
