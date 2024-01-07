@@ -22,15 +22,14 @@ const AboutAndContact = () => {
         description, rate
       }, { headers: { Authorization: localStorage.getItem('Saved Token') } });
       console.log(res.data)
-      if (res.data.message === 'User logged in successfully') {
-        history('/thankyou');
-      } else if (res.data.message === 'Incorrect username or password!') {
-        alert('Incorrect username or password!');
+      if (res.data.message === 'Create post successfully!') {
+        alert('Create post successfully!')
+      } else {
+        alert(res.data.message);
       }
     } catch (e) {
       alert('Wrong details');
     }
-
   }
 
   const handleStars = (rating) => {
