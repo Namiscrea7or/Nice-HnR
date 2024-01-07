@@ -173,7 +173,7 @@ router.get("/get_staff_list", verifyToken, async (req, res) => {
 // @desc Update User Informations 
 // @access Private (use for admin)
 router.put("/user_info/:user_email", verifyToken, async (req, res) => {
-  let { email, full_name, phone_number, address, birthday } =
+  let { email, full_name, phone_number, money, address, birthday } =
     req.body;
   const admin = await User.findOne({ _id: req.userId });
   if (!admin || admin.role != 'System_Admin')
@@ -203,9 +203,9 @@ router.put("/user_info/:user_email", verifyToken, async (req, res) => {
       email,
       full_name,
       phone_number,
+      moeny,
       address,
-      birthday,
-      money
+      birthday
     };
     console.log(user_to_update._id)
     const userUpdateCondition = { _id: user_to_update._id };
@@ -238,7 +238,7 @@ router.put("/user_info/:user_email", verifyToken, async (req, res) => {
 // @desc Update User Informations
 // @access Private
 router.put("/user_info", verifyToken, async (req, res) => {
-  let { email, full_name, phone_number, address, birthday } =
+  let { email, full_name, phone_number, money, address, birthday } =
     req.body;
   //Simple validation
   if (!email)
@@ -258,6 +258,7 @@ router.put("/user_info", verifyToken, async (req, res) => {
       email,
       full_name,
       phone_number,
+      money,
       address,
       birthday
     };
