@@ -4,7 +4,6 @@ import validation from './LoginValidation';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
 
-
 const LoginForm = (props) => {
   const history = useNavigate();
 
@@ -13,24 +12,31 @@ const LoginForm = (props) => {
     password: ''
   });
 
-  const [error, setError] = useState({})
+  const [error, setError] = useState({});
 
-  const { email, password } = loginForm
+  const { email, password } = loginForm;
 
-  const onChangeLoginForm = event => setLoginForm(prev => ({ ...prev, [event.target.name]: event.target.value }))
+  const onChangeLoginForm = event => setLoginForm(prev => ({ ...prev, [event.target.name]: event.target.value }));
 
   async function submit(e) {
     e.preventDefault();
+    const formErrors = validation(loginForm);
+    setError(formErrors);
+    if (Object.keys(formErrors).length > 0) {
+      return;
+    }
 
     try {
       const res = await axios.post("https://nice-handr-server1.onrender.com/api/auth/login", {
         email, password
-      })
-      console.log(res.data)
+      });
+
+      console.log(res.data);
+
       if (res.data.message === 'User logged in successfully') {
-        let token = res.data.accessToken
-        localStorage.setItem("Saved Token", 'Bearer ' + token)
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+        let token = res.data.accessToken;
+        localStorage.setItem("Saved Token", 'Bearer ' + token);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         history('/user');
       } else if (res.data.message === 'Incorrect username or password!') {
         alert('Incorrect username or password!');
@@ -38,10 +44,7 @@ const LoginForm = (props) => {
     } catch (e) {
       alert('Wrong details');
     }
-
   }
-
-
 
   return (
     <div className='auth-form'>
@@ -55,13 +58,14 @@ const LoginForm = (props) => {
             </div>
             <div className="input-box">
               <input value={password} type='password' placeholder='Password' id='password' name='password' onChange={onChangeLoginForm} />
+              {error.password && <span>{error.password}</span>}
             </div>
             <button type='submit' className='login-btn'>Log in</button>
           </form>
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default LoginForm;

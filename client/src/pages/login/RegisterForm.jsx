@@ -26,6 +26,13 @@ const RegisterForm = (props) => {
 
     async function submit(e) {
         e.preventDefault();
+        const formErrors = validation(signupForm);
+        setError(formErrors);
+    
+        if (Object.keys(formErrors).length > 0) {
+            alert('Invalid input. Please check your details.');
+            return;
+        }
 
         try {
             const res = await axios.post("https://nice-handr-server1.onrender.com/api/auth/register_staff", {
@@ -62,9 +69,11 @@ const RegisterForm = (props) => {
                         </div>
                         <div className="input-box">
                             <input value={full_name} type='' placeholder='Your Name' id='full_name' name='full_name' onChange={onChangeSignupForm} />
+                            {error.full_name && <span>{error.full_name}</span>}
                         </div>
                         <div className="input-box">
                             <input value={phone_number} type='' placeholder='Phone Number' id='phone_number' name='phone_number' onChange={onChangeSignupForm} />
+                            {error.phone_number && <span>{error.phone_number}</span>}
                         </div>
                         <div className="input-box">
                             <input value={salary} type='' placeholder='Salary' id='salary' name='salary' onChange={onChangeSignupForm} />
@@ -77,6 +86,7 @@ const RegisterForm = (props) => {
                         </div>
                         <div className="input-box">
                             <input value={user_id} type='' placeholder='Your ID' id='user_id' name='user_id' onChange={onChangeSignupForm} />
+                            {error.user_id && <span>{error.user_id}</span>}
                         </div>
                         <button type='submit' className='login-btn'>Create</button>
                     </form>

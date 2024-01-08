@@ -42,6 +42,10 @@ const ManageUser = () => {
         },
       });
 
+      if(res.data.success === true) {
+        alert('Delete successfully, please reload the web page');
+      }
+
       console.log(localStorage.getItem('Saved Token'));
       console.log(res.data);
     } catch (e) {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import validation from '../login/LoginValidation';
+import validation from './SignupValidation'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios';
 
@@ -24,7 +24,13 @@ const RegisterUserForm = (props) => {
 
     async function submit(e) {
         e.preventDefault();
-
+        const formErrors = validation(signupForm);
+        setError(formErrors);
+    
+        if (Object.keys(formErrors).length > 0) {
+            alert('Invalid input. Please check your details.');
+            return;
+        }
         try {
             const res = await axios.post("https://nice-handr-server1.onrender.com/api/auth/register_guest", {
                 email, password, full_name, phone_number, address, birthday, user_id
@@ -49,43 +55,83 @@ const RegisterUserForm = (props) => {
             <div className='wrapper'>
                 <div className='form-box'>
                     <h2>Register</h2>
-                    <form className='Register_form' onSubmit={submit} action='POST'>
+                      <form className='Register_form' onSubmit={submit} action='POST'>
                         <div className="input-box">
-                            <input value={email} type='email' placeholder='Email' id='email' name='email' onChange={onChangeSignupForm} />
+                            <input
+                                value={email}
+                                type='text'
+                                placeholder='Email'
+                                id='email'
+                                name='email'
+                                onChange={onChangeSignupForm}
+                            />
                             {error.email && <span>{error.email}</span>}
                         </div>
                         <div className="input-box">
-                            <input value={password} type='password' placeholder='Password' id='password' name='password' onChange={onChangeSignupForm} />
+                            <input
+                                value={password}
+                                type='password'
+                                placeholder='Password'
+                                id='password'
+                                name='password'
+                                onChange={onChangeSignupForm}
+                            />
                             {error.password && <span>{error.password}</span>}
                         </div>
                         <div className="input-box">
-                            <input value={full_name} type='' placeholder='Your Name' id='full_name' name='full_name' onChange={onChangeSignupForm} />
+                            <input
+                                value={full_name}
+                                type='text'
+                                placeholder='Your Name'
+                                id='full_name'
+                                name='full_name'
+                                onChange={onChangeSignupForm}
+                            />
+                            {error.full_name && <span>{error.full_name}</span>}
                         </div>
                         <div className="input-box">
-                            <input value={phone_number} type='' placeholder='Phone Number' id='phone_number' name='phone_number' onChange={onChangeSignupForm} />
+                            <input
+                                value={phone_number}
+                                type="text"
+                                placeholder='Phone Number'
+                                id='phone_number'
+                                name='phone_number'
+                                onChange={onChangeSignupForm}
+                            />
+                            {error.phone_number && <span>{error.phone_number}</span>}
                         </div>
                         <div className="input-box">
-                            <input value={address} type='' placeholder='Address' id='address' name='address' onChange={onChangeSignupForm} />
+                            <input
+                                value={address}
+                                type='text'
+                                placeholder='Address'
+                                id='address'
+                                name='address'
+                                onChange={onChangeSignupForm}
+                            />
+                            {error.address && <span>{error.address}</span>}
                         </div>
                         <div className="input-box">
                             <input value={birthday} type='date' placeholder='Date of birth' id='birthday' name='birthday' onChange={onChangeSignupForm} />
                         </div>
                         <div className="input-box">
-                            <input value={user_id} type='' placeholder='Your ID' id='user_id' name='user_id' onChange={onChangeSignupForm} />
+                            <input
+                                value={user_id}
+                                type="text"
+                                placeholder='Your ID'
+                                id='user_id'
+                                name='user_id'
+                                onChange={onChangeSignupForm}
+                            />
+                            {error.user_id && <span>{error.user_id}</span>}
                         </div>
-                        <button type='submit' className='login-btn'>Register</button>
+                        <button type='submit' className='login-btn' disabled={Object.keys(error).length > 0}>
+                            Create
+                        </button>
                     </form>
-                    <div className='login-register'>
-                        <p>
-                            Already have an account?
-                            <a onClick={() => props.onFormSwitch('login')}>Login</a>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
-    )
-
+    );
 };
-
 export default RegisterUserForm;

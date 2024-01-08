@@ -55,7 +55,7 @@ const ManageStaff = () => {
             });
 
             console.log(res.data);
-            if(res.data.success === 'true') {
+            if(res.data.success === true) {
                 alert('Delete successfully, please reload the page')
             }
 
