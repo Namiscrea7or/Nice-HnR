@@ -51,6 +51,10 @@ const RoomsForm = ({ selectedRooms }) => {
 
     async function handleSubmit(event) {
         event.preventDefault();
+        if(number_adults < 1  || number_child < 1) {
+            alert('Không có số lượng người')
+            return;
+        }
         try {
             console.log(room_number, start_room_date, end_room_date, number_adults, number_child)
             const res = await axios.post("https://nice-handr-server1.onrender.com/api/booking/book_room", {

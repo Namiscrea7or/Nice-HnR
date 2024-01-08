@@ -91,7 +91,6 @@ const ManageRooms = () => {
             if (response.data.message === 'New room created successfully') {
                 setRooms(prevRooms => [...prevRooms, room]);
                 setShowAddForm(false);
-                alert('tạo được nè');
             } else if (response.data.message === 'Room number has already taken!') {
                 alert('Số phòng này đã có');
             }
@@ -117,7 +116,7 @@ const ManageRooms = () => {
             <div className='roomsDetail'>
                 <ul>
                     {currentRooms.map((room) => (
-                        <li key={room.room_number}>
+                        <li>
                             <RoomDetail
                                 room={room}
                                 onEditClick={handleEditClick}
