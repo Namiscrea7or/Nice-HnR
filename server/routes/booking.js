@@ -236,8 +236,8 @@ router.post("/book_table", verifyToken, async (req, res) => {
         message: "Table is not found",
       });
     }
-    // const tableDate = new Date(table_date);
-    if (table_date < new Date()) {
+    const tableDate = new Date(table_date);
+    if (tableDate < new Date()) {
       return res.status(200).json({
         success: false,
         message: "Invalid start date. Start date should be in the future.",
@@ -245,7 +245,7 @@ router.post("/book_table", verifyToken, async (req, res) => {
     }
     const existingBookingTables = await BookingTable.find({
       table_type: table._id,
-      table_date: table_date,
+      table_date: tableDate,
     });
     if (existingBookingTables.length !== 0)
       return res.status(200).json({
@@ -255,7 +255,7 @@ router.post("/book_table", verifyToken, async (req, res) => {
     const newBookingTable = new BookingTable({
       user: guest._id,
       table_type: table,
-      table_date: table_date,
+      table_date: tableDate,
       state: 'false',
     });
     await newBookingTable.save();
