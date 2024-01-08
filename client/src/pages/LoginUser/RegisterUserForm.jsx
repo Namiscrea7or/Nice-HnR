@@ -28,7 +28,7 @@ const RegisterUserForm = (props) => {
         setError(formErrors);
     
         if (Object.keys(formErrors).length > 0) {
-            alert('Invalid input. Please check your details.');
+            alert('Invalid input')
             return;
         }
         try {
@@ -43,6 +43,9 @@ const RegisterUserForm = (props) => {
                 history('/home');
             } else if (res.data.message === 'Incorrect username or password!') {
                 alert('Incorrect username or password!');
+            }
+            else if (res.data.message === 'email already taken') {
+                alert('email already taken');
             }
         } catch (e) {
             alert('Wrong details');
@@ -92,7 +95,7 @@ const RegisterUserForm = (props) => {
                         <div className="input-box">
                             <input
                                 value={phone_number}
-                                type="text"
+                                type="number"
                                 placeholder='Phone Number'
                                 id='phone_number'
                                 name='phone_number'
@@ -117,7 +120,7 @@ const RegisterUserForm = (props) => {
                         <div className="input-box">
                             <input
                                 value={user_id}
-                                type="text"
+                                type="number"
                                 placeholder='Your ID'
                                 id='user_id'
                                 name='user_id'

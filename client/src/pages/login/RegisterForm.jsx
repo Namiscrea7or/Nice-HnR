@@ -47,6 +47,9 @@ const RegisterForm = (props) => {
             } else if (res.data.message === 'Incorrect username or password!') {
                 alert('Incorrect username or password!');
             }
+            else if (res.data.message === 'email already taken') {
+                alert('email already taken');
+            }
         } catch (e) {
             alert('Wrong details');
         }
@@ -72,11 +75,11 @@ const RegisterForm = (props) => {
                             {error.full_name && <span>{error.full_name}</span>}
                         </div>
                         <div className="input-box">
-                            <input value={phone_number} type='' placeholder='Phone Number' id='phone_number' name='phone_number' onChange={onChangeSignupForm} />
+                            <input value={phone_number} type='number' placeholder='Phone Number' id='phone_number' name='phone_number' onChange={onChangeSignupForm} />
                             {error.phone_number && <span>{error.phone_number}</span>}
                         </div>
                         <div className="input-box">
-                            <input value={salary} type='' placeholder='Salary' id='salary' name='salary' onChange={onChangeSignupForm} />
+                            <input value={salary} type='number' placeholder='Salary' id='salary' name='salary' onChange={onChangeSignupForm} />
                         </div>
                         <div className="input-box">
                             <input value={address} type='' placeholder='Address' id='address' name='address' onChange={onChangeSignupForm} />
@@ -85,7 +88,7 @@ const RegisterForm = (props) => {
                             <input value={birthday} type='date' placeholder='Date of birth' id='birthday' name='birthday' onChange={onChangeSignupForm} />
                         </div>
                         <div className="input-box">
-                            <input value={user_id} type='' placeholder='Your ID' id='user_id' name='user_id' onChange={onChangeSignupForm} />
+                            <input value={user_id} type='number' placeholder='Your ID' id='user_id' name='user_id' onChange={onChangeSignupForm} />
                             {error.user_id && <span>{error.user_id}</span>}
                         </div>
                         <button type='submit' className='login-btn'>Create</button>

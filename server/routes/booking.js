@@ -13,13 +13,14 @@ const { differenceInDays } = require("date-fns");
 // @desc Get all booking information and calculate total amount
 // @access Private
 router.get("/", verifyToken, async (req, res) => {
+  console.log(req.body)
   try {
     const userId = req.userId;
 
     // Get all booking rooms and tables for the user with populated room_type and table_type
     const bookingRooms = await BookingRoom.find({ user: userId, state: 'false' }).populate('room_type');
     const bookingTables = await BookingTable.find({ user: userId, state: 'false' }).populate('table_type');
-
+    console.log(bookingRooms)
     // Calculate the sum of prices for all rooms
     const totalRoomPrice = bookingRooms.reduce((sum, booking) => {
       // Calculate the number of days between start and end dates

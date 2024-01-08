@@ -24,23 +24,6 @@ function validation(values) {
         error.password = "";
     }
 
-    if (values.phone_number !== "" && isNaN(values.phone_number)) {
-        error.phone_number = "Phone Number must be a valid number";
-    } else {
-        error.phone_number = "";
-    }
-
-    if (values.salary !== "" && isNaN(values.salary)) {
-        error.salary = "Salary must be a valid number";
-    } else {
-        error.salary = "";
-    }
-
-    if (values.user_id !== "" && isNaN(values.user_id)) {
-        error.user_id = "User ID must be a valid number";
-    } else {
-        error.user_id = "";
-    }
 
     if (values.address === "") {
         error.address = "Address should not be empty";

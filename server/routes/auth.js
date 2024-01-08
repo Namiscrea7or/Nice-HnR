@@ -23,7 +23,7 @@ router.post("/register_guest", async (req, res) => {
   // Simple validation
   if (!email || !password)
     return res
-      .status(400)
+      .status(200)
       .json({ success: false, message: "Missing email and/or password" });
   try {
     // Check for existing user
@@ -31,7 +31,7 @@ router.post("/register_guest", async (req, res) => {
 
     if (user)
       return res
-        .status(400)
+        .status(200)
         .json({ success: false, message: "email already taken" });
 
     // All good

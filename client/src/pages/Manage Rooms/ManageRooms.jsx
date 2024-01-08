@@ -23,6 +23,7 @@ const ManageRooms = () => {
     });
     const [editroom, setEditroom] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,12 +55,14 @@ const ManageRooms = () => {
     const handleDeleteroom = async (roomId) => {
         try {
             console.log(roomId)
-            await axios.delete(`https://nice-handr-server1.onrender.com/api/room/${roomId}`, {
+            const res = await axios.delete(`https://nice-handr-server1.onrender.com/api/room/${roomId}`, {
                 headers: {
                     Authorization: localStorage.getItem('Saved Token')
                 }
             });
-            setRooms((prevRooms) => prevRooms.filter(room => room.room_number !== roomId));
+            if(res.data.success === true) {
+                alert('delete Successfully, please reload the page')
+            }
 
         } catch (e) {
             console.error('Error deleting room:', e.response?.status, e.response?.data);
@@ -89,7 +92,7 @@ const ManageRooms = () => {
             console.log(response.data);
     
             if (response.data.message === 'New room created successfully') {
-                setRooms(prevRooms => [...prevRooms, room]);
+                alert('Add successfully');
                 setShowAddForm(false);
             } else if (response.data.message === 'Room number has already taken!') {
                 alert('Số phòng này đã có');
@@ -116,7 +119,7 @@ const ManageRooms = () => {
             <div className='roomsDetail'>
                 <ul>
                     {currentRooms.map((room) => (
-                        <li>
+                        <li key={room.room_number}>
                             <RoomDetail
                                 room={room}
                                 onEditClick={handleEditClick}
