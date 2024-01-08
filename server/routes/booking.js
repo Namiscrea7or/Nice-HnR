@@ -120,7 +120,6 @@ router.post("/book_room", verifyToken, async (req, res) => {
     number_adults,
     number_child
   } = req.body;
-  console.log(req.body);
   try {
     const guest = await User.findOne({ _id: req.userId });
     if (!guest)
@@ -140,15 +139,15 @@ router.post("/book_room", verifyToken, async (req, res) => {
         message: "Room is not found",
       });
     }
-    // const startRoomDate = new Date(start_room_date);
-    // const endRoomDate = new Date(end_room_date);
-    if (start_room_date < new Date()) {
+    const startRoomDate = new Date(start_room_date);
+    const endRoomDate = new Date(end_room_date);
+    if (startRoomDate < new Date()) {
       return res.status(200).json({
         success: false,
         message: "Invalid start date. Start date should be in the future.",
       });
     }
-    if (end_room_date <= start_room_date) {
+    if (endRoomDate <= startRoomDate) {
       return res.status(200).json({
         success: false,
         message: "Invalid date range. End date should be greater than or equal to start date.",
@@ -159,20 +158,20 @@ router.post("/book_room", verifyToken, async (req, res) => {
       $or: [
         {
           $and: [
-            { start_room_date: { $gte: start_room_date } },
-            { start_room_date: { $lte: end_room_date } },
+            { start_room_date: { $gte: startRoomDate } },
+            { start_room_date: { $lte: endRoomDate } },
           ],
         },
         {
           $and: [
-            { end_room_date: { $gte: start_room_date } },
-            { end_room_date: { $lte: end_room_date } },
+            { end_room_date: { $gte: startRoomDate } },
+            { end_room_date: { $lte: endRoomDate } },
           ],
         },
         {
           $and: [
-            { start_room_date: { $lte: start_room_date } },
-            { end_room_date: { $gte: end_room_date } },
+            { start_room_date: { $lte: startRoomDate } },
+            { end_room_date: { $gte: endRoomDate } },
           ],
         },
       ],
@@ -186,8 +185,8 @@ router.post("/book_room", verifyToken, async (req, res) => {
     const newBookingRoom = new BookingRoom({
       user: guest._id,
       room_type: room._id,
-      start_room_date : start_room_date,
-      end_room_date : end_room_date,
+      start_room_date : startRoomDate,
+      end_room_date : endRoomDate,
       number_adults: number_adults,
       number_child: number_child,
       state: 'false',
