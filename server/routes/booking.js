@@ -120,6 +120,7 @@ router.post("/book_room", verifyToken, async (req, res) => {
     number_adults,
     number_child
   } = req.body;
+  console.log(req.body);
   try {
     const guest = await User.findOne({ _id: req.userId });
     if (!guest)

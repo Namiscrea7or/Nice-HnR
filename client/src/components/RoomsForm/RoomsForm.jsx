@@ -19,8 +19,8 @@ const RoomsForm = ({ selectedRooms }) => {
         number_adults: 0,
         number_child: 0
     })
-    const [checkin, setCheckin] = useState('');
-    const [checkout, setCheckout] = useState('');
+    const [start_room_date, setCheckin] = useState('');
+    const [end_room_date, setCheckout] = useState('');
     const [error, setError] = useState({})
 
     const { number_adults, number_child } = roomForm
@@ -52,9 +52,9 @@ const RoomsForm = ({ selectedRooms }) => {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            console.log(room_number, checkin, checkout, number_adults, number_child)
+            console.log(room_number, start_room_date, end_room_date, number_adults, number_child)
             const res = await axios.post("https://nice-handr-server1.onrender.com/api/booking/book_room", {
-                room_number, checkin, checkout, number_adults, number_child
+                room_number, start_room_date, end_room_date, number_adults, number_child
             }, { headers: { Authorization: localStorage.getItem('Saved Token') } })
             console.log(res.data)
             const { success, message } = res.data
@@ -79,10 +79,10 @@ const RoomsForm = ({ selectedRooms }) => {
                 <h2>Please fill out the booking form below</h2>
                 <form onSubmit={handleSubmit} method="POST">
                     <label htmlFor="check-in">Check-in Date:</label>
-                    <input value={checkin} type="date" id="check-in" name="check-in" required onChange={onChangeRoomForm} />
+                    <input value={start_room_date} type="date" id="check-in" name="check-in" required onChange={onChangeRoomForm} />
 
                     <label htmlFor="check-out">Check-out Date:</label>
-                    <input value={checkout} type="date" id="check-out" name="check-out" required onChange={onChangeRoomForm} />
+                    <input value={end_room_date} type="date" id="check-out" name="check-out" required onChange={onChangeRoomForm} />
 
                     <label htmlFor="adults">Number of adults:</label>
                     <div className="number-input">

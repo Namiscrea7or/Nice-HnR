@@ -383,17 +383,18 @@
 }
 
 .home-page .overlap-9 {
-    height: 100%;
+    height: 50%;
     position: relative;
     width: 100%;
 }
 
 .home-page .footer {
-    height: 40%;
+    height: 100%;
     left: 0;
     position: absolute;
     top: 0;
     width: 100%;
+    background-size: cover;
 } 
 
 .home-page .footer-2 {
@@ -432,7 +433,7 @@
     line-height: normal;
     position: absolute;
     text-align: center;
-    top: 5%;
+    top: 10%;
     width: 20%;
 }
   
@@ -452,4 +453,3 @@
 
 
   
-

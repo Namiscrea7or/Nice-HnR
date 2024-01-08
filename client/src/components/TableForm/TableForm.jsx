@@ -29,7 +29,7 @@ const TableForm = ({ selectedTables }) => {
     phone_number: '',
   });
 
-  const [checkInDate, setCheckInDate] = useState('');
+  const [table_date, setCheckInDate] = useState('');
 
   const onChangeTableForm = (event) => {
     const { name, value } = event.target;
@@ -48,7 +48,7 @@ const TableForm = ({ selectedTables }) => {
         table_number,
         full_name: tableForm.full_name,
         phone_number: tableForm.phone_number,
-        check_in: new Date(checkInDate),
+        check_in: new Date(table_date),
       })
       const res = await axios.post(
         'https://nice-handr-server1.onrender.com/api/booking/book_table',
@@ -56,7 +56,7 @@ const TableForm = ({ selectedTables }) => {
           table_number,
           full_name: tableForm.full_name,
           phone_number: tableForm.phone_number,
-          check_in: new Date(checkInDate), // Convert the date string to a Date object
+          table_date: new Date(table_date), // Convert the date string to a Date object
         },
         {
           headers: { Authorization: localStorage.getItem('Saved Token') },
@@ -109,7 +109,7 @@ const TableForm = ({ selectedTables }) => {
 
           <label htmlFor="check-in">Check-in Date:</label>
           <input
-            value={checkInDate}
+            value={table_date}
             type="date"
             id="check-in"
             name="check_in"
